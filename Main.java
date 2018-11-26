@@ -10,7 +10,7 @@ public class Main {
     ArrayList<Customer> customers = new Customer();
 
     public static void main(String[] args) {
-    String name;
+
 
     }
 

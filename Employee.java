@@ -28,5 +28,20 @@ public class Employee {
     }
 
     // Get-ers
-    public
+    public int getID(){
+        return this.ID;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
 }
