@@ -18,6 +18,7 @@ public class Main {
     System.out.println("===========================");
     System.out.println("======== HipHapOrg ========");
     System.out.println("===========================");
+    System.out.println("========= Testing =========");
 
     // show login screen
     Screen.showLogin();
