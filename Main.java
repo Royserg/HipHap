@@ -18,7 +18,6 @@ public class Main {
     System.out.println("===========================");
     System.out.println("======== HipHapOrg ========");
     System.out.println("===========================");
-    System.out.println("========= Testing =========");
 
     // show login screen
     Screen.showLogin();
@@ -30,7 +29,7 @@ public class Main {
         Screen.showLogin();
     }
 
-    public static void initiateData() {
+    private static void initiateData() {
         String csvFile = null;
         BufferedReader br = null;
         String line = "";
