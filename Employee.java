@@ -12,6 +12,7 @@ public class Employee {
         this.name = name;
         this.password = pass;
         this.email = email;
+        //TODO: add array of event IDs
     }
 
     // Getters
@@ -47,5 +48,5 @@ public class Employee {
     public String getEmail() {
         return email;
     }
-
 }
+
