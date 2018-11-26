@@ -1,49 +1,52 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class Employee {
-    ArrayList<Integer> IDs = new ArrayList<Integer>();
-    String name;
-    String password;
-    String email;
+    private int ID;
+    private String name;
+    private String password;
+    private String email;
 
     // Constructor
-    Employee() {
-    }
-
-    // Set-ers
-    public void addID(int ID) {
-        IDs.add(ID);
-    }
-
-    public void setName(String name) {
+    public Employee(int id, String name, String pass, String email) {
+        this.ID = id;
         this.name = name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEmail(String email) {
+        this.password = pass;
         this.email = email;
+        //TODO: add array of event IDs
     }
 
-    // Get-ers
-    public ArrayList<Integer> getID(){
-        return IDs;
+    // Getters
+
+    /**
+     * get Employee id
+     * @return id (int) of Employee
+     */
+    public int getID() {
+        return ID;
     }
 
-    public String getName(){
-        return this.name;
+    /**
+     * get Employee name
+     * @return name (String) of Employee
+     */
+    public String getName() {
+        return name;
     }
 
-    public String getPassword(){
-        return this.password;
+    /**
+     * get Employee password
+     * @return password (String) of Employee
+     */
+    public String getPassword() {
+        return password;
     }
 
-    public String getEmail(){
-        return this.email;
+    /**
+     * get Employee email address
+     * @return email (String) of Employee
+     */
+    public String getEmail() {
+        return email;
     }
 
 }
