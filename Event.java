@@ -1,22 +1,33 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.*;
+import java.text.*;
 
 public class Event {
     String name;
     int ID;
-    int type; /* 1-consultancy
-                 2-i forgot
-                 3-fully-organized*/
+    String type;
     String location;
-    ArrayList<String> partners = new ArrayList<>; // partners for this particular event
-    ArrayList<String> specs = new ArrayList<>;
+    // format for the date and time variables
+    SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm");
+//    Date startDate = new Date();
+//    Date endDate = new Date();
+    String startDate;
+    String endDate;
+
+    ArrayList<String> partners = new ArrayList<>(); // partners for this particular event
+    ArrayList<String> specs = new ArrayList<>();
     //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
 
     // Constructor
-    Event() {
-
+    Event(int ID, String name, String type, String startDate, String endDate) {
+        this.ID = ID;
+        this.name = name;
+        this.type = type;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     // Set-ers
@@ -28,7 +39,7 @@ public class Event {
         this.ID = ID;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -45,8 +56,8 @@ public class Event {
         return this.ID;
     }
 
-    public int getType() {
-        return this.getType();
+    public String getType() {
+        return this.type;
     }
 
     public String getLocation() {

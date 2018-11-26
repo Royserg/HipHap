@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Customer {
     String name;
     // Array with the events ID that this user has
-    ArrayList<Integer> ownEvents = new ArrayList<Integer>;
+    ArrayList<Integer> ownEvents = new ArrayList<Integer>();
 
 
     // Constructor

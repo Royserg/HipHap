@@ -1,7 +1,9 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Employee {
-    int ID;
+    ArrayList<Integer> IDs = new ArrayList<Integer>();
     String name;
     String password;
     String email;
@@ -11,8 +13,8 @@ public class Employee {
     }
 
     // Set-ers
-    public void setID(int ID) {
-        this.ID = ID;
+    public void addID(int ID) {
+        IDs.add(ID);
     }
 
     public void setName(String name) {
@@ -28,8 +30,8 @@ public class Employee {
     }
 
     // Get-ers
-    public int getID(){
-        return this.ID;
+    public ArrayList<Integer> getID(){
+        return IDs;
     }
 
     public String getName(){
