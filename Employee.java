@@ -3,6 +3,7 @@ package com.company;
 import java.util.ArrayList;
 
 public class Employee {
+    private ArrayList<Integer> eventIDs = new ArrayList<>();
     private int ID;
     private String name;
     private String password;
@@ -10,12 +11,12 @@ public class Employee {
     private ArrayList<Integer> events;
 
     // Constructor
-    public Employee(int id, String name, String pass, String email) {
-        this.ID = id;
+    public Employee(int ID,ArrayList<Integer> ids, String name, String pass, String email) {
+        this.ID = ID;
+        this.eventIDs = ids;
         this.name = name;
         this.password = pass;
         this.email = email;
-        //TODO: add array of event IDs
     }
 
     // Getters
@@ -26,6 +27,14 @@ public class Employee {
      */
     public int getID() {
         return ID;
+    }
+
+    /**
+     * get Employee Event IDs
+     * @return eventIDs (ArrayList<Integer>) of Employee
+     */
+    public ArrayList<Integer> getEventIDs() {
+        return eventIDs;
     }
 
     /**

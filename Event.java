@@ -5,16 +5,17 @@ import java.util.*;
 import java.text.*;
 
 public class Event {
-    String name;
-    int ID;
-    String type;
-    String location;
+    private String name;
+    private int ID;
+    private String type;
+    private String location;
     // format for the date and time variables
-    SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm");
-//    Date startDate = new Date();
-//    Date endDate = new Date();
-    String startDate;
-    String endDate;
+    private SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm");
+    // Date startDate = new Date();
+    // Date endDate = new Date();
+    private String startDate;
+    private String endDate;
+    //TODO:change start and end date of the event from strings to Date
 
     ArrayList<String> partners = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
@@ -22,7 +23,7 @@ public class Event {
     // also maybe this should be just one string
 
     // Constructor
-    Event(int ID, String name, String type, String startDate, String endDate) {
+    Event(int ID, String name, String type, String startDate, String endDate){
         this.ID = ID;
         this.name = name;
         this.type = type;
@@ -63,6 +64,8 @@ public class Event {
     public String getLocation() {
         return this.location;
     }
+
+
 
     // Modifiers
     public void addPartner(String partner) {

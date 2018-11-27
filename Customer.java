@@ -3,14 +3,15 @@ package com.company;
 import java.util.ArrayList;
 
 public class Customer {
-    String name;
+    private String name;
     // Array with the events ID that this user has
-    ArrayList<Integer> ownEvents = new ArrayList<Integer>();
+    private ArrayList<Integer> ownEvents = new ArrayList<Integer>();
 
 
     // Constructor
-    Customer() {
-
+    Customer(ArrayList<Integer> events, String name) {
+        this.ownEvents = events;
+        this.name = name;
     }
 
     // Set-ers
@@ -25,5 +26,9 @@ public class Customer {
     // Get-ers
     public String getName(){
         return this.name;
+    }
+
+    public ArrayList<Integer> getOwnEvents() {
+        return ownEvents;
     }
 }
