@@ -15,9 +15,6 @@ public class Main {
     static ArrayList<Customer> customers = new ArrayList<Customer>();
 
     public static void main(String[] args) {
-    System.out.println("===========================");
-    System.out.println("======== HipHapOrg ========");
-    System.out.println("===========================");
 
     // show login screen
     Screen.showLogin();
