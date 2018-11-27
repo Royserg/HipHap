@@ -16,14 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-    // show login screen
-    Screen.showLogin();
-
-
-    initiateData();
-
         // show login screen
         Screen.showLogin();
+
+
+        initiateData();
+
     }
 
     private static void initiateData() {

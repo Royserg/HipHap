@@ -1,10 +1,13 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Employee {
     private int ID;
     private String name;
     private String password;
     private String email;
+    private ArrayList<Integer> events;
 
     // Constructor
     public Employee(int id, String name, String pass, String email) {
