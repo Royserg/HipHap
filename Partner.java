@@ -3,12 +3,13 @@ package com.company;
 import java.util.ArrayList;
 
 public class Partner {
-    String name;
-    String occupation;
+    private String name;
+    private String occupation;
 
     // Constructor
-    Partner() {
-
+    Partner(String name, String occupation) {
+        this.name = name;
+        this.occupation = occupation;
     }
 
     // Set-ers
