@@ -1,12 +1,14 @@
 package com.company;
 
-public class Manager extends Employee {
-    private int ID;
-    private String name;
-    private String password;
-    private String email;
+import java.util.ArrayList;
 
-    public Manager(int id, String name, String pass, String email) {
-        super(id, name, pass, email);
+public class Manager extends Employee {
+//    private int ID;
+//    private String name;
+//    private String password;
+//    private String email;
+
+    public Manager(int id, ArrayList<Integer> ids, String name, String pass, String email) {
+        super(id, ids, name, pass, email);
     }
 }
