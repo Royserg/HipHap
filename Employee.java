@@ -3,17 +3,16 @@ package com.company;
 import java.util.ArrayList;
 
 public class Employee {
-    private ArrayList<Integer> eventIDs = new ArrayList<>();
+    private ArrayList<Integer> eventIDs;
     private int ID;
     private String name;
     private String password;
     private String email;
-    private ArrayList<Integer> events;
 
     // Constructor
-    public Employee(int ID,ArrayList<Integer> ids, String name, String pass, String email) {
+    public Employee(int ID, ArrayList<Integer> ids, String name, String pass, String email) {
         this.ID = ID;
-        this.eventIDs = ids;
+        this.eventIDs = new ArrayList<>(ids);
         this.name = name;
         this.password = pass;
         this.email = email;
