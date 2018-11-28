@@ -1,4 +1,4 @@
-package com.company;
+package com.company.users;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class Customer {
 
 
     // Constructor
-    Customer(ArrayList<Integer> events, String name) {
+    public Customer(ArrayList<Integer> events, String name) {
         this.ownEvents = events;
         this.name = name;
     }

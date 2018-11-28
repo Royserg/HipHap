@@ -1,4 +1,4 @@
-package com.company;
+package com.company.events;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -15,15 +15,15 @@ public class Event {
     // Date endDate = new Date();
     public Date startDate;
     public Date endDate;
-    //TODO:change start and end date of the event from strings to Date
+    //TODO:change start and end date of the events from strings to Date
 
-    ArrayList<String> partners = new ArrayList<>(); // partners for this particular event
+    ArrayList<String> partners = new ArrayList<>(); // partners for this particular events
     ArrayList<String> specs = new ArrayList<>();
     //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
 
     // Constructor
-    Event(int ID, String name, String type, String startDate, String endDate){
+    public Event(int ID, String name, String type, String startDate, String endDate){
         this.ID = ID;
         this.name = name;
         this.type = type;

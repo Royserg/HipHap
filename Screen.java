@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.users.Employee;
+
 import java.io.IOError;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -86,7 +88,7 @@ public class Screen {
 
     public static void showDashboard(Employee currentUser) {
         showMain(currentUser.getName());
-        System.out.println("1. Add event");
+        System.out.println("1. Add events");
         System.out.println("2. Change date");
         System.out.println("3. Show customers");
         System.out.println("4. Show my events");
@@ -114,9 +116,9 @@ public class Screen {
         System.out.println("3 - Full Organization");
         int serviceType = Main.selectOption(3);
 
-        //TODO: calculate starting date of the new event
-        // new events will be organized after the last event is finished
-        //TODO: calculate how many hours an event takes to organize
+        //TODO: calculate starting date of the new events
+        // new events will be organized after the last events is finished
+        //TODO: calculate how many hours an events takes to organize
 
 
 

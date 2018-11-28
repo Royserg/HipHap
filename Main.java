@@ -1,5 +1,10 @@
 package com.company;
 
+import com.company.events.Event;
+import com.company.users.Customer;
+import com.company.users.Employee;
+import com.company.users.Partner;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 //imports for csv

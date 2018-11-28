@@ -1,4 +1,4 @@
-package com.company;
+package com.company.events;
 
 public class Trip extends Event {
     String transport; // adding 1 attribute

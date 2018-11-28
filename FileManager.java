@@ -1,7 +1,11 @@
 package com.company;
 
+import com.company.events.Event;
+import com.company.users.Customer;
+import com.company.users.Employee;
+import com.company.users.Partner;
+
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FileManager {
