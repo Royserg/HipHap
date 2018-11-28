@@ -6,14 +6,10 @@ import java.util.Scanner;
 
 public class Screen {
 
-    private static String username;
-    private static String password;
-
     private static Scanner scn = new Scanner(System.in);
 
     public void Screen(){
-        username = null;
-        password = null;
+
     }
 
     /**
@@ -32,8 +28,9 @@ public class Screen {
      * for credentials: username and password
      * credentials are validated in the main
      */
-    public static void showLogin() {
-
+    public static boolean showLogin() {
+        String username = null;
+        String password = null;
 
         showLogo();
 
@@ -59,6 +56,14 @@ public class Screen {
         }
 
 
+        if (Main.validateLogin(username, password) == false) {
+            System.out.println("Validation Error: username or password incorrect");
+            System.out.println("Press any key to try again");
+            scn.nextLine();
+            showLogin();
+        }
+
+        return true;
 
     }
 
@@ -70,13 +75,6 @@ public class Screen {
         System.out.println("=== Main page ===");
     }
 
-    public static String getUsername(){
-        return username;
-    }
-    
 
-    public static String getPassword(){
-        return password;
-    }
 }
 
