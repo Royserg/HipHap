@@ -1,15 +1,10 @@
 package com.company.events;
 
 public class Conference extends Event {
-    String officeSupplies; //adding 1 attribute
+    private String officeSupplies; //adding 1 attribute
 
-    //businessparty adding 1 constructor
-        Conference(int ID,
-                  String name,
-                  String type,
-                  String startDate,
-                  String endDate,
-                  String officeSupplies) {
+    // constructor
+    public Conference(int ID, String name, String type, String startDate, String endDate, String officeSupplies) {
         super(ID, name, type, startDate, endDate);
         this.officeSupplies = officeSupplies;
     }
