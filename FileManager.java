@@ -1,9 +1,11 @@
 package com.company;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FileManager {
+
 
     public static ArrayList<Event> readEventsFile() {
         ArrayList<Event> events = new ArrayList<>();
@@ -35,7 +37,9 @@ public class FileManager {
                         break;
                 }
 
-
+                //System.out.println(ft.format(events.get(events.size()-1).startDate));
+                //System.out.println(ft.format(events.get(events.size()-1).endDate));
+                //System.out.println();
                 // This checks the input, not the objects
 //                System.out.println("Event - code = " + row[0] +
 //                        ", ID = " + row[1] +

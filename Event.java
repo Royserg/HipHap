@@ -10,11 +10,11 @@ public class Event {
     private String type;
     private String location;
     // format for the date and time variables
-    private SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm");
+    private SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy hh");
     // Date startDate = new Date();
     // Date endDate = new Date();
-    private String startDate;
-    private String endDate;
+    public Date startDate;
+    public Date endDate;
     //TODO:change start and end date of the event from strings to Date
 
     ArrayList<String> partners = new ArrayList<>(); // partners for this particular event
@@ -27,8 +27,20 @@ public class Event {
         this.ID = ID;
         this.name = name;
         this.type = type;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        try {
+            this.startDate = ft.parse(startDate);
+        }
+        catch (Exception e) {
+            System.out.println("Event Creation Date Exception: " + e.getMessage());
+        }
+
+        try {
+            this.endDate = ft.parse(endDate);
+        }
+        catch (Exception e) {
+            System.out.println("Event Creation Date Exception: " + e.getMessage());
+        }
+
     }
 
     // Set-ers
