@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class FileManager {
 
     public static ArrayList<Event> readEventsFile() {
+        ArrayList<Event> events = new ArrayList<>();
+
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -35,12 +37,12 @@ public class FileManager {
 
 
                 // This checks the input, not the objects
-                System.out.println("Event - code = " + row[0] +
-                        ", ID = " + row[1] +
-                        ", name = " + row[2] +
-                        ", type = " + row[3] +
-                        ", start date = " + row[4] +
-                        ", end date = " + row[5]);
+//                System.out.println("Event - code = " + row[0] +
+//                        ", ID = " + row[1] +
+//                        ", name = " + row[2] +
+//                        ", type = " + row[3] +
+//                        ", start date = " + row[4] +
+//                        ", end date = " + row[5]);
 
 
 
@@ -59,10 +61,14 @@ public class FileManager {
                 }
             }
         } //end of try-catch-finally
+
+        return events;
     }
 
 
     public static ArrayList<Partner> readPartnersFile() {
+        ArrayList<Partner> partners = new ArrayList<>();
+
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -84,9 +90,9 @@ public class FileManager {
 
                 //Checking if the read is correct -- the variables were public at checking for speed
 
-                System.out.print(partners.get(partners.size()-1).name);
-                System.out.print(" - ");
-                System.out.println(partners.get(partners.size()-1).occupation);
+//                System.out.print(partners.get(partners.size()-1).name);
+//                System.out.print(" - ");
+//                System.out.println(partners.get(partners.size()-1).occupation);
 
 
             }
@@ -104,9 +110,13 @@ public class FileManager {
                 }
             }
         }
+
+        return partners;
     }
 
     public static ArrayList<Employee> readEmployeesFile() {
+        ArrayList<Employee> employees = new ArrayList<>();
+
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -137,15 +147,15 @@ public class FileManager {
 
                 //Checking if the read is correct -- the variables were public at checking for speed
 
-                System.out.print(employees.get(employees.size()-1).ID);
-                System.out.print(" - ");
-                System.out.print(employees.get(employees.size()-1).eventIDs);
-                System.out.print(" - ");
-                System.out.print(employees.get(employees.size()-1).name);
-                System.out.print(" - ");
-                System.out.print(employees.get(employees.size()-1).password);
-                System.out.print(" - ");
-                System.out.println(employees.get(employees.size()-1).email);
+//                System.out.print(employees.get(employees.size()-1).ID);
+//                System.out.print(" - ");
+//                System.out.print(employees.get(employees.size()-1).eventIDs);
+//                System.out.print(" - ");
+//                System.out.print(employees.get(employees.size()-1).name);
+//                System.out.print(" - ");
+//                System.out.print(employees.get(employees.size()-1).password);
+//                System.out.print(" - ");
+//                System.out.println(employees.get(employees.size()-1).email);
 
 
             }
@@ -163,9 +173,13 @@ public class FileManager {
                 }
             }
         }
+
+        return employees;
     }
 
     public static ArrayList<Customer> readCustomersFile(){
+        ArrayList<Customer> customers = new ArrayList<>();
+
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
@@ -196,9 +210,9 @@ public class FileManager {
 
                 //Checking if the read is correct -- the variables were public at checking for speed
 
-                System.out.print(customers.get(customers.size()-1).ownEvents);
-                System.out.print(" - ");
-                System.out.println(customers.get(customers.size()-1).name);
+//                System.out.print(customers.get(customers.size()-1).ownEvents);
+//                System.out.print(" - ");
+//                System.out.println(customers.get(customers.size()-1).name);
 
 
 
@@ -217,5 +231,6 @@ public class FileManager {
                 }
             }
         }
+        return customers;
     }
 }
