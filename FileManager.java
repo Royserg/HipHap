@@ -14,7 +14,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Event Read from .csv
-        File csvFile = new File("./src/com/company/storage/events.csv");
+        File csvFile = new File("./com/company/storage/events.csv");
 
 
         try {
@@ -75,7 +75,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("./src/com/company/storage/partners.csv");
+        File csvFile = new File("./com/company/storage/partners.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -123,7 +123,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("./src/com/company/storage/employees.csv");
+        File csvFile = new File("./com/company/storage/employees.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -186,7 +186,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("./src/com/company/storage/customers.csv");
+        File csvFile = new File("./com/company/storage/customers.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));

@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.IOError;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Screen {
@@ -60,6 +59,7 @@ public class Screen {
             System.out.println("Validation Error: username or password incorrect");
             System.out.println("Press any key to try again");
             scn.nextLine();
+            clearScreen();
             showLogin();
         }
 
@@ -73,6 +73,12 @@ public class Screen {
         System.out.println("1. ");
         System.out.println("=== Main page ===");
         System.out.println("=== Main page ===");
+    }
+
+
+    public static void clearScreen() {
+        for (int i = 0; i < 30; i++)
+            System.out.println();
     }
 
 
