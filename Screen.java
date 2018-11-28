@@ -73,6 +73,7 @@ public class Screen {
     public static String getUsername(){
         return username;
     }
+    
 
     public static String getPassword(){
         return password;
