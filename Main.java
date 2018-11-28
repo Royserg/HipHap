@@ -1,11 +1,9 @@
 package com.company;
 
+import java.io.*;
 import java.util.ArrayList;
 //imports for csv
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 
 public class Main {
 
@@ -15,29 +13,29 @@ public class Main {
     static ArrayList<Customer> customers = new ArrayList<Customer>();
 
     public static void main(String[] args) {
-        System.out.println("===========================");
-        System.out.println("======== HipHapOrg ========");
-        System.out.println("===========================");
 
         // show login screen
-        //Screen.showLogin();
+//        Screen.showLogin();
 
+        initiateData();
+    }
 
-        readEventsFile();
-        readPartnersFile();
-        readEmployeesFile();
-        readCustomersFile();
+    private static void initiateData() {
+//        readEventsFile();
+//        readPartnersFile();
+//        readEmployeesFile();
+//        readCustomersFile();
 
     }
 
     public static void readEventsFile() {
-        String csvFile = null;
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
         String IDsSplit = ";";
+
         // Event Read from .csv
-        csvFile = "X:\\Projects\\IntelliJ\\HipHap\\files\\events.csv";
+        File csvFile = new File("./com/company/storage/events.csv");
 
 
         try {
@@ -58,7 +56,7 @@ public class Main {
                         break;
                 }
 
-                /*
+
                 // This checks the input, not the objects
                 System.out.println("Event - code = " + row[0] +
                         ", ID = " + row[1] +
@@ -67,7 +65,7 @@ public class Main {
                         ", start date = " + row[4] +
                         ", end date = " + row[5]);
 
-                */
+
 
             }
 
@@ -88,13 +86,13 @@ public class Main {
 
 
     public static void readPartnersFile() {
-        String csvFile = null;
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
         String IDsSplit = ";";
-        // Event Read from .csv
-        csvFile = "X:\\Projects\\IntelliJ\\HipHap\\files\\partners.csv";
+
+        // Partners read from .csv
+        File csvFile = new File("./com/company/storage/partners.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -112,8 +110,8 @@ public class Main {
                 System.out.print(partners.get(partners.size()-1).name);
                 System.out.print(" - ");
                 System.out.println(partners.get(partners.size()-1).occupation);
-
                 */
+
             }
 
         } catch (FileNotFoundException e) {
@@ -132,13 +130,13 @@ public class Main {
     }
 
     public static void readEmployeesFile() {
-        String csvFile = null;
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
         String IDsSplit = ";";
-        // Event Read from .csv
-        csvFile = "X:\\Projects\\IntelliJ\\HipHap\\files\\employees.csv";
+
+        // Partners read from .csv
+        File csvFile = new File("./com/company/storage/employees.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -171,8 +169,8 @@ public class Main {
                 System.out.print(employees.get(employees.size()-1).password);
                 System.out.print(" - ");
                 System.out.println(employees.get(employees.size()-1).email);
-
                 */
+
             }
 
         } catch (FileNotFoundException e) {
@@ -191,13 +189,13 @@ public class Main {
     }
 
     public static void readCustomersFile(){
-        String csvFile = null;
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
         String IDsSplit = ";";
-        // Event Read from .csv
-        csvFile = "X:\\Projects\\IntelliJ\\HipHap\\files\\customers.csv";
+
+        // Partners read from .csv
+        File csvFile = new File("./com/company/storage/customers.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -224,8 +222,8 @@ public class Main {
                 System.out.print(customers.get(customers.size()-1).ownEvents);
                 System.out.print(" - ");
                 System.out.println(customers.get(customers.size()-1).name);
-
                 */
+
 
             }
 
