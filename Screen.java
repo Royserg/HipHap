@@ -1,10 +1,20 @@
 package com.company;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Screen {
 
+    private static String username;
+    private static String password;
+
     private static Scanner scn = new Scanner(System.in);
+
+    public void Screen(){
+        username = null;
+        password = null;
+    }
 
     /**
      * prints formated header of application
@@ -20,10 +30,10 @@ public class Screen {
     /**
      * prints login screen info and asks
      * for credentials: username and password
+     * credentials are validated in the main
      */
     public static void showLogin() {
-        String username;
-        String password;
+
 
         showLogo();
 
@@ -31,12 +41,24 @@ public class Screen {
         System.out.println();
 
         System.out.print("Username: ");
-        username = scn.nextLine();
+        // TODO: check if this error check is nessesary
+
+        try {
+            username = scn.nextLine();
+        }catch (IOError e){
+            System.out.print("IOError occured: " + e.getMessage());
+            showLogin();//called to show login screen again and the user can input again
+        }
 
         System.out.print("Password: ");
-        password = scn.nextLine();
+        try {
+            password = scn.nextLine();
+        }catch (IOError e){
+            System.out.print("IOError occured: " + e.getMessage());
+            showLogin();//called to show login screen again and the user can input again
+        }
 
-        //TODO: validate credentails from Screen level or in Main?
+
 
     }
 
@@ -46,6 +68,15 @@ public class Screen {
         System.out.println("1. ");
         System.out.println("=== Main page ===");
         System.out.println("=== Main page ===");
+    }
+
+    public static String getUsername(){
+        return username;
+    }
+    
+
+    public static String getPassword(){
+        return password;
     }
 }
 
