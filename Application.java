@@ -8,25 +8,27 @@ public class Application {
     // keep track of currently logged in Employee
     private Employee currentUser;
 
-    private Scanner scn = new Scanner(System.in);
+//    private Scanner scn = new Scanner(System.in);
     private Database db = new Database();
 
     // constructor
     public Application() { }
 
-    /* TODO: check below and fix === */
 
+    /**
+     * starts application
+     */
     public void run() {
 
-        // infinite loop so you could log in and out as many times as you want
-        while (true) {
-            // show login page
-            Screen.showLogin();
+        // TODO: think about that while loop
+        // while (true) {
+        // show starting login page
+        showLogin("");
+
+        System.out.println("Logged in successfully");
+    }
 
 
-
-//            boolean loggedIn = Screen.showLogin();
-//            boolean loggedOut = false;
 //            if (loggedIn) {
 //                if (currentUser.getID() == 9999) { // 9999 = manager ID
 //                    // Program runs for the manager from now on
@@ -51,41 +53,71 @@ public class Application {
 //
 //                }
 //            }
+//        }
+
+
+    // ==========================
+    // screens of the application
+    // ==========================
+    /**
+     * prints login screen info and asks
+     * for credentials: username and password
+     * @param errorMsg (String) - message to be displayed under header
+     * */
+    private void showLogin(String errorMsg) {
+        String username;
+        String password;
+
+        Screen.showLogo();
+        System.out.println(errorMsg);
+        System.out.println();
+        // get username
+        username = Helper.getString("Username: ");
+        // get password
+        password = Helper.getString("Password: ");
+        // authenticate user
+        validateUser(username, password);
+    }
+
+
+
+    // =======================
+    // Login connected methods
+    // =======================
+    /**
+     * validates Login information to see if the user exists and if he entered the correct password
+     * */
+    public void validateUser (String username, String password){
+        // retrieve user data from db
+        Employee user = db.getEmployee(username);
+
+        // user doesn't exist
+        if (user == null) {
+            showLogin(Helper.USER_NOT_FOUND);
+            return;
+        }
+
+        // login user if password correct
+        if (user.getPassword().equals(password)) {
+            login(user);
+        } else {
+            // authentication failed
+            showLogin(Helper.PASSWORD_INCORRECT);
         }
     }
 
-        /*
-         * validates Login information to see if the user exists and if he entered the correct password
-         * */
-        public boolean validateUser (String username, String password){
+    /**
+     * Save user into global attirbute currentUser, so it is easily accessed
+     * @param user (Employee) - user to be logged in
+     */
+    private void login(Employee user) {
+        currentUser = user;
+    }
 
-            // TODO: Database method -> Employee getEmployee(String name);
-
-            boolean validation = false;
-            int i = 0;
-            int x = 0;
-            boolean found = false;
-
-            for (i = 0; i < db.employees.size(); i++) {
-                if (db.employees.get(i).getName().equals(username)) {
-                    found = true;
-                    x = i;
-                    break;
-                }
-            }
-
-            if (db.employees.get(x).getPassword().equals(password)) {
-                // Saving the employee information into the currentUser object
-                currentUser = db.employees.get(x);
-                validation = true;
-            }
-
-            return validation;
-        }
-
-        private void loginUser(Employee user) {
-
-        }
-
-
+    /**
+     * removes logged in user reference from currentUser attribute
+     */
+    private void logout() {
+        currentUser = null;
+    }
 }
