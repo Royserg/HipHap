@@ -1,9 +1,9 @@
-package com.company;
+package src;
 
-import com.company.events.Event;
-import com.company.users.Customer;
-import com.company.users.Employee;
-import com.company.users.Partner;
+import src.events.Event;
+import src.users.Customer;
+import src.users.Employee;
+import src.users.Partner;
 
 import java.io.*;
 import java.util.ArrayList;

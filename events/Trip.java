@@ -1,4 +1,4 @@
-package com.company.events;
+package src.events;
 
 public class Trip extends Event {
     private String transport;

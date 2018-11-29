@@ -1,4 +1,4 @@
-package com.company.events;
+package src.events;
 
 public class BusinessParty extends Event {
     String decoration; //adding 1 attribute

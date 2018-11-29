@@ -1,4 +1,4 @@
-package com.company.users;
+package src.users;
 
 import java.util.ArrayList;
 

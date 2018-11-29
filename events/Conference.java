@@ -1,4 +1,4 @@
-package com.company.events;
+package src.events;
 
 public class Conference extends Event {
     private String officeSupplies; //adding 1 attribute

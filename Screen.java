@@ -1,6 +1,6 @@
-package com.company;
+package src;
 
-import com.company.users.Employee;
+import src.users.Employee;
 
 import java.io.IOError;
 import java.text.SimpleDateFormat;

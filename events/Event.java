@@ -1,4 +1,4 @@
-package com.company.events;
+package src.events;
 
 import java.util.ArrayList;
 import java.util.*;
