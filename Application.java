@@ -12,15 +12,19 @@ public class Application {
     private Database db = new Database();
 
     // constructor
-    public Application() {
-    }
+    public Application() { }
 
     /* TODO: check below and fix === */
 
     public void run() {
 
         // infinite loop so you could log in and out as many times as you want
-//        while (true) {
+        while (true) {
+            // show login page
+            Screen.showLogin();
+
+
+
 //            boolean loggedIn = Screen.showLogin();
 //            boolean loggedOut = false;
 //            if (loggedIn) {
@@ -47,13 +51,16 @@ public class Application {
 //
 //                }
 //            }
-//        }
+        }
     }
 
         /*
          * validates Login information to see if the user exists and if he entered the correct password
          * */
-        public boolean validateLogin (String username, String password){
+        public boolean validateUser (String username, String password){
+
+            // TODO: Database method -> Employee getEmployee(String name);
+
             boolean validation = false;
             int i = 0;
             int x = 0;
@@ -74,6 +81,10 @@ public class Application {
             }
 
             return validation;
+        }
+
+        private void loginUser(Employee user) {
+
         }
 
 

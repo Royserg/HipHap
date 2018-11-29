@@ -34,45 +34,45 @@ public class Screen {
      * for credentials: username and password
      * credentials are validated in the main
      */
-//    public static boolean showLogin() {
-//        String username = null;
-//        String password = null;
-//
-//        showLogo();
-//
-//        System.out.println("========== Login ==========");
-//        System.out.println();
-//
-//        System.out.print("Username: ");
-//        // TODO: check if this error check is nessesary
-//
-//        try {
-//            username = scn.nextLine();
-//        }catch (IOError e){
-//            System.out.print("IOError occurred: " + e.getMessage());
-//            showLogin();//called to show login screen again and the user can input again
-//        }
-//
-//        System.out.print("Password: ");
-//        try {
-//            password = scn.nextLine();
-//        }catch (IOError e){
-//            System.out.print("IOError occurred: " + e.getMessage());
-//            showLogin();//called to show login screen again and the user can input again
-//        }
-//
-//
-//        if (Main.validateLogin(username, password) == false) {
-//            System.out.println("Validation Error: username or password incorrect");
-//            System.out.println("Press any key to try again");
-//            scn.nextLine();
-//            clearScreen();
-//            showLogin();
-//        }
-//
-//        return true;
-//
-//    }
+    public static boolean showLogin() {
+        String username = null;
+        String password = null;
+
+        showLogo();
+
+        System.out.println("========== Login ==========");
+        System.out.println();
+
+        System.out.print("Username: ");
+        // TODO: check if this error check is nessesary
+
+        try {
+            username = scn.nextLine();
+        }catch (IOError e){
+            System.out.print("IOError occurred: " + e.getMessage());
+            showLogin();//called to show login screen again and the user can input again
+        }
+
+        System.out.print("Password: ");
+        try {
+            password = scn.nextLine();
+        }catch (IOError e){
+            System.out.print("IOError occurred: " + e.getMessage());
+            showLogin();//called to show login screen again and the user can input again
+        }
+
+
+        if (Main.validateLogin(username, password) == false) {
+            System.out.println("Validation Error: username or password incorrect");
+            System.out.println("Press any key to try again");
+            scn.nextLine();
+            clearScreen();
+            showLogin();
+        }
+
+        return true;
+
+    }
 
     public static void showMain(String name) {
         System.out.println("Main Page");
