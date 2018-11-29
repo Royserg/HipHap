@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class Database {
 
-    private ArrayList<Event> events = FileManager.readEventsFile();
-    private ArrayList<Employee> employees = FileManager.readEmployeesFile();
-    private ArrayList<Partner> partners = FileManager.readPartnersFile();
-    private ArrayList<Customer> customers = FileManager.readCustomersFile();
+    public ArrayList<Event> events = FileManager.readEventsFile();
+    public ArrayList<Employee> employees = FileManager.readEmployeesFile();
+    public ArrayList<Partner> partners = FileManager.readPartnersFile();
+    public ArrayList<Customer> customers = FileManager.readCustomersFile();
 
     // constructor
     public Database() {};

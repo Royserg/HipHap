@@ -34,45 +34,45 @@ public class Screen {
      * for credentials: username and password
      * credentials are validated in the main
      */
-    public static boolean showLogin() {
-        String username = null;
-        String password = null;
-
-        showLogo();
-
-        System.out.println("========== Login ==========");
-        System.out.println();
-
-        System.out.print("Username: ");
-        // TODO: check if this error check is nessesary
-
-        try {
-            username = scn.nextLine();
-        }catch (IOError e){
-            System.out.print("IOError occurred: " + e.getMessage());
-            showLogin();//called to show login screen again and the user can input again
-        }
-
-        System.out.print("Password: ");
-        try {
-            password = scn.nextLine();
-        }catch (IOError e){
-            System.out.print("IOError occurred: " + e.getMessage());
-            showLogin();//called to show login screen again and the user can input again
-        }
-
-
-        if (Main.validateLogin(username, password) == false) {
-            System.out.println("Validation Error: username or password incorrect");
-            System.out.println("Press any key to try again");
-            scn.nextLine();
-            clearScreen();
-            showLogin();
-        }
-
-        return true;
-
-    }
+//    public static boolean showLogin() {
+//        String username = null;
+//        String password = null;
+//
+//        showLogo();
+//
+//        System.out.println("========== Login ==========");
+//        System.out.println();
+//
+//        System.out.print("Username: ");
+//        // TODO: check if this error check is nessesary
+//
+//        try {
+//            username = scn.nextLine();
+//        }catch (IOError e){
+//            System.out.print("IOError occurred: " + e.getMessage());
+//            showLogin();//called to show login screen again and the user can input again
+//        }
+//
+//        System.out.print("Password: ");
+//        try {
+//            password = scn.nextLine();
+//        }catch (IOError e){
+//            System.out.print("IOError occurred: " + e.getMessage());
+//            showLogin();//called to show login screen again and the user can input again
+//        }
+//
+//
+//        if (Main.validateLogin(username, password) == false) {
+//            System.out.println("Validation Error: username or password incorrect");
+//            System.out.println("Press any key to try again");
+//            scn.nextLine();
+//            clearScreen();
+//            showLogin();
+//        }
+//
+//        return true;
+//
+//    }
 
     public static void showMain(String name) {
         System.out.println("Main Page");
@@ -110,13 +110,13 @@ public class Screen {
         System.out.println("1 - Conference");
         System.out.println("2 - Trip");
         System.out.println("3 - Business Party");
-        int eventType = Main.selectOption(3);
+        int eventType = Helper.selectOption(3);
 
         System.out.println("Event service: ");
         System.out.println("1 - Consultancy");
         System.out.println("2 - Planning");
         System.out.println("3 - Full Organization");
-        int serviceType = Main.selectOption(3);
+        int serviceType = Helper.selectOption(3);
 
         //TODO: calculate starting date of the new events
         // new events will be organized after the last events is finished
