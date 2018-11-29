@@ -20,7 +20,29 @@ public class Database {
     public ArrayList<Customer> customers = readCustomersFile();
 
     // constructor
-    public Database() {};
+    public Database() {}
+
+
+    /**
+     * Searches through arrayList of Employees (database) for
+     * a particular employee
+     * @param username (String) - employee name to find
+     * @return employee (Object)
+     */
+    public Employee getEmployee(String username) {
+
+        // loop over employees
+        for (Employee employee: employees) {
+            if (employee.getName().equals(username)) {
+                return employee;
+            }
+        }
+
+        // user not found
+        return null;
+    }
+
+
 
     /**
      * Readers
