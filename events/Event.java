@@ -1,6 +1,8 @@
 package src.events;
 
+import src.Application;
 import src.Database;
+import src.Helper;
 import src.users.Employee;
 import src.users.Partner;
 
@@ -14,10 +16,10 @@ public class Event {
     private String serviceType;
     private String eventType;
     private String location;
-    // format for the date and time variables
-    // private SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm");
-    private Date orgStartDate = new Date();
-    private Date orgEndDate = new Date();
+    private int nbOfHoursNeeded;
+    Employee employeeResponsible;
+    private Date orgStartDate ;
+    private Date orgEndDate ;
 
     ArrayList<Partner> partners = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
@@ -25,17 +27,14 @@ public class Event {
     // also maybe this should be just one string
 
     // Constructor
-    public Event(int ID, String name, String serviceType, String eventType, String startDate, String endDate){
+    public Event(int ID, String name, String serviceType, String eventType, int nbOfHoursNeeded){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
         this.eventType = eventType;
-        try {
-            this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(startDate);
-            this.orgEndDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(endDate);
-        }catch (ParseException e){
-            System.out.print("Parse Exception occured: " + e.getMessage());
-        }
+        this.nbOfHoursNeeded = nbOfHoursNeeded;
+        this.orgStartDate = setOrgStartDate();
+        this.orgEndDate = setOrgEndDate();
     }
 
     // Set-ers
@@ -57,20 +56,46 @@ public class Event {
         this.location = location;
     }
 
-    public void setOrgStartDate(String startDate){
-        try {
-            this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm").parse(startDate);
-        } catch (ParseException e) {
-            System.out.print("Parse Exception occured: " + e.getMessage());
+    /*TODO: think about this because it should be automatic from last employees event
+    * so basicaly if an employee is loged in it should be looking up his last event
+    * if manager is loged in he should input the ID of the employee that will be asagned the event
+    * also initialises employeeResponsible attribute for an event object*/
+
+    public Date setOrgStartDate(){
+        Employee currentUser = Application.getCurrentUser();
+        Date startDate;
+
+        if( currentUser.getID() == 1111 ) {//manager
+            int employeeID = Helper.getInt("Enter ID of the employee that will be asigned this event: ");
+            employeeResponsible = Database.getEmployeeByID(employeeID);
+            startDate = Database.getLastEventInfo(employeeResponsible);
+        } else{
+            employeeResponsible = currentUser;
+            startDate = Database.getLastEventInfo(employeeResponsible);
+
+
+            //int lastWorkingHour = startDate.getHours();
+
+            /*+ nbOfHoursNeeded;
+            int daysToMove = lastWorkingHour / 24;
+            int hoursLeft = lastWorkingHour % 24;*/
         }
+        return startDate;
     }
 
-    public void setOrgEndDate(String endDate){
-        try {
-            this.orgEndDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm").parse(endDate);
-        } catch (ParseException e) {
-            System.out.print("Parse Exception occured: " + e.getMessage());
+
+    public Date setOrgEndDate(){
+        Date endDate = getOrgStartDate();
+        int daysToMove = ( endDate.getHours() + nbOfHoursNeeded ) / 8; //8 working hours a day
+        int hoursLeft = ( endDate.getHours() + nbOfHoursNeeded ) % 8;
+        if (endDate.getDate() + daysToMove < 31 ) { //because in documentation its explained like :  If the date was April 30, for example, and the date is set to 31, then it will be treated as if it were on May 1, because April has only 30 days.
+            endDate.setDate(endDate.getDate() + daysToMove);
+        }else{
+            endDate.setMonth(endDate.getMonth() + 1 );
+            endDate.setDate(daysToMove - 31);
         }
+        endDate.setHours(hoursLeft);
+        return endDate;
     }
 
     // Get-ers
@@ -95,6 +120,8 @@ public class Event {
     public Date getOrgStartDate() { return this.orgStartDate; }
 
     public Date getOrgEndDate() { return this.orgEndDate; }
+
+    public int getNbOfHoursNeeded() { return nbOfHoursNeeded; }
 
     //Modifiers
     public void addPartner(Partner partner){

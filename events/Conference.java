@@ -4,11 +4,11 @@ import src.users.Employee;
 
 public class Conference extends Event implements EventPricing{
     private String officeSupplies; //adding 1 attribute
-    private double baseTripPrice;
+    private static double baseConferencePrice = 10000 ;
 
     // constructor
-    public Conference(int ID, String name, String serviceType, String eventType, String startDate, String endDate, String transport) {
-        super(ID, name, serviceType, eventType, startDate, endDate);
+    public Conference(int ID, String name, String serviceType, String eventType, int nbOfHoursNeeded) {
+        super(ID, name, serviceType, eventType, nbOfHoursNeeded);
         this.officeSupplies = officeSupplies;
     }
 
@@ -23,8 +23,6 @@ public class Conference extends Event implements EventPricing{
 
     @Override
     public double calculateEventPrices() {
-        int nbOfHoursWorked;
-        nbOfHoursWorked = (int)(getOrgStartDate().getTime() - getOrgEndDate().getTime()) /(1000 * 120); //getDate returns in millisedonds and we convert it to hours
-        return (baseTripPrice + nbOfHoursWorked * Employee.getHourlyWage());
+        return (baseConferencePrice + getNbOfHoursNeeded() * Employee.getHourlyWage());
     }
 }

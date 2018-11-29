@@ -11,6 +11,7 @@ import java.io.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 public class Database {
 
@@ -26,14 +27,14 @@ public class Database {
     /**
      * Searches through arrayList of Employees (database) for
      * a particular employee
-     * @param username (String) - employee name to find
+     * @param name (String) - employee username to find
      * @return employee (Object)
      */
-    public Employee getEmployee(String username) {
+    public Employee getEmployeeByName(String name) {
 
         // loop over employees
         for (Employee employee: employees) {
-            if (employee.getName().equals(username)) {
+            if (employee.getName().equals(name)) {
                 return employee;
             }
         }
@@ -42,6 +43,23 @@ public class Database {
         return null;
     }
 
+    public Employee getEmployeeByID(int ID) {
+
+        // loop over employees
+        for (Employee employee: employees) {
+            if (employee.getID() == ID) {
+                return employee;
+            }
+        }
+
+        // user not found
+        return null;
+    }
+
+    //TODO
+    public static Date getLastEventInfo(Employee employee){
+        return ;
+    }
 
 
     /**
@@ -71,15 +89,15 @@ public class Database {
                 //TODO: make switch cases for the different type of events
                 switch (row[1]) {
                     case "1":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Conference", row[4], row[5]));
+                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Conference", Integer.parseInt(row[4])));
                         break;
 
                     case "2":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Trip", row[4], row[5]));
+                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Trip", Integer.parseInt(row[4])));
                         break;
 
                     case "3":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Business Party", row[4], row[5]));
+                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Business Party", Integer.parseInt(row[4])));
                         break;
                 }
 

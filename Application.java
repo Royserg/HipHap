@@ -6,7 +6,8 @@ import java.util.Scanner;
 public class Application {
 
     // keep track of currently logged in Employee
-    private Employee currentUser;
+    //TODO: I need this to be static but is it okay as we can login multiple times ? - Aneja
+    private static Employee currentUser;
 
 //    private Scanner scn = new Scanner(System.in);
     private Database db = new Database();
@@ -89,7 +90,7 @@ public class Application {
      * */
     public void validateUser (String username, String password){
         // retrieve user data from db
-        Employee user = db.getEmployee(username);
+        Employee user = db.getEmployeeByName(username);
 
         // user doesn't exist
         if (user == null) {
@@ -120,4 +121,6 @@ public class Application {
     private void logout() {
         currentUser = null;
     }
+
+    public static Employee getCurrentUser(){ return currentUser; }
 }

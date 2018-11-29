@@ -4,11 +4,11 @@ import src.users.Employee;
 
 public class Trip extends Event implements EventPricing{
     private String transport;
-    private double baseTripPrice;
+    private double baseTripPrice = 50000;
 
     //Constructor
-    public Trip(int ID, String name, String serviceType, String eventType, String startDate, String endDate, String transport) {
-        super(ID, name, serviceType, eventType, startDate, endDate);
+    public Trip(int ID, String name, String serviceType, String eventType, int nbOfHoursNeeded) {
+        super(ID, name, serviceType, eventType, nbOfHoursNeeded);
         this.transport = transport;
     }
 
@@ -49,8 +49,6 @@ public class Trip extends Event implements EventPricing{
      * @return finalPrice (double) - price that clients need to pay for organization*/
     @Override
     public double calculateEventPrices() {
-        int nbOfHoursWorked;
-        nbOfHoursWorked = (int)(getOrgStartDate().getTime() - getOrgEndDate().getTime()) /(1000 * 120); //getDate returns in millisedonds and we convert it to hours
-        return (baseTripPrice + nbOfHoursWorked * Employee.getHourlyWage());
+        return (baseTripPrice + getNbOfHoursNeeded() * Employee.getHourlyWage());
     }
 }
