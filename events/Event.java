@@ -1,5 +1,7 @@
 package src.events;
 
+import src.users.Partner;
+
 import java.util.ArrayList;
 import java.util.*;
 import java.text.*;
@@ -10,14 +12,14 @@ public class Event {
     private String type;
     private String location;
     // format for the date and time variables
-    private SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy hh");
-    // Date startDate = new Date();
-    // Date endDate = new Date();
-    public Date startDate;
-    public Date endDate;
-    //TODO:change start and end date of the events from strings to Date
+    // private SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy 'at' HH:mm");
+    Date startDate = new Date();
+    Date endDate = new Date();
+   /* private String startDate;
+    private String endDate;*/
+    //TODO:change start and end date of the event from strings to Date
 
-    ArrayList<String> partners = new ArrayList<>(); // partners for this particular events
+    ArrayList<Partner> partners = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
     //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
@@ -28,19 +30,11 @@ public class Event {
         this.name = name;
         this.type = type;
         try {
-            this.startDate = ft.parse(startDate);
+            this.startDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm").parse(startDate);
+            this.endDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH:mm").parse(endDate);
+        }catch (ParseException e){
+            System.out.print("Parse Exception occured: " + e.getMessage());
         }
-        catch (Exception e) {
-            System.out.println("Event Creation Date Exception: " + e.getMessage());
-        }
-
-        try {
-            this.endDate = ft.parse(endDate);
-        }
-        catch (Exception e) {
-            System.out.println("Event Creation Date Exception: " + e.getMessage());
-        }
-
     }
 
     // Set-ers
@@ -60,6 +54,7 @@ public class Event {
         this.location = location;
     }
 
+
     // Get-ers
     public String getName(){
         return this.name;
@@ -77,10 +72,12 @@ public class Event {
         return this.location;
     }
 
-
-
-    // Modifiers
-    public void addPartner(String partner) {
+    //Modifiers
+    public void addPartner(Partner partner){
         partners.add(partner);
+    }
+
+    public void addSpecification(String spec){
+        specs.add(spec);
     }
 }
