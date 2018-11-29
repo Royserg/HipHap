@@ -4,16 +4,17 @@ import java.util.Scanner;
 
 public class Helper {
 
+    static final String USER_NOT_FOUND = ">>>>>  User not found <<<<<";
+    static final String PASSWORD_INCORRECT = ">>>> Incorrect password  <<<<";
+
     static Scanner scn = new Scanner(System.in);
 
     /**
-     * Choosing specified option with a limit
-     * @param limit (int) accepting integer to provided limit
+     * Choosing specified option between 0 and provided limit
+     * @param limit (int) upper limit of possible integer input
      * @return
      */
-    public static int selectOption (int limit){ // there is a limit for options, the manager will have more options
-        // so we can set the number of options it will accept as input
-        // use this method for both employees and manager
+    public static int selectOption (int limit){
         int selectedOption = 0;
 
         try {
@@ -57,5 +58,4 @@ public class Helper {
 
         return inputInt;
     }
-
 }
