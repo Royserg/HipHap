@@ -16,6 +16,8 @@ public class Screen {
 
     }
 
+    // TODO: fix methods below
+
     /**
      * prints formated header of application
      * Logo of HipHapOrg
