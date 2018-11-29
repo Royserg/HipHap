@@ -17,7 +17,7 @@ public class Application {
 
     /* TODO: check below and fix === */
 
-    private void run() {
+    public void run() {
 
         // infinite loop so you could log in and out as many times as you want
 //        while (true) {
