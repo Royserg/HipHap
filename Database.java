@@ -1,13 +1,32 @@
-package com.company;
+package src;
 
-import java.io.*;
-import java.text.SimpleDateFormat;
+import src.events.Event;
+import src.users.Customer;
+import src.users.Employee;
+import src.users.Partner;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
-public class FileManager {
+public class Database {
 
+    public ArrayList<Event> events = readEventsFile();
+    public ArrayList<Employee> employees = readEmployeesFile();
+    public ArrayList<Partner> partners = readPartnersFile();
+    public ArrayList<Customer> customers = readCustomersFile();
 
-    public static ArrayList<Event> readEventsFile() {
+    // constructor
+    public Database() {};
+
+    /**
+     * Readers
+     * Saves the data of the ArrayLists to the .csv files
+     */
+    public ArrayList<Event> readEventsFile() {
         ArrayList<Event> events = new ArrayList<>();
 
         BufferedReader br = null;
@@ -16,11 +35,11 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Event Read from .csv
-        File csvFile = new File("./com/company/storage/events.csv");
-
+        File csvFile = new File("src/storage/events.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
+            br.readLine();
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator
@@ -28,12 +47,17 @@ public class FileManager {
 
                 // Event(ID,name,type,startDate,endDate)
                 //TODO: make switch cases for the different type of events
-                switch (row[0]) {
+                switch (row[1]) {
                     case "1":
-                        events.add(new Event(Integer.parseInt(row[1]), row[2], row[3], row[4], row[5]));
+                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Conference", row[4], row[5]));
                         break;
-                    default:
-                        events.add(new Event(Integer.parseInt(row[1]), row[2], row[3], row[4], row[5]));
+
+                    case "2":
+                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Trip", row[4], row[5]));
+                        break;
+
+                    case "3":
+                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Business Party", row[4], row[5]));
                         break;
                 }
 
@@ -69,8 +93,7 @@ public class FileManager {
         return events;
     }
 
-
-    public static ArrayList<Partner> readPartnersFile() {
+    public ArrayList<Partner> readPartnersFile() {
         ArrayList<Partner> partners = new ArrayList<>();
 
         BufferedReader br = null;
@@ -79,7 +102,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("./com/company/storage/partners.csv");
+        File csvFile = new File("src/storage/partners.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -118,7 +141,7 @@ public class FileManager {
         return partners;
     }
 
-    public static ArrayList<Employee> readEmployeesFile() {
+    public ArrayList<Employee> readEmployeesFile() {
         ArrayList<Employee> employees = new ArrayList<>();
 
         BufferedReader br = null;
@@ -127,7 +150,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("./com/company/storage/employees.csv");
+        File csvFile = new File("src/storage/employees.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -181,7 +204,7 @@ public class FileManager {
         return employees;
     }
 
-    public static ArrayList<Customer> readCustomersFile(){
+    public ArrayList<Customer> readCustomersFile(){
         ArrayList<Customer> customers = new ArrayList<>();
 
         BufferedReader br = null;
@@ -190,7 +213,7 @@ public class FileManager {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("./com/company/storage/customers.csv");
+        File csvFile = new File("src/storage/customers.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -237,4 +260,124 @@ public class FileManager {
         }
         return customers;
     }
+
+    /**
+     * Writers
+     * Saves the data of the ArrayLists to the .csv files
+     */
+
+    public void writeEventsFile(){
+        PrintWriter pw = null;
+
+        try {
+            pw = new PrintWriter(new File("src/storage/events.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < events.size(); i++) {
+            Event current = events.get(i);
+            builder.append(current.getID()+",");
+            builder.append(current.getEventType()+",");
+            builder.append(current.getName()+",");
+            builder.append(current.getServiceType()+",");
+            builder.append(current.getOrgStartDate()+",");
+            builder.append(current.getOrgEndDate()+",");
+            builder.append('\n');
+        }
+
+        pw.write(builder.toString());
+        pw.close();
+    }
+
+    public void writePartnersFile(){
+        PrintWriter pw = null;
+
+        try {
+            pw = new PrintWriter(new File("src/storage/partners.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < partners.size(); i++) {
+            Partner current = partners.get(i);
+            builder.append(current.getName()+",");
+            builder.append(current.getOccupation());
+            builder.append('\n');
+        }
+
+        pw.write(builder.toString());
+        pw.close();
+    }
+
+    public void writeEmployeesFile(){
+        PrintWriter pw = null;
+
+        try {
+            pw = new PrintWriter(new File("src/storage/employees.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+
+
+
+        for (int i = 0; i < employees.size(); i++) {
+            Employee current = employees.get(i);
+            // Creating a string from the array of events, with ";" between them
+            ArrayList<Integer> eventIDs = current.getEventIDs();
+            String stringOfEventIDs = "";
+            for (int j = 0; j < eventIDs.size(); j++) {
+                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString();
+            }
+
+            builder.append(current.getID()+",");
+            builder.append(stringOfEventIDs+",");
+            builder.append(current.getName()+",");
+            builder.append(current.getPassword()+",");
+            builder.append(current.getEmail()+",");
+            builder.append('\n');
+        }
+
+        pw.write(builder.toString());
+        pw.close();
+    }
+
+    public void writeCustomersFile(){
+        PrintWriter pw = null;
+
+        try {
+            pw = new PrintWriter(new File("src/storage/customers.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < customers.size(); i++) {
+            Customer current = customers.get(i);
+            // Creating a string from the array of events, with ";" between them
+            ArrayList<Integer> eventIDs = current.getOwnEvents();
+            String stringOfEventIDs = "";
+            for (int j = 0; j < eventIDs.size(); j++) {
+                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString();
+            }
+            builder.append(stringOfEventIDs + ",");
+            builder.append(current.getName());
+            builder.append('\n');
+        }
+
+        pw.write(builder.toString());
+        pw.close();
+    }
+
+
+
+
 }

@@ -1,3 +1,4 @@
-1,2345,Thompsons' Conference,Full-Organization,14.04.2018 20,14.04.2018 22
-2,7898,Thailand Trip,Planning,24.06.2018 14,29.06.2018 18
-3,4245,Office Party,Consultancy,04.12.2018 18,05.12.2018 02
+event_Id,type,name,service_type,start_date,end_date
+2345,Conference,Thompsons' Conference,Full-Organization,14.04.2018 20,14.04.2018 22
+7898,Trip,Thailand Trip,Planning,24.06.2018 14,29.06.2018 18
+4245,Business Party,Office Party,Consultancy,04.12.2018 18,05.12.2018 02

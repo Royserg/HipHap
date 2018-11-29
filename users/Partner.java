@@ -1,4 +1,4 @@
-package com.company;
+package src.users;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ public class Partner {
     private String occupation;
 
     // Constructor
-    Partner(String name, String occupation) {
+    public Partner(String name, String occupation) {
         this.name = name;
         this.occupation = occupation;
     }

@@ -1,4 +1,6 @@
-package com.company;
+package src;
+
+import src.users.Employee;
 
 import java.io.IOError;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,8 @@ public class Screen {
     public void Screen(){
 
     }
+
+    // TODO: fix methods below
 
     /**
      * prints formated header of application
@@ -86,7 +90,7 @@ public class Screen {
 
     public static void showDashboard(Employee currentUser) {
         showMain(currentUser.getName());
-        System.out.println("1. Add event");
+        System.out.println("1. Add events");
         System.out.println("2. Change date");
         System.out.println("3. Show customers");
         System.out.println("4. Show my events");
@@ -106,17 +110,17 @@ public class Screen {
         System.out.println("1 - Conference");
         System.out.println("2 - Trip");
         System.out.println("3 - Business Party");
-        int eventType = Main.selectOption(3);
+        int eventType = Helper.selectOption(3);
 
         System.out.println("Event service: ");
         System.out.println("1 - Consultancy");
         System.out.println("2 - Planning");
         System.out.println("3 - Full Organization");
-        int serviceType = Main.selectOption(3);
+        int serviceType = Helper.selectOption(3);
 
-        //TODO: calculate starting date of the new event
-        // new events will be organized after the last event is finished
-        //TODO: calculate how many hours an event takes to organize
+        //TODO: calculate starting date of the new events
+        // new events will be organized after the last events is finished
+        //TODO: calculate how many hours an events takes to organize
 
 
 

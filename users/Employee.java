@@ -1,4 +1,4 @@
-package com.company;
+package src.users;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,8 @@ public class Employee {
     private String name;
     private String password;
     private String email;
+    private static double hourlyWage = 200;
+
 
     // Constructor
     public Employee(int ID, ArrayList<Integer> ids, String name, String pass, String email) {
@@ -16,6 +18,16 @@ public class Employee {
         this.name = name;
         this.password = pass;
         this.email = email;
+    }
+
+    //Setters
+
+    /**
+     * set hourlyWage for an employee
+     * @param hourlyWage (double) of employee
+     */
+    public void setHourlyWage(double hourlyWage){
+        this.hourlyWage = hourlyWage;
     }
 
     // Getters
@@ -59,5 +71,11 @@ public class Employee {
     public String getEmail() {
         return email;
     }
+
+    /**
+     * get hourly wage for the employee
+     * @return hourlyWage (double) of employee
+     */
+    public static double getHourlyWage() { return hourlyWage; }
 }
 
