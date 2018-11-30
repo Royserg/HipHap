@@ -57,8 +57,8 @@ public class Event {
     }
 
     /*TODO: think about this because it should be automatic from last employees event
-    * so basicaly if an employee is loged in it should be looking up his last event
-    * if manager is loged in he should input the ID of the employee that will be asagned the event
+    * so basically if an employee is logged in it should be looking up his last event
+    * if manager is logged in he should input the ID of the employee that will be asagned the event
     * also initialises employeeResponsible attribute for an event object*/
 
     public Date setOrgStartDate(){

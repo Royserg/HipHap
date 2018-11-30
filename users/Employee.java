@@ -77,5 +77,9 @@ public class Employee {
      * @return hourlyWage (double) of employee
      */
     public static double getHourlyWage() { return hourlyWage; }
+
+    public int getLastEventID() {
+        return eventIDs.get(eventIDs.size()-1);
+    }
 }
 
