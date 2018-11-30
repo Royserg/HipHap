@@ -26,64 +26,98 @@ public class Event {
     //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
 
-    // Constructor
-    public Event(int ID, String name, String serviceType, String eventType, int nbOfHoursNeeded){
+    /**
+     * Constructor for creating a whole new event by employee
+    * */
+    public Event(int ID, String name, String serviceType, String eventType, Employee employeeResponsible, int nbOfHoursNeeded){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
         this.eventType = eventType;
+        this.employeeResponsible = employeeResponsible;
         this.nbOfHoursNeeded = nbOfHoursNeeded;
-        this.orgStartDate = setOrgStartDate();
+        this.orgStartDate = setOrgStartDate(employeeResponsible);
         this.orgEndDate = setOrgEndDate();
     }
 
+    /**
+     * Constructor for creating a new event with reading from our database
+     * */
+    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded ){
+        this.ID = ID;
+        this.eventType = eventType;
+        this.name = name;
+        this.serviceType = serviceType;
+
+        try {
+            this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(startDate);
+            this.orgEndDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(endDate);
+        } catch (ParseException e) {
+            System.out.print("Parse exception: " + e.getMessage());
+        }
+
+        this.nbOfHoursNeeded = nbOfHoursNeeded;
+
+    }
+
     // Set-ers
+
+    /**
+     * Setting event name
+     * @param name (String) - event name*/
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Setting event ID
+     * @param ID (int) - event ID*/
     public void setID(int ID) {
         this.ID = ID;
     }
 
+    /**
+     * Setting type of service
+     * @param type (String) - type of service : consultation, planning, full organization*/
     public void setServiceType(String type) {
         this.serviceType = type;
     }
 
+    /**
+     * Setting event type
+     * @param type (String) - type of event: Trip, Business party, Conference*/
     public void setEventType (String type) {this.eventType = type; }
 
+    /**
+     * Setting location for the event
+     * @param location (String) - location for the event*/
     public void setLocation(String location) {
         this.location = location;
     }
 
-    /*TODO: think about this because it should be automatic from last employees event
-    * so basicaly if an employee is loged in it should be looking up his last event
-    * if manager is loged in he should input the ID of the employee that will be asagned the event
-    * also initialises employeeResponsible attribute for an event object*/
+    /**
+     * Setting the organizing start date, the date when the employee responsible for the event will start working on it.
+     * Date is in format "dd.MM.yyyy 'at' HH"
+     * @param employeeResponsible (Employee) - employee responsible for organizing this event
+     * @return startDate (Date) - the date when the responsible employee will start organizing the event*/
 
-    public Date setOrgStartDate(){
+    public Date setOrgStartDate( Employee employeeResponsible){
         Employee currentUser = Application.getCurrentUser();
         Date startDate;
 
         if( currentUser.getID() == 1111 ) {//manager
             int employeeID = Helper.getInt("Enter ID of the employee that will be asigned this event: ");
-            employeeResponsible = Database.getEmployeeByID(employeeID);
-            startDate = Database.getLastEventInfo(employeeResponsible);
+            startDate = employeeResponsible.getLastEventInfo(employeeResponsible);
         } else{
-            employeeResponsible = currentUser;
-            startDate = Database.getLastEventInfo(employeeResponsible);
-
-
-            //int lastWorkingHour = startDate.getHours();
-
-            /*+ nbOfHoursNeeded;
-            int daysToMove = lastWorkingHour / 24;
-            int hoursLeft = lastWorkingHour % 24;*/
+            startDate = employeeResponsible.getLastEventInfo(employeeResponsible);
         }
         return startDate;
     }
 
-
+    /**
+     * Setting the organizing end date, the date when the employee responsible for this event will finish the organizing
+     * Date is in the format "dd.MM.yyyy 'at' HH"
+     * @return endDate (Date) - the date when the responsible employee will finish the organizing*/
     public Date setOrgEndDate(){
         Date endDate = getOrgStartDate();
         int daysToMove = ( endDate.getHours() + nbOfHoursNeeded ) / 8; //8 working hours a day
@@ -99,35 +133,69 @@ public class Event {
     }
 
     // Get-ers
+
+    /**
+    * Returns name of the event
+    * @return name (String) - name of the event*/
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Returns event ID
+     * @return ID (int) - ID of the event*/
     public int getID() {
         return this.ID;
     }
 
+    /**
+     * Returns service type of the event
+     * @return serviceType (string) - type of service : consultation, planning, full organization*/
     public String getServiceType() {
         return this.serviceType;
     }
 
+    /**
+     * Returns event type of the event
+     * @return eventType (String) - type of event: Trip, Business party, Conference*/
     public String getEventType(){ return this.eventType; }
 
+    /**
+     * Returns location of the event
+     * @return location(String) - location of the event*/
     public String getLocation() {
         return this.location;
     }
 
+    /**
+     * Returns the the organizing start date, the date when the employee responsible for the event will start working on it.
+     * Date is in format "dd.MM.yyyy 'at' HH"
+     * @return startDate (Date) - the date when the responsible employee will start organizing the event*/
     public Date getOrgStartDate() { return this.orgStartDate; }
 
+    /**
+     * Returns the organizing end date, the date when the employee responsible for this event will finish the organizing
+     * Date is in the format "dd.MM.yyyy 'at' HH"
+     * @return endDate (Date) - the date when the responsible employee will finish the organizing*/
     public Date getOrgEndDate() { return this.orgEndDate; }
 
+    /**
+     * Returns the number of hours needed to organize the event
+     * @return nbOfHoursNeeded (int) - number of hours needed to organize the event*/
     public int getNbOfHoursNeeded() { return nbOfHoursNeeded; }
 
     //Modifiers
+
+    /**
+     * Adds a partener to the partner arrayList
+     * @param partner (Partner) - partner for the event*/
     public void addPartner(Partner partner){
         partners.add(partner);
     }
 
+    /**
+     * Adds a specification of the event to the specification arrayList
+     * @param spec (String) - specification for the event*/
     public void addSpecification(String spec){
         specs.add(spec);
     }
