@@ -62,6 +62,22 @@ public class Database {
         return null;
     }
 
+    public void getEmployeeEvents(ArrayList<Integer> eventIDs) {
+        for (int i = 0; i < eventIDs.size()-1; i++) {
+            // searching for matches of those IDs in the event array
+            for (int j = 0; j < events.size()-1; j++) {
+                if (eventIDs.get(i) == events.get(j).getID()) {
+                    System.out.print("Event ID: " + events.get(j).getID() + "| ");
+                    System.out.print("Name: " + events.get(j).getName() + "| ");
+                    System.out.print("Event Type: " + events.get(j).getEventType() + "| ");
+                    System.out.print("Service Type: " + events.get(j).getServiceType() + "| ");
+                    System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgStartDate()) + "| ");
+                    System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgEndDate()) + "| ");
+
+                }
+            }
+        }
+    }
 
 
 
@@ -410,23 +426,5 @@ public class Database {
         pw.write(builder.toString());
         pw.close();
     }
-
-    public void getEmployeeEvents(ArrayList<Integer> eventIDs) {
-        for (int i = 0; i < eventIDs.size()-1; i++) {
-            // searching for matches of those IDs in the event array
-            for (int j = 0; j < events.size()-1; j++) {
-                if (eventIDs.get(i) == events.get(j).getID()) {
-                    System.out.print("Event ID: " + events.get(j).getID() + "| ");
-                    System.out.print("Name: " + events.get(j).getName() + "| ");
-                    System.out.print("Event Type: " + events.get(j).getEventType() + "| ");
-                    System.out.print("Service Type: " + events.get(j).getServiceType() + "| ");
-                    System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgStartDate()) + "| ");
-                    System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgEndDate()) + "| ");
-
-                }
-            }
-        }
-    }
-
 
 }
