@@ -11,9 +11,7 @@ public class Screen {
 
     private static Scanner scn = new Scanner(System.in);
 
-    public void Screen(){
-
-    }
+    public void Screen(){ }
 
     // TODO: fix methods below
 
@@ -45,7 +43,7 @@ public class Screen {
 
 
 
-    public static void showMain(String name) {
+    public static void showDashboardOptions(String name) {
         System.out.println("Main Page");
         System.out.println("==============================");
         System.out.println(name );
@@ -59,25 +57,20 @@ public class Screen {
             System.out.println();
     }
 
-    public static void showDashboard(Employee currentUser) {
-        showMain(currentUser.getName());
+    public static void listOptions(boolean isManager) {
+//        showMain(currentUser.getName());
         System.out.println("0. Logout");
         System.out.println("1. Add event");
         System.out.println("2. Change date");
-        System.out.println("3. Show my events");
-        System.out.println("4. Show partners");
-        System.out.println("5. Log out");
+        if (isManager) {
+            System.out.println("3. Show all customers");
+            System.out.println("4. Show all events");
+            System.out.println("5. Show all employees");
+        } else {
+            System.out.println("3. Show my events");
+            System.out.println("4. Show partners");
+        }
     }
-
-    /* For manager:
-     * 0. Logout
-     * 1. Add event
-     * 2. Change date
-     * 3. Show all customers
-     * 4. Show all events
-     * 5. Show all employees
-     * 6. Log out
-     */
 
     public static void showEventForm() {
         System.out.print("Event name: ");
