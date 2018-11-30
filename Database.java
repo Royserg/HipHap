@@ -1,5 +1,8 @@
 package src;
 
+import src.events.BusinessParty;
+import src.events.Conference;
+import src.events.Trip;
 import src.events.Event;
 import src.users.Customer;
 import src.users.Employee;
@@ -59,16 +62,7 @@ public class Database {
         return null;
     }
 
-    public Date getLastEventInfo(Employee employee){
-        int lastEventID = employee.getLastEventID();
-        for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).getID() == lastEventID)
-                return events.get(i).getOrgEndDate();
-        }
 
-        Date todaysDate = new Date();
-        return todaysDate;
-    }
 
 
     /**
@@ -94,19 +88,18 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-                // Event(ID,name,type,startDate,endDate)
-                //TODO: make switch cases for the different type of events
+                //  public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded
                 switch (row[1]) {
-                    case "1":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Conference", Integer.parseInt(row[4])));
+                    case "Conference":
+                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
                         break;
 
-                    case "2":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Trip", Integer.parseInt(row[4])));
+                    case "Trip":
+                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
                         break;
 
-                    case "3":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Business Party", Integer.parseInt(row[4])));
+                    case "Business Party":
+                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
                         break;
                 }
 
@@ -218,12 +211,12 @@ public class Database {
                 }
 
                 if (Integer.parseInt(row[0]) == 1111) {
-                    manager = new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4]);
+                    manager = new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]);
                 }
 
                 else {
-                    // public Employee(ArrayList<Integer> ids, String name, String pass, String email)
-                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4]));
+                    // public Employee(ArrayList<Integer> ids, String name, String pass, String email, String avDate)
+                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
                 }
 
             }

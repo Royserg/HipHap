@@ -1,6 +1,9 @@
 package src.users;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Employee {
     private ArrayList<Integer> eventIDs;
@@ -9,15 +12,21 @@ public class Employee {
     private String password;
     private String email;
     private static double hourlyWage = 200;
+    private Date availabilityDate;
 
 
     // Constructor
-    public Employee(int ID, ArrayList<Integer> ids, String name, String pass, String email) {
+    public Employee(int ID, ArrayList<Integer> ids, String name, String pass, String email, String avDate) {
         this.ID = ID;
         this.eventIDs = new ArrayList<>(ids);
         this.name = name;
         this.password = pass;
         this.email = email;
+        try {
+            this.availabilityDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(avDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     //Setters
@@ -80,6 +89,10 @@ public class Employee {
 
     public int getLastEventID() {
         return eventIDs.get(eventIDs.size()-1);
+    }
+
+    public Date getLastEventInfo(){
+        return availabilityDate;
     }
 }
 

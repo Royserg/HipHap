@@ -29,7 +29,7 @@ public class Event {
     /**
      * Constructor for creating a whole new event by employee
     * */
-    public Event(int ID, String name, String serviceType, String eventType, Employee employeeResponsible, int nbOfHoursNeeded){
+    public Event(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
@@ -108,9 +108,9 @@ public class Event {
 
         if( currentUser.getID() == 1111 ) {//manager
             int employeeID = Helper.getInt("Enter ID of the employee that will be asigned this event: ");
-            startDate = employeeResponsible.getLastEventInfo(employeeResponsible);
+            startDate = employeeResponsible.getLastEventInfo();
         } else{
-            startDate = employeeResponsible.getLastEventInfo(employeeResponsible);
+            startDate = employeeResponsible.getLastEventInfo();
         }
         return startDate;
     }
@@ -127,7 +127,7 @@ public class Event {
             endDate.setDate(endDate.getDate() + daysToMove);
         }else{
             endDate.setMonth(endDate.getMonth() + 1 );
-            endDate.setDate(daysToMove - 31);
+            endDate.setDate(endDate.getDate() + daysToMove  - 31);
         }
         endDate.setHours(hoursLeft);
         return endDate;
