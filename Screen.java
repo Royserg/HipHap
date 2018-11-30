@@ -17,11 +17,21 @@ public class Screen {
 
     // TODO: fix methods below
 
-
-    private static void showHeader(String heading) {
+    /**
+     * prints nicely formatted header of the screen
+     * @param heading (String) - message to be nicely formatted as a header
+     */
+    public static void showHeader(String heading) {
         System.out.println("___________________________");
         System.out.println("|        " + heading + "        |");
         System.out.println("===========================");
+    }
+
+    /**
+     * prints nicely formatted header with today's date
+     */
+    public static void showHeader() {
+        showHeader(ft.format(new Date()));
     }
 
 
@@ -51,6 +61,7 @@ public class Screen {
 
     public static void showDashboard(Employee currentUser) {
         showMain(currentUser.getName());
+        System.out.println("0. Logout");
         System.out.println("1. Add event");
         System.out.println("2. Change date");
         System.out.println("3. Show my events");
@@ -59,12 +70,13 @@ public class Screen {
     }
 
     /* For manager:
+     * 0. Logout
      * 1. Add event
      * 2. Change date
      * 3. Show all customers
      * 4. Show all events
      * 5. Show all employees
-     * 7. Log out
+     * 6. Log out
      */
 
     public static void showEventForm() {
