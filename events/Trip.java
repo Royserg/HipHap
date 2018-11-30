@@ -6,9 +6,19 @@ public class Trip extends Event implements EventPricing{
     private String transport;
     private double baseTripPrice = 50000;
 
-    //Constructor
-    public Trip(int ID, String name, String serviceType, String eventType, int nbOfHoursNeeded) {
-        super(ID, name, serviceType, eventType, nbOfHoursNeeded);
+    /**
+     * Constructor for creating a whole new event by employee
+     * */
+    public Trip(int ID, String name, String serviceType, String eventType, Employee employeeResponsible, int nbOfHoursNeeded, String transport) {
+        super(ID, name, serviceType, eventType, employeeResponsible, nbOfHoursNeeded);
+        this.transport = transport;
+    }
+
+    /**
+     * Constructor for creating a new event with reading from our database
+     * */
+    public Trip(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String transport){
+        super(ID, eventType, name, serviceType, startDate, endDate, nbOfHoursNeeded);
         this.transport = transport;
     }
 
