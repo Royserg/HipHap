@@ -8,7 +8,7 @@ public class Manager extends Employee {
 //    private String password;
 //    private String email;
 
-    public Manager(int id, ArrayList<Integer> ids, String name, String pass, String email) {
-        super(id, ids, name, pass, email);
+    public Manager(int id, ArrayList<Integer> ids, String name, String pass, String email, String avDate) {
+        super(id, ids, name, pass, email, avDate);
     }
 }

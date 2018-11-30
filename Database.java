@@ -1,11 +1,16 @@
 package src;
 
+import src.events.BusinessParty;
+import src.events.Conference;
+import src.events.Trip;
 import src.events.Event;
 import src.users.Customer;
 import src.users.Employee;
+import src.users.Manager;
 import src.users.Partner;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.io.*;
 import java.io.File;
@@ -19,6 +24,7 @@ public class Database {
     public ArrayList<Employee> employees = readEmployeesFile();
     public ArrayList<Partner> partners = readPartnersFile();
     public ArrayList<Customer> customers = readCustomersFile();
+    public Manager manager;
 
     // constructor
     public Database() {}
@@ -56,10 +62,7 @@ public class Database {
         return null;
     }
 
-    //TODO
-    public static Date getLastEventInfo(Employee employee){
-        return ;
-    }
+
 
 
     /**
@@ -85,19 +88,18 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-                // Event(ID,name,type,startDate,endDate)
-                //TODO: make switch cases for the different type of events
+                //  public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded
                 switch (row[1]) {
-                    case "1":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Conference", Integer.parseInt(row[4])));
+                    case "Conference":
+                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
                         break;
 
-                    case "2":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Trip", Integer.parseInt(row[4])));
+                    case "Trip":
+                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
                         break;
 
-                    case "3":
-                        events.add(new Event(Integer.parseInt(row[0]), row[2], row[3], "Business Party", Integer.parseInt(row[4])));
+                    case "Business Party":
+                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
                         break;
                 }
 
@@ -208,22 +210,14 @@ public class Database {
                     castedIDs.add(Integer.parseInt(IDs[i]));
                 }
 
-                // public Employee(ArrayList<Integer> ids, String name, String pass, String email)
-                employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4]));
+                if (Integer.parseInt(row[0]) == 1111) {
+                    manager = new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]);
+                }
 
-
-                //Checking if the read is correct -- the variables were public at checking for speed
-
-//                System.out.print(employees.get(employees.size()-1).ID);
-//                System.out.print(" - ");
-//                System.out.print(employees.get(employees.size()-1).eventIDs);
-//                System.out.print(" - ");
-//                System.out.print(employees.get(employees.size()-1).name);
-//                System.out.print(" - ");
-//                System.out.print(employees.get(employees.size()-1).password);
-//                System.out.print(" - ");
-//                System.out.println(employees.get(employees.size()-1).email);
-
+                else {
+                    // public Employee(ArrayList<Integer> ids, String name, String pass, String email, String avDate)
+                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
+                }
 
             }
 
@@ -417,7 +411,22 @@ public class Database {
         pw.close();
     }
 
+    public void getEmployeeEvents(ArrayList<Integer> eventIDs) {
+        for (int i = 0; i < eventIDs.size()-1; i++) {
+            // searching for matches of those IDs in the event array
+            for (int j = 0; j < events.size()-1; j++) {
+                if (eventIDs.get(i) == events.get(j).getID()) {
+                    System.out.print("Event ID: " + events.get(j).getID() + "| ");
+                    System.out.print("Name: " + events.get(j).getName() + "| ");
+                    System.out.print("Event Type: " + events.get(j).getEventType() + "| ");
+                    System.out.print("Service Type: " + events.get(j).getServiceType() + "| ");
+                    System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgStartDate()) + "| ");
+                    System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgEndDate()) + "| ");
 
+                }
+            }
+        }
+    }
 
 
 }
