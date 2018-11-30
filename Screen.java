@@ -51,13 +51,21 @@ public class Screen {
 
     public static void showDashboard(Employee currentUser) {
         showMain(currentUser.getName());
-        System.out.println("1. Add events");
+        System.out.println("1. Add event");
         System.out.println("2. Change date");
-        System.out.println("3. Show customers");
-        System.out.println("4. Show my events");
-        System.out.println("5. Show partners");
-        System.out.println("6. Log out");
+        System.out.println("3. Show my events");
+        System.out.println("4. Show partners");
+        System.out.println("5. Log out");
     }
+
+    /* For manager:
+     * 1. Add event
+     * 2. Change date
+     * 3. Show all customers
+     * 4. Show all events
+     * 5. Show all employees
+     * 7. Log out
+     */
 
     public static void showEventForm() {
         System.out.print("Event name: ");
