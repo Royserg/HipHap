@@ -27,6 +27,21 @@ public class Application {
         showLogin("");
 
         System.out.println("Logged in successfully");
+
+        // TODO: one guy will be a manager => needs to create an object when reading file
+        // apply proper dashboard to the logged in user (employee / manager)
+        // attribute for Employee -> "system options"
+
+
+        // show Dashboard
+        showDashboard();
+        // _____ today date _____
+        // - listed events for today
+        // - options to choose
+
+
+
+
     }
 
 
@@ -55,7 +70,23 @@ public class Application {
 //                }
 //            }
 //        }
-
+    // ==========================
+    // ==== Option Selection ====
+    // ==========================
+    private void activateOption(int option) {
+        switch(option) {
+            case 0:
+                // if
+                break;
+            case 1:
+                //addEvent();
+                break;
+            case 2:
+                // changeDate();
+                break;
+                // TODO:other cases
+        }
+    }
 
     // ==========================
     // screens of the application
@@ -78,6 +109,16 @@ public class Application {
         password = Helper.getString("Password: ");
         // authenticate user
         validateUser(username, password);
+    }
+
+
+    private void showDashboard() {
+        // pass current date to the header
+        Screen.showHeader();
+        // list events for today
+        db.getEmployeeEvents(currentUser.getEventIDs());
+        // show menu options
+        Screen.listOptions(false);
     }
 
 
@@ -119,7 +160,11 @@ public class Application {
      * removes logged in user reference from currentUser attribute
      */
     private void logout() {
+        // TODO: save information into files
+        // remove user
         currentUser = null;
+        // show login screen
+        showLogin("");
     }
 
     public static Employee getCurrentUser(){ return currentUser; }
