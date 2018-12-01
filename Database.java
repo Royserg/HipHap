@@ -212,6 +212,8 @@ public class Database {
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
+            // skip first line of the file
+            br.readLine();
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator
@@ -223,8 +225,10 @@ public class Database {
                 // Casting the String IDs to Integer
                 ArrayList<Integer> castedIDs = new ArrayList<>();
                 for (int i = 0; i < IDs.length; i++) {
+//                    System.out.println(IDs[i]);
                     castedIDs.add(Integer.parseInt(IDs[i]));
                 }
+                System.out.println("=========");
 
                 if (Integer.parseInt(row[0]) == 1111) {
                     manager = new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]);
