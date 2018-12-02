@@ -6,6 +6,16 @@ public class Helper {
 
     static final String USER_NOT_FOUND = ">>>>>  User not found <<<<<";
     static final String PASSWORD_INCORRECT = ">>>> Incorrect password  <<<<";
+    static final String LOGOUT_SUCCESS = "> Successfully Logged out <";
+    static final String LOGOUT = "Logout";
+    static final String ADD_EVENT = "Add event";
+    static final String CHANGE_DATE = "Change date";
+    static final String SHOW_ALL_EVENTS = "Show all events";
+    static final String SHOW_CUSTOMERS = "Show customers";
+    static final String SHOW_EMPLOYEES = "Show employees";
+    static final String SHOW_PARTNERS = "Show partners";
+    static final String SHOW_MY_EVENTS = "Show my events";
+
 
     static Scanner scn = new Scanner(System.in);
 
@@ -23,8 +33,7 @@ public class Helper {
             System.out.print("Input error occurred: " + e.getMessage());
         }
 
-
-        if ((selectedOption > 0) && (selectedOption < limit + 1))
+        if ((selectedOption >= 0) && (selectedOption < limit))
             return selectedOption;
 
         else {
@@ -53,8 +62,8 @@ public class Helper {
         System.out.print(msg);
         int inputInt = scn.nextInt();
 
-        // consume rest of the line after int
-        scn.next();
+        // consume buffer line reminder
+        scn.nextLine();
 
         return inputInt;
     }
