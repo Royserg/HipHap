@@ -230,7 +230,7 @@ public class Database {
                 }
 
                 if (Integer.parseInt(row[0]) == 1111) {
-                    manager = new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]);
+                    employees.add(new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
                 }
 
                 else {
