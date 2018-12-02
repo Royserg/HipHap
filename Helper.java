@@ -58,4 +58,22 @@ public class Helper {
 
         return inputInt;
     }
+
+    /**
+     * method for joining String of comma separated options with array of String
+     * @param arr1 [String[]] array to combine
+     * @param optionsString [String] of options to convert and concat with arr1
+     * @return combined array arr1 with provided String of options
+     */
+    static String[] arrayJoinString(String[] arr1, String optionsString) {
+        String[] arr2 = optionsString.split(", ");
+
+        int length = arr1.length + arr2.length;
+        String[] joined = new String[length];
+
+        System.arraycopy(arr1, 0, joined, 0, arr1.length);
+        System.arraycopy(arr2, 0, joined, arr1.length, arr2.length);
+
+        return joined;
+    }
 }
