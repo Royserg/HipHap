@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.*;
 
+
+
 public class Screen {
     private static SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy '-' HH:mm");
 
@@ -21,7 +23,7 @@ public class Screen {
      */
     public static void showHeader(String heading) {
         System.out.println("___________________________");
-        System.out.println("|        " + heading + "        |");
+        System.out.println("|    " + heading + "   |");
         System.out.println("===========================");
     }
 
@@ -38,37 +40,33 @@ public class Screen {
      * Logo of HipHapOrg
      */
     public static void showLogo() {
-        showHeader("HipHapOrg");
-    }
-
-
-
-    public static void showDashboardOptions(String name) {
-        System.out.println("Main Page");
-        System.out.println("==============================");
-        System.out.println(name );
-        System.out.println(ft.format(new Date()));
-        System.out.println("==============================");
+        showHeader("    HipHapOrg     ");
     }
 
 
     public static void clearScreen() {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 15; i++)
             System.out.println();
     }
 
-    public static void listOptions(boolean isManager) {
-//        showMain(currentUser.getName());
-        System.out.println("0. Logout");
-        System.out.println("1. Add event");
-        System.out.println("2. Change date");
-        if (isManager) {
-            System.out.println("3. Show all customers");
-            System.out.println("4. Show all events");
-            System.out.println("5. Show all employees");
-        } else {
-            System.out.println("3. Show my events");
-            System.out.println("4. Show partners");
+    public static String[] getOptions(int userID) {
+        // check if user is manager from provided id
+        boolean isManager = userID == 1111;
+        // default main options
+        String[] mainOptions = {"Logout", "Add event", "Change date"};
+
+        // options for the dashboard
+        String[] mainManagerOptions = Helper.arrayJoinString(mainOptions, "Show all Events, Show customers, Show employees, Show partners");
+        String[] mainEmployeeOptions = Helper.arrayJoinString(mainOptions, "Show my events, Show partners");
+
+        // todo: dashboard options - String passed to method?
+        return isManager ? mainManagerOptions: mainEmployeeOptions;
+
+    }
+
+    public static void listOptions(String[] options) {
+        for (int i = 0; i < options.length; i++) {
+            System.out.println(i + ". " + options[i]);
         }
     }
 
