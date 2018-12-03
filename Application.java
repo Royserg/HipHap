@@ -97,13 +97,8 @@ public class Application {
         Screen.listOptions(options);
         // user inputs option number
         int selection = Helper.selectOption(options.length);
-        // 0. Main Menu
-        // 1. Edit Event
-        // 2. Delete
-        //todo:continue on this
 
-
-        System.out.println("selected: " + options[selection]);
+        handleSelectedOption(options[selection]);
     }
 
     private void showSelectEventMenu(){
@@ -125,6 +120,12 @@ public class Application {
                 break;
             case Helper.SHOW_DASHBOARD:
                 showDashboard();
+                break;
+            case Helper.SELECT_DATE:
+                System.out.println("===Select Date===");
+                break;
+            case Helper.SELECT_PERIOD:
+                System.out.println("===SELECT Period===");
                 break;
             case Helper.ADD_EVENT:
                 System.out.println("Showing New Event Form");
