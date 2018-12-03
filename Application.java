@@ -62,8 +62,9 @@ public class Application {
 
 
     private void showDashboard() {
-        // pass current date to the header
+        Screen.clearScreen();
         Screen.showLogo();
+        // showing header with default date
         Screen.showHeader();
         ArrayList<Integer> eventIDsForToday = db.getEmployeeEventsForToday(currentUser.getEventIDs());
         if (eventIDsForToday.isEmpty()) {
@@ -130,7 +131,6 @@ public class Application {
                 System.out.println("Showing New Event Form");
                 addEvent();
                 Helper.getString("Press enter to go back to main menu");
-                Screen.clearScreen();
                 showDashboard();
                 break;
             case Helper.CHANGE_DATE:
@@ -140,7 +140,6 @@ public class Application {
                 System.out.println("Showing Customers");
                 showCustomers();
                 Helper.getString("Press enter to go back to main menu");
-                Screen.clearScreen();
                 showDashboard();
                 break;
             case Helper.SHOW_EMPLOYEES:
@@ -150,20 +149,17 @@ public class Application {
                 System.out.println("Showing Partners");
                 showPartners();
                 Helper.getString("Press enter to go back to main menu");
-                Screen.clearScreen();
                 showDashboard();
                 break;
             case Helper.SELECT_EVENT:
                 System.out.println("Showing my events");
                 selectEvent();
                 Helper.getString("Press enter to go back to main menu");
-                Screen.clearScreen();
                 showDashboard();
                 break;
             default:
                 System.out.println("Option does not exist");
                 Helper.getString("Press enter to go back to main menu");
-                Screen.clearScreen();
                 showDashboard();
                 break;
         }
