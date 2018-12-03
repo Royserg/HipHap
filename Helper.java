@@ -44,6 +44,30 @@ public class Helper {
     }
 
     /**
+     * Choosing specified option between min and max, both provided as parameters, both are included
+     * @param min (int) - minimal value that will be excepted
+     * @param max (int) - maximal value that will be execepted
+     * @return
+     */
+    public static int selectOption (int min, int max){
+        int selectedOption = 0;
+
+        try {
+            selectedOption = getInt("Option: ");
+        } catch (Exception e) {
+            System.out.print("Input error occurred: " + e.getMessage());
+        }
+
+        if ((selectedOption >= min) && (selectedOption <= max))
+            return selectedOption;
+
+        else {
+            System.out.println("Wrong option. Please try again.");
+            return selectOption(min, max);
+        }
+    }
+
+    /**
      * Prints provided message and waits for String from user
      * @param msg (String) - message to be displayed
      * @return user input (String)

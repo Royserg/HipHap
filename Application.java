@@ -304,13 +304,13 @@ public class Application {
         System.out.println("1 - Conference");
         System.out.println("2 - Trip");
         System.out.println("3 - Business Party");
-        int eventType = Helper.selectOption(3);
+        int eventType = Helper.selectOption(0, 3);
 
         System.out.println("Event service: ");
         System.out.println("1 - Consultancy");
         System.out.println("2 - Planning");
         System.out.println("3 - Full Organization");
-        int serviceType = Helper.selectOption(3);
+        int serviceType = Helper.selectOption(0, 3);
 
         if (serviceType == 1){
             serviceTypeString = "Consultancy";
@@ -346,9 +346,12 @@ public class Application {
             db.events.add(newEvent);
         }
         //TODO: add location, parters
+        //are we going to select an existing location from a list? and the same for partners?
     }
 
     public void editEvent(){
+
+
 
     }
 }
