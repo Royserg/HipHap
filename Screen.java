@@ -49,19 +49,38 @@ public class Screen {
             System.out.println();
     }
 
+    /**
+     * get available main menu options for the provided user
+     * @param userID id of the user for whom options should be returned
+     * @return [String[]] array of Strings - available options for a particular user
+     */
     public static String[] getOptions(int userID) {
         // check if user is manager from provided id
         boolean isManager = userID == 1111;
-        // default main options
+
+        // default main options - employee
         String[] mainOptions = {"Logout", "Add event", "Change date", "Select event", "Show partners"};
-
-        // options for the dashboard
+        // options for the dashboard - manager
         String[] mainManagerOptions = Helper.arrayJoinString(mainOptions, "Show customers, Show employees");
-        //String[] mainEmployeeOptions = Helper.arrayJoinString(mainOptions, "Show partners");
 
-        // todo: dashboard options - String passed to method?
         return isManager ? mainManagerOptions: mainOptions;
+    }
 
+    /**
+     * get available options for the screen
+     * @param screen [String] for what screen options should be returned
+     * @return [String[]] options for particular screen specified
+     */
+    public static String[] getOptions(String screen) {
+
+        String[] defaultOptions = {"Main menu"};
+
+        // options for Date options screen
+        if (screen.equals("date options")) {
+            return Helper.arrayJoinString(defaultOptions, "Select date, Select period");
+        }
+
+        return defaultOptions;
     }
 
     public static void listOptions(String[] options) {

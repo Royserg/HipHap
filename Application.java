@@ -85,6 +85,15 @@ public class Application {
         handleSelectedOption(options[selection]);
     }
 
+    private void showDateMenu() {
+        String[] options = Screen.getOptions("date options");
+        // print options
+        Screen.listOptions(options);
+        // user inputs option number
+        int selection = Helper.selectOption(options.length);
+        System.out.println("selected: " + options[selection]);
+    }
+
     // ==================================
     // ======== Option selecting ========
     // ==================================
@@ -93,11 +102,14 @@ public class Application {
             case Helper.LOGOUT:
                 logout();
                 break;
+            case Helper.SHOW_DASHBOARD:
+                showDashboard();
+                break;
             case Helper.ADD_EVENT:
                 System.out.println("Showing New Event Form");
                 break;
             case Helper.CHANGE_DATE:
-                System.out.println("Show changing date options");
+                showDateMenu();
                 break;
             case Helper.SHOW_CUSTOMERS:
                 System.out.println("Showing Customers");
@@ -163,7 +175,7 @@ public class Application {
 
     }
 
-    public void showPartners() {
+    private void showPartners() {
         System.out.println();
         for (int i = 0; i < db.partners.size(); i++) {
             System.out.print("Name: " + db.partners.get(i).getName() + "| ");
@@ -171,7 +183,7 @@ public class Application {
         }
     }
 
-    public void showCustomers() {
+    private void showCustomers() {
         System.out.println();
         for (int i = 0; i < db.customers.size(); i++) {
             System.out.print("Name: " + db.customers.get(i).getName() + "| ");

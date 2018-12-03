@@ -14,7 +14,7 @@ public class Helper {
     static final String SHOW_CUSTOMERS = "Show customers";
     static final String SHOW_EMPLOYEES = "Show employees";
     static final String SHOW_PARTNERS = "Show partners";
-    //static final String SHOW_MY_EVENTS = "Show my events";
+    static final String SHOW_DASHBOARD = "Main menu";
 
 
     static Scanner scn = new Scanner(System.in);
