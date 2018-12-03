@@ -45,7 +45,7 @@ public class Screen {
 
 
     public static void clearScreen() {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 30; i++)
             System.out.println();
     }
 
@@ -53,14 +53,14 @@ public class Screen {
         // check if user is manager from provided id
         boolean isManager = userID == 1111;
         // default main options
-        String[] mainOptions = {"Logout", "Add event", "Change date"};
+        String[] mainOptions = {"Logout", "Add event", "Change date", "Select event", "Show partners"};
 
         // options for the dashboard
-        String[] mainManagerOptions = Helper.arrayJoinString(mainOptions, "Show all Events, Show customers, Show employees, Show partners");
-        String[] mainEmployeeOptions = Helper.arrayJoinString(mainOptions, "Show my events, Show partners");
+        String[] mainManagerOptions = Helper.arrayJoinString(mainOptions, "Show customers, Show employees");
+        //String[] mainEmployeeOptions = Helper.arrayJoinString(mainOptions, "Show partners");
 
         // todo: dashboard options - String passed to method?
-        return isManager ? mainManagerOptions: mainEmployeeOptions;
+        return isManager ? mainManagerOptions: mainOptions;
 
     }
 

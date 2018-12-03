@@ -62,21 +62,32 @@ public class Database {
         return null;
     }
 
-    public void getEmployeeEvents(ArrayList<Integer> eventIDs) {
-        for (int i = 0; i < eventIDs.size()-1; i++) {
+    public ArrayList<Integer> getEmployeeEvents(ArrayList<Integer> eventIDs) {
+        ArrayList<Integer> createdArray = new ArrayList<>();
+        for (int i = 0; i < eventIDs.size(); i++) {
             // searching for matches of those IDs in the event array
-            for (int j = 0; j < events.size()-1; j++) {
+            for (int j = 0; j < events.size(); j++) {
                 if (eventIDs.get(i) == events.get(j).getID()) {
-                    System.out.print("Event ID: " + events.get(j).getID() + "| ");
-                    System.out.print("Name: " + events.get(j).getName() + "| ");
-                    System.out.print("Event Type: " + events.get(j).getEventType() + "| ");
-                    System.out.print("Service Type: " + events.get(j).getServiceType() + "| ");
-                    System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgStartDate()) + "| ");
-                    System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(events.get(j).getOrgEndDate()) + "| ");
-
+                    createdArray.add(events.get(j).getID());
                 }
             }
         }
+        return createdArray;
+    }
+
+    public ArrayList<Integer> getEmployeeEventsForToday(ArrayList<Integer> eventIDs) {
+        ArrayList<Integer> createdArray = new ArrayList<>();
+        for (int i = 0; i < eventIDs.size(); i++) {
+            // searching for matches of those IDs in the event array
+            for (int j = 0; j < events.size(); j++) {
+                if (eventIDs.get(i) == events.get(j).getID())
+                    if ((events.get(j).getOrgStartDate().before(new Date())) && (events.get(j).getOrgEndDate().after(new Date()))) {
+                        createdArray.add(events.get(j).getID());
+                    }
+
+            }
+        }
+        return createdArray;
     }
 
 

@@ -2,6 +2,10 @@ package src;
 
 import src.users.Employee;
 
+import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 public class Application {
 
     // keep track of currently logged in Employee
@@ -54,9 +58,23 @@ public class Application {
 
     private void showDashboard() {
         // pass current date to the header
+        Screen.showLogo();
         Screen.showHeader();
-        // TODO: list events for today
-        db.getEmployeeEvents(currentUser.getEventIDs());
+        ArrayList<Integer> eventIDsForToday = db.getEmployeeEventsForToday(currentUser.getEventIDs());
+        if (eventIDsForToday.isEmpty()) {
+            System.out.println("No events for today");
+        }
+        else {
+            System.out.println("Today's events:");
+            for (int i = 0; i < eventIDsForToday.size(); i++) {
+                System.out.print("Event ID: " + db.events.get(i).getID() + "| ");
+                System.out.print("Name: " + db.events.get(i).getName() + "| ");
+                System.out.print("Event Type: " + db.events.get(i).getEventType() + "| ");
+                System.out.println("Service Type: " + db.events.get(i).getServiceType() + "| ");
+            }
+        }
+        System.out.println();
+        System.out.println();
 
         String[] options = Screen.getOptions(currentUser.getID());
         // show menu options
@@ -81,20 +99,29 @@ public class Application {
             case Helper.CHANGE_DATE:
                 System.out.println("Show changing date options");
                 break;
-            case Helper.SHOW_ALL_EVENTS:
-                System.out.println("Showing all events");
-                break;
             case Helper.SHOW_CUSTOMERS:
                 System.out.println("Showing Customers");
+                showCustomers();
+                Helper.getString("Press any key to go back to main menu");
+                Screen.clearScreen();
+                showDashboard();
                 break;
             case Helper.SHOW_EMPLOYEES:
                 System.out.println("Showing Employees");
                 break;
             case Helper.SHOW_PARTNERS:
-                System.out.println("Showing partners");
+                System.out.println("Showing Partners");
+                showPartners();
+                Helper.getString("Press any key to go back to main menu");
+                Screen.clearScreen();
+                showDashboard();
                 break;
-            case Helper.SHOW_MY_EVENTS:
+            case Helper.SELECT_EVENT:
                 System.out.println("Showing my events");
+                selectEvent();
+                Helper.getString("Press any key to go back to main menu");
+                Screen.clearScreen();
+                showDashboard();
                 break;
             default:
                 System.out.println("Option does not exist");
@@ -102,6 +129,55 @@ public class Application {
         }
     }
 
+    public void selectEvent() {
+        System.out.println();
+
+        if (currentUser.getID() == 1111) {
+            for (int j = 0; j < db.employees.size(); j++) {
+                ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(db.employees.get(j).getEventIDs());
+                System.out.println("Employee: " + db.employees.get(j).getName());
+                for (int i = 0; i < eventIDs.size(); i++) {
+                    System.out.print("Event ID: " + db.events.get(i).getID() + "| ");
+                    System.out.print("Name: " + db.events.get(i).getName() + "| ");
+                    System.out.print("Event Type: " + db.events.get(i).getEventType() + "| ");
+                    System.out.println("Service Type: " + db.events.get(i).getServiceType() + "| ");
+                    System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgStartDate()) + "| ");
+                    System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgEndDate()) + "| ");
+                    System.out.println();
+                }
+            }
+        }
+
+        else {
+            ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(currentUser.getEventIDs());
+            for (int i = 0; i < eventIDs.size(); i++) {
+                System.out.print("Event ID: " + db.events.get(i).getID() + "| ");
+                System.out.print("Name: " + db.events.get(i).getName() + "| ");
+                System.out.print("Event Type: " + db.events.get(i).getEventType() + "| ");
+                System.out.println("Service Type: " + db.events.get(i).getServiceType() + "| ");
+                System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgStartDate()) + "| ");
+                System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgEndDate()) + "| ");
+                System.out.println();
+            }
+        }
+
+    }
+
+    public void showPartners() {
+        System.out.println();
+        for (int i = 0; i < db.partners.size(); i++) {
+            System.out.print("Name: " + db.partners.get(i).getName() + "| ");
+            System.out.println("Service: " + db.partners.get(i).getOccupation());
+        }
+    }
+
+    public void showCustomers() {
+        System.out.println();
+        for (int i = 0; i < db.customers.size(); i++) {
+            System.out.print("Name: " + db.customers.get(i).getName() + "| ");
+            System.out.println("Event ID(s): " + db.customers.get(i).getOwnEvents());
+        }
+    }
 
     // =======================
     // Login connected methods
