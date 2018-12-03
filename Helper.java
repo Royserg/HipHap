@@ -23,7 +23,7 @@ public class Helper {
     /**
      * Choosing specified option between 0 and provided limit
      * @param limit (int) upper limit of possible integer input
-     * @return
+     * @return inputted number (int)
      */
     public static int selectOption (int limit){
         int selectedOption = 0;
