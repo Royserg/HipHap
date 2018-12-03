@@ -22,7 +22,7 @@ public class Screen {
      * @param heading (String) - message to be nicely formatted as a header
      */
     public static void showHeader(String heading) {
-        System.out.println("___________________________");
+        System.out.println("===========================");
         System.out.println("|    " + heading + "   |");
         System.out.println("===========================");
     }
