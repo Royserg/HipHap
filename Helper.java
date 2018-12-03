@@ -15,7 +15,8 @@ public class Helper {
     static final String SHOW_EMPLOYEES = "Show employees";
     static final String SHOW_PARTNERS = "Show partners";
     static final String SHOW_DASHBOARD = "Main menu";
-
+    static final String SELECT_DATE = "Select date";
+    static final String SELECT_PERIOD = "Select period";
 
     static Scanner scn = new Scanner(System.in);
 
