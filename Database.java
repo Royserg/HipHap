@@ -109,6 +109,7 @@ public class Database {
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
+            // skip 1st title line
             br.readLine();
             while ((line = br.readLine()) != null) {
 
