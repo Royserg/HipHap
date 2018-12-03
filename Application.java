@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Application {
 
     // keep track of currently logged in Employee
-    //TODO: I need this to be static but is it okay as we can login multiple times ? - Aneja
     private static Employee currentUser;
 
 //    private Scanner scn = new Scanner(System.in);
@@ -129,6 +128,10 @@ public class Application {
                 break;
             case Helper.ADD_EVENT:
                 System.out.println("Showing New Event Form");
+                addEvent();
+                Helper.getString("Press enter to go back to main menu");
+                Screen.clearScreen();
+                showDashboard();
                 break;
             case Helper.CHANGE_DATE:
                 showDateMenu();
@@ -136,7 +139,7 @@ public class Application {
             case Helper.SHOW_CUSTOMERS:
                 System.out.println("Showing Customers");
                 showCustomers();
-                Helper.getString("Press any key to go back to main menu");
+                Helper.getString("Press enter to go back to main menu");
                 Screen.clearScreen();
                 showDashboard();
                 break;
@@ -146,20 +149,20 @@ public class Application {
             case Helper.SHOW_PARTNERS:
                 System.out.println("Showing Partners");
                 showPartners();
-                Helper.getString("Press any key to go back to main menu");
+                Helper.getString("Press enter to go back to main menu");
                 Screen.clearScreen();
                 showDashboard();
                 break;
             case Helper.SELECT_EVENT:
                 System.out.println("Showing my events");
                 selectEvent();
-                Helper.getString("Press any key to go back to main menu");
+                Helper.getString("Press enter to go back to main menu");
                 Screen.clearScreen();
                 showDashboard();
                 break;
             default:
                 System.out.println("Option does not exist");
-                Helper.getString("Press any key to go back to main menu");
+                Helper.getString("Press enter to go back to main menu");
                 Screen.clearScreen();
                 showDashboard();
                 break;
@@ -272,7 +275,6 @@ public class Application {
     }
 
     public void addEvent(){
-        Employee currentUser = Application.getCurrentUser();
         Employee responsibleEmployee;
         int newID = 0;
         String eventTypeString = "";
@@ -343,7 +345,10 @@ public class Application {
             BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, decoration);
             db.events.add(newEvent);
         }
+        //TODO: add location, parters
+    }
 
+    public void editEvent(){
 
     }
 }

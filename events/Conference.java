@@ -3,42 +3,43 @@ package src.events;
 import src.users.Employee;
 
 public class Conference extends Event implements EventPricing{
-    private String officeSupplies; //adding 1 attribute
     private static double baseConferencePrice = 10000 ;
 
     /**
      * Constructor for creating a whole new event by employee
      * */
-    public Conference(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String officeSupplies) {
-        super(ID, eventType, name, serviceType, employeeResponsible, nbOfHoursNeeded);
-        this.officeSupplies = officeSupplies;
+    public Conference(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String specs) {
+        super(ID, eventType, name, serviceType, employeeResponsible, nbOfHoursNeeded, specs);
     }
 
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Conference(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String officeSupplies){
-        super(ID, eventType, name, serviceType, startDate, endDate, nbOfHoursNeeded);
-        this.officeSupplies = officeSupplies;
+    public Conference(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specs){
+        super(ID, eventType, name, serviceType, startDate, endDate, nbOfHoursNeeded, specs);
     }
 
-    /**
-     * Setting office supplies needed for the conference
-     * @param officeSupplies (String) - office supplies needed for the conference*/
-    public void setofficeSupplies(String officeSupplies) {
-        this.officeSupplies = officeSupplies;
-    }
+    //Setters
 
     /**
-     * Getting office supplies needed for the conference
-     * @return officeSupplies (String) - office supplies needed for the conference*/
-    public String getOfficeSupplies() {
-        return this.officeSupplies;
-    }
+     * set base conference price
+     * @param price (double) - base price for the conference
+     */
+    public void setBaseConferencePrice(double price) {this.baseConferencePrice = price;}
+
+    //getters
+
+    /**
+     * returns base conference price
+     * @return baseConferencePrice (double) - base price for the conference
+     */
+    public double getBaseConferencePrice() { return this.baseConferencePrice; }
+
 
 
     @Override
     public double calculateEventPrices() {
-        return (baseConferencePrice + getNbOfHoursNeeded() * Employee.getHourlyWage());
+        int nbOfSpecs = super.specs.size();
+        return (baseConferencePrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
     }
 }

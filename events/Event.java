@@ -28,7 +28,7 @@ public class Event {
     /**
      * Constructor for creating a whole new event by employee
     * */
-    public Event(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded){
+    public Event(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
@@ -37,12 +37,18 @@ public class Event {
         this.nbOfHoursNeeded = nbOfHoursNeeded;
         this.orgStartDate = setOrgStartDate(employeeResponsible);
         this.orgEndDate = setOrgEndDate();
+
+        String[]specsHelper = specsString.split(", ");
+        for(int i = 0; i < specsHelper.length; i++){
+            specs.add(specsHelper[i]);
+        }
+
     }
 
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded ){
+    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.eventType = eventType;
         this.name = name;
@@ -56,6 +62,11 @@ public class Event {
         }
 
         this.nbOfHoursNeeded = nbOfHoursNeeded;
+
+        String[]specsHelper = specsString.split(", ");
+        for(int i = 0; i < specsHelper.length; i++){
+            specs.add(specsHelper[i]);
+        }
 
     }
 
@@ -94,6 +105,15 @@ public class Event {
         this.location = location;
     }
 
+    /**
+     * sets specification for the event, items needed like office supplies
+     * @param  specsString (String) - items needed for the event*/
+    public void setSpecs(String specsString) {
+        String[]specsHelper = specsString.split(", ");
+        for(int i = 0; i < specsHelper.length; i++){
+            specs.add(specsHelper[i]);
+        }
+    }
 
     /**
      * Setting the organizing start date, the date when the employee responsible for the event will start working on it.
@@ -183,6 +203,13 @@ public class Event {
      * Returns the number of hours needed to organize the event
      * @return nbOfHoursNeeded (int) - number of hours needed to organize the event*/
     public int getNbOfHoursNeeded() { return nbOfHoursNeeded; }
+
+    /**
+     * returns specifications of needed items like decorations, office supplies
+     * @return specs (arrayList <String>) - items needed for the event*/
+    public ArrayList<String> getSpecs() {
+        return specs;
+    }
 
     //Modifiers
 
