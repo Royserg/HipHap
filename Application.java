@@ -5,15 +5,11 @@ import src.events.Conference;
 import src.events.Event;
 import src.events.Trip;
 import src.users.Employee;
-
-<<<<<<< HEAD
 import java.util.Random;
 
-=======
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
->>>>>>> 2a143f55f8290d85878e247bf54304a44c2729f4
+
 
 public class Application {
 
