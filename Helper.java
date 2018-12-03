@@ -10,11 +10,11 @@ public class Helper {
     static final String LOGOUT = "Logout";
     static final String ADD_EVENT = "Add event";
     static final String CHANGE_DATE = "Change date";
-    static final String SHOW_ALL_EVENTS = "Show all events";
+    static final String SELECT_EVENT = "Select event";
     static final String SHOW_CUSTOMERS = "Show customers";
     static final String SHOW_EMPLOYEES = "Show employees";
     static final String SHOW_PARTNERS = "Show partners";
-    static final String SHOW_MY_EVENTS = "Show my events";
+    static final String SHOW_DASHBOARD = "Main menu";
 
 
     static Scanner scn = new Scanner(System.in);
