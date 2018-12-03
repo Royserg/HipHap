@@ -67,6 +67,15 @@ public class Application {
         handleSelectedOption(options[selection]);
     }
 
+    private void showDateMenu() {
+        String[] options = Screen.getOptions("date options");
+        // print options
+        Screen.listOptions(options);
+        // user inputs option number
+        int selection = Helper.selectOption(options.length);
+        System.out.println("selected: " + options[selection]);
+    }
+
     // ==================================
     // ======== Option selecting ========
     // ==================================
@@ -75,13 +84,16 @@ public class Application {
             case Helper.LOGOUT:
                 logout();
                 break;
+            case Helper.SHOW_DASHBOARD:
+                showDashboard();
+                break;
             case Helper.ADD_EVENT:
                 System.out.println("Showing New Event Form");
                 break;
             case Helper.CHANGE_DATE:
-                System.out.println("Show changing date options");
+                showDateMenu();
                 break;
-            case Helper.SHOW_ALL_EVENTS:
+            case Helper.SELECT_EVENT:
                 System.out.println("Showing all events");
                 break;
             case Helper.SHOW_CUSTOMERS:
@@ -92,9 +104,6 @@ public class Application {
                 break;
             case Helper.SHOW_PARTNERS:
                 System.out.println("Showing partners");
-                break;
-            case Helper.SHOW_MY_EVENTS:
-                System.out.println("Showing my events");
                 break;
             default:
                 System.out.println("Option does not exist");
