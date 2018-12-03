@@ -57,14 +57,13 @@ public class Screen {
     public static String[] getOptions(int userID) {
         // check if user is manager from provided id
         boolean isManager = userID == 1111;
-        // default main options
-        String[] mainOptions = {"Logout", "Add event", "Change date", "Select event"};
 
-        // options for the dashboard
-        String[] mainManagerOptions = Helper.arrayJoinString(mainOptions, "Show customers, Show employees, Show partners");
-        String[] mainEmployeeOptions = Helper.arrayJoinString(mainOptions, "Show partners");
+        // default main options - employee
+        String[] mainOptions = {"Logout", "Add event", "Change date", "Select event", "Show partners"};
+        // options for the dashboard - manager
+        String[] mainManagerOptions = Helper.arrayJoinString(mainOptions, "Show customers, Show employees");
 
-        return isManager ? mainManagerOptions: mainEmployeeOptions;
+        return isManager ? mainManagerOptions: mainOptions;
     }
 
     /**
