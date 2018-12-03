@@ -80,6 +80,10 @@ public class Screen {
             return Helper.arrayJoinString(defaultOptions, "Select date, Select period");
         }
 
+        if (screen.equals("select event options")) {
+            return Helper.arrayJoinString(defaultOptions, "")
+        }
+
         return defaultOptions;
     }
 

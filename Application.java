@@ -91,6 +91,21 @@ public class Application {
         Screen.listOptions(options);
         // user inputs option number
         int selection = Helper.selectOption(options.length);
+        // 0. Main Menu
+        // 1. Edit Event
+        // 2. Delete
+        //todo:continue on this
+
+
+        System.out.println("selected: " + options[selection]);
+    }
+
+    private void showSelectEventMenu(){
+        String[] options = Screen.getOptions("select event options");
+        // print options
+        Screen.listOptions(options);
+        // user inputs option number
+        int selection = Helper.selectOption(options.length);
         System.out.println("selected: " + options[selection]);
     }
 
@@ -137,6 +152,9 @@ public class Application {
                 break;
             default:
                 System.out.println("Option does not exist");
+                Helper.getString("Press any key to go back to main menu");
+                Screen.clearScreen();
+                showDashboard();
                 break;
         }
     }
