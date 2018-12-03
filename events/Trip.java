@@ -9,8 +9,8 @@ public class Trip extends Event implements EventPricing{
     /**
      * Constructor for creating a whole new event by employee
      * */
-    public Trip(int ID, String name, String serviceType, String eventType, Employee employeeResponsible, int nbOfHoursNeeded, String transport) {
-        super(ID, name, serviceType, eventType, employeeResponsible, nbOfHoursNeeded);
+    public Trip(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String transport) {
+        super(ID, eventType, name, serviceType, employeeResponsible, nbOfHoursNeeded);
         this.transport = transport;
     }
 

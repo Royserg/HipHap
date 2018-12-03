@@ -1,6 +1,6 @@
 package src;
 
-import src.users.Employee;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -68,32 +68,6 @@ public class Screen {
         for (int i = 0; i < options.length; i++) {
             System.out.println(i + ". " + options[i]);
         }
-    }
-
-    public static void showEventForm() {
-        System.out.print("Event name: ");
-        String name = scn.nextLine();
-        while (name.equals("")) {
-            System.out.println("Event name cannot be empty. Please try again.");
-            name = scn.nextLine();
-        }
-
-        System.out.println("Event type: ");
-        System.out.println("1 - Conference");
-        System.out.println("2 - Trip");
-        System.out.println("3 - Business Party");
-        int eventType = Helper.selectOption(3);
-
-        System.out.println("Event service: ");
-        System.out.println("1 - Consultancy");
-        System.out.println("2 - Planning");
-        System.out.println("3 - Full Organization");
-        int serviceType = Helper.selectOption(3);
-
-        //TODO: calculate starting date of the new events
-        // new events will be organized after the last events is finished
-        //TODO: calculate how many hours an events takes to organize
-
     }
 
 

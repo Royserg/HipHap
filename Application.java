@@ -1,6 +1,13 @@
 package src;
 
+import src.events.BusinessParty;
+import src.events.Conference;
+import src.events.Event;
+import src.events.Trip;
 import src.users.Employee;
+
+import java.util.Random;
+
 
 public class Application {
 
@@ -10,6 +17,7 @@ public class Application {
 
 //    private Scanner scn = new Scanner(System.in);
     private Database db = new Database();
+
 
     // constructor
     public Application() { }
@@ -151,4 +159,86 @@ public class Application {
     }
 
     public static Employee getCurrentUser(){ return currentUser; }
+
+
+    public static int generateRandomID(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    public void addEvent(){
+        Employee currentUser = Application.getCurrentUser();
+        Employee responsibleEmployee;
+        int newID = 0;
+        String eventTypeString = "";
+        String serviceTypeString = "";
+        int nbOfHoursNeeded;
+
+        boolean uniqueID = false;
+        //check if the ID exists
+        while (!uniqueID) {
+            newID = generateRandomID(1000, 9999);
+            int i = 0;
+
+            while (!uniqueID) {
+                if (db.events.get(i).getID() != newID)
+                    uniqueID = true;
+                else if (i == (db.events.size() - 1))
+                    break;
+            }
+        }
+
+        String name = Helper.getString("Event name: ");
+        while (name.equals("")) {
+            name = Helper.getString("Event name cannot be empty. Please try again.");
+        }
+
+        System.out.println("Event type: ");
+        System.out.println("1 - Conference");
+        System.out.println("2 - Trip");
+        System.out.println("3 - Business Party");
+        int eventType = Helper.selectOption(3);
+
+        System.out.println("Event service: ");
+        System.out.println("1 - Consultancy");
+        System.out.println("2 - Planning");
+        System.out.println("3 - Full Organization");
+        int serviceType = Helper.selectOption(3);
+
+        if (serviceType == 1){
+            serviceTypeString = "Consultancy";
+        }else if (serviceType == 2){
+            serviceTypeString = "Planning";
+        }else if(serviceType == 3){
+            serviceTypeString = "Full Organization";
+        }
+
+        if (currentUser.getID() == 1111){
+            int employeeID = Helper.getInt("Enter ID of the employee that is going to be responsible for this event: ");
+            responsibleEmployee = db.getEmployeeByID(employeeID);
+        }else{
+            responsibleEmployee = currentUser;
+        }
+
+        nbOfHoursNeeded = Helper.getInt("Enter the number of hours needed to organize this event: ");
+
+        if(eventType == 1){
+            String officeSupplies = Helper.getString("Enter needed office supplies: ");
+            eventTypeString = "Conference";
+            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
+            db.events.add(newEvent);
+        }else if (eventType == 2){
+            String transport = Helper.getString("Enter type of transportation needed for the trip: ");
+            eventTypeString = "Trip";
+            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, transport);
+            db.events.add(newEvent);
+        }else if (eventType == 3){
+            String decoration = Helper.getString("Enter decoration needed for the party: ");
+            eventTypeString = "Business Party";
+            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, decoration);
+            db.events.add(newEvent);
+        }
+
+
+    }
 }

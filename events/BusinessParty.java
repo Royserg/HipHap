@@ -9,8 +9,8 @@ public class BusinessParty extends Event implements EventPricing {
     /**
      * Constructor for creating a whole new event by employee
      * */
-    public BusinessParty(int ID, String name, String serviceType, String eventType, Employee employeeResponsible, int nbOfHoursNeeded, String decoration) {
-        super(ID, name, serviceType, eventType, employeeResponsible, nbOfHoursNeeded);
+    public BusinessParty(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String decoration) {
+        super(ID, eventType, name, serviceType, employeeResponsible, nbOfHoursNeeded);
         this.decoration = decoration;
     }
 

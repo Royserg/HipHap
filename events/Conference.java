@@ -9,8 +9,8 @@ public class Conference extends Event implements EventPricing{
     /**
      * Constructor for creating a whole new event by employee
      * */
-    public Conference(int ID, String name, String serviceType, String eventType, Employee employeeResponsible, int nbOfHoursNeeded, String officeSupplies) {
-        super(ID, name, serviceType, eventType, employeeResponsible, nbOfHoursNeeded);
+    public Conference(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String officeSupplies) {
+        super(ID, eventType, name, serviceType, employeeResponsible, nbOfHoursNeeded);
         this.officeSupplies = officeSupplies;
     }
 
