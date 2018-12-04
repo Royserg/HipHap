@@ -1,8 +1,13 @@
 package src;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Helper {
+
+    private final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat ("dd.MM.yyyy");
 
     static final String USER_NOT_FOUND = ">>>>>  User not found <<<<<";
     static final String PASSWORD_INCORRECT = ">>>> Incorrect password  <<<<";
@@ -82,7 +87,9 @@ public class Helper {
      * ask for providing day, month and year
      * @return formatted date string
      */
-    public static String getDate() {
+    public static Date getDate() {
+        Date date = new Date();
+
         String day = "0" + Helper.getString("Day: ");
         // get last 2 characters
         day = day.substring(day.length() - 2);
@@ -93,7 +100,17 @@ public class Helper {
 
         String year = Helper.getString("Year: ");
 
-        return "date: " + day + "/" + month + "/" + year;
+
+        String dateString = day + "." + month + "." + year;
+
+        // convert String to Date
+        try {
+            date = DATE_FORMAT.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 
     /**
