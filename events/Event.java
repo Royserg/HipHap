@@ -14,14 +14,15 @@ public class Event {
     private int ID;
     private String serviceType;
     private String eventType;
+    private String location;
     private int nbOfHoursNeeded;
     Employee employeeResponsible;
-    private Date orgStartDate;
-    private Date orgEndDate;
+    private Date orgStartDate ;
+    private Date orgEndDate ;
 
     ArrayList<Integer> partnersIDs = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
-    //eg: food, dj, photographer, limousine, balloons
+    //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
 
     /**
@@ -47,7 +48,7 @@ public class Event {
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
+    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specsString, String partnerIDs){
         this.ID = ID;
         this.eventType = eventType;
         this.name = name;
@@ -62,9 +63,16 @@ public class Event {
 
         this.nbOfHoursNeeded = nbOfHoursNeeded;
 
-        String[]specsHelper = specsString.split(", ");
+
+        //TODO: make sure that separation by ; works
+        String[] specsHelper = specsString.split(";");
         for(int i = 0; i < specsHelper.length; i++){
             specs.add(specsHelper[i]);
+        }
+
+        String[] partnerHelper = partnerIDs.split(";");
+        for(int i = 0; i< partnerHelper.length; i++){
+            partnersIDs.add(Integer.parseInt(partnerHelper[i]));
         }
 
     }
@@ -97,6 +105,12 @@ public class Event {
      * @param type (String) - type of event: Trip, Business party, Conference*/
     public void setEventType (String type) {this.eventType = type; }
 
+    /**
+     * Setting location for the event
+     * @param location (String) - location for the event*/
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     /**
      * sets specification for the event, items needed like office supplies
@@ -173,6 +187,12 @@ public class Event {
      * @return eventType (String) - type of event: Trip, Business party, Conference*/
     public String getEventType(){ return this.eventType; }
 
+    /**
+     * Returns location of the event
+     * @return location(String) - location of the event*/
+    public String getLocation() {
+        return this.location;
+    }
 
     /**
      * Returns the the organizing start date, the date when the employee responsible for the event will start working on it.
@@ -215,5 +235,12 @@ public class Event {
         partnersIDs.add(ID);
     }
 
+    public String savePartnerIDs (){
+        String helper = "";
+        for (int i = 0; i < partnersIDs.size(); i++){
+            helper += partnersIDs.get(i);
+        }
+        return helper;
+    }
 
 }

@@ -15,8 +15,8 @@ public class Conference extends Event implements EventPricing{
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Conference(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specs){
-        super(ID, eventType, name, serviceType, startDate, endDate, nbOfHoursNeeded, specs);
+    public Conference(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specs, String partnerIDs){
+        super(ID, eventType, name, serviceType, startDate, endDate, nbOfHoursNeeded, specs, partnerIDs);
     }
 
     //Setters

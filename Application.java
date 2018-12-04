@@ -336,7 +336,7 @@ public class Application {
     private void showPartners() {
         System.out.println();
         for (int i = 0; i < db.partners.size(); i++) {
-            System.out.print("Name: " + db.partners.get(i).getName() + "| ");
+            System.out.print(i+1 + "Name: " + db.partners.get(i).getName() + "| ");
             System.out.println("Service: " + db.partners.get(i).getOccupation());
         }
     }

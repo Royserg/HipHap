@@ -136,15 +136,15 @@ public class Database {
                 //  public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded
                 switch (row[1]) {
                     case "Conference":
-                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
+                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7], row[8]));
                         break;
 
                     case "Trip":
-                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
+                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7], row[8]));
                         break;
 
                     case "Business Party":
-                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
+                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7], row[8]));
                         break;
                 }
 
@@ -373,6 +373,7 @@ public class Database {
             builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgEndDate())+",");
             builder.append(current.getNbOfHoursNeeded()+",");
             builder.append(current.getSpecs());
+            builder.append(current.savePartnerIDs());
             builder.append('\n');
         }
 

@@ -1,4 +1,4 @@
-event_Id,event_type,name,service_type,org_start_date,org_end_date, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party
-2345,Conference,Thompsons' Conference,Full-Organization,14.04.2018 at 20,14.04.2018 at 22,9,random, 
-7898,Trip,Thailand Trip,Planning,24.06.2018 at 14,29.06.2018 at 18,9,random, 
-4245,Business Party,Google Party,Consultancy,04.12.2018 at 9,04.12.2018 at 16,9,random
+event_Id,event_type,name,service_type,org_start_date,org_end_date, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party, partner IDs
+2345,Conference,Thompsons' Conference,Full-Organization,14.04.2018 at 20,14.04.2018 at 22,9,random,1;5
+7898,Trip,Thailand Trip,Planning,24.06.2018 at 14,29.06.2018 at 18,9,random,3;11
+4245,Business Party,Google Party,Consultancy,04.12.2018 at 9,04.12.2018 at 16,9,random,2;9
