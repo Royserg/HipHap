@@ -4,6 +4,7 @@ import src.events.BusinessParty;
 import src.events.Conference;
 import src.events.Event;
 import src.events.Trip;
+import src.users.Customer;
 import src.users.Employee;
 import java.util.Random;
 
@@ -367,6 +368,7 @@ public class Application {
 
         // login user if password correct
         if (user.getPassword().equals(password)) {
+            db = new Database();
             login(user);
             showDashboard();
         } else {
@@ -407,6 +409,8 @@ public class Application {
         return r.nextInt((max - min) + 1) + min;
     }
 
+    /**
+     * Creates new event based on user inputed information*/
     public void addEvent(){
         Employee responsibleEmployee;
         int newID = 0;
@@ -414,6 +418,7 @@ public class Application {
         String serviceTypeString = "";
         int nbOfHoursNeeded;
 
+        //generating new ID
         boolean uniqueID = false;
         //check if the ID exists
         while (!uniqueID) {
@@ -428,22 +433,25 @@ public class Application {
             }
         }
 
+        //Event name
         String name = Helper.getString("Event name: ");
         while (name.equals("")) {
             name = Helper.getString("Event name cannot be empty. Please try again.");
         }
 
+        //Selecting event type
         System.out.println("Event type: ");
         System.out.println("1 - Conference");
         System.out.println("2 - Trip");
         System.out.println("3 - Business Party");
-        int eventType = Helper.selectOption(0, 3);
+        int eventType = Helper.selectOption(1, 3);
 
+        //Select event service type
         System.out.println("Event service: ");
         System.out.println("1 - Consultancy");
         System.out.println("2 - Planning");
         System.out.println("3 - Full Organization");
-        int serviceType = Helper.selectOption(0, 3);
+        int serviceType = Helper.selectOption(1, 3);
 
         if (serviceType == 1){
             serviceTypeString = "Consultancy";
@@ -453,12 +461,47 @@ public class Application {
             serviceTypeString = "Full Organization";
         }
 
+        //Selecting a customer
+        System.out.println("Select customer that is ordering this event, if it's not on the list, select 0 to create a new customer.");
+        System.out.println("0 - Add new customer");
+        for (int i = 0; i < db.customers.size(); i++){
+            System.out.println( i+1 + " - " + db.customers.get(i).getName());
+        }
+        int customerSelect = Helper.selectOption(db.customers.size() + 1);
+
+        //creating new customer or adding eventID to an existing customer
+        if( customerSelect == 0){
+            String customerName = Helper.getString("Enter customer's name");
+            db.customers.add( new Customer(newID, customerName));
+        } else {
+            db.customers.get(customerSelect - 1).addEvent(newID);
+        }
+
+        //adding partners
+        System.out.println("If the partners are needed for the event select the partners. If they are not needed, select 0");
+        int currentPartner = 1;
+        ArrayList<Integer> allPartners = new ArrayList<>();
+        while (currentPartner != 0){
+            System.out.println("0 - no additional partners");
+            for(int i = 0; i < db.partners.size(); i++)
+                System.out.println(i+1 + " - " + db.partners.get(i).getName());
+            currentPartner = Helper.selectOption(db.partners.size() + 1);
+            allPartners.add(currentPartner);
+        }
+
+        //assigning employee
         if (currentUser.getID() == 1111){
             int employeeID = Helper.getInt("Enter ID of the employee that is going to be responsible for this event: ");
             responsibleEmployee = db.getEmployeeByID(employeeID);
         }else{
             responsibleEmployee = currentUser;
         }
+        //adding event ID to the employee
+        for(int i = 0; i<db.employees.size(); i++){
+            if(responsibleEmployee.equals(db.employees.get(i)))
+                db.employees.get(i).addEvent(newID);
+        }
+
 
         nbOfHoursNeeded = Helper.getInt("Enter the number of hours needed to organize this event: ");
 
@@ -466,23 +509,79 @@ public class Application {
             String officeSupplies = Helper.getString("Enter needed office supplies: ");
             eventTypeString = "Conference";
             Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
+            for(int i = 0; i < allPartners.size(); i++ )
+                newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }else if (eventType == 2){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
             eventTypeString = "Trip";
             Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, transport);
+            for(int i = 0; i < allPartners.size(); i++ )
+                newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }else if (eventType == 3){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
             eventTypeString = "Business Party";
             BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, decoration);
+            for(int i = 0; i < allPartners.size(); i++ )
+                newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }
-        //TODO: add location, parters
-        //are we going to select an existing location from a list? and the same for partners?
     }
 
-    public void editEvent(){
+    public void editEvent(int eventID){
+        Event event = db.getEventByID(eventID);
+        int optionSelected = 1;
+        while (optionSelected != 0) {
+            System.out.println("Select which attribute you want to modify or press 0 if you don't want to modify anything else");
+            System.out.println("0 - nothing else to modify, go back to main menu");
+            System.out.println("1 - Edit name");
+            System.out.println("2 - Edit service type");
+            System.out.println("3 - Edit specifications, items needed to organize the event");
+            System.out.println("4 - Edit partners");
+            optionSelected = Helper.selectOption(5);
+
+            if (optionSelected == 1){
+                System.out.println("Current name is: " + event.getName());
+                event.setName(Helper.getString("Enter a new name"));
+            }else if (optionSelected == 2){
+                System.out.println("Current service type is: " + event.getServiceType());
+                System.out.println("Event service: ");
+                System.out.println("1 - Consultancy");
+                System.out.println("2 - Planning");
+                System.out.println("3 - Full Organization");
+                int serviceType = Helper.selectOption(1, 3);
+
+                if (serviceType == 1){
+                    event.setServiceType("Consultancy");
+                }else if (serviceType == 2){
+                    event.setServiceType("Planning");
+                }else if(serviceType == 3){
+                    event.setServiceType("Full Organization");
+                }
+            }else if (optionSelected == 3){
+                System.out.println("Current specifications are: " + event.getSpecs());
+                event.setSpecs(Helper.getString("Enter all of the specifications needed for the event."));
+            }else if (optionSelected == 4){
+                System.out.println("Current partners are: ");
+                ArrayList<Integer> partnerIDs = event.getPartnersIDs();
+                for(int i = 0; i < partnerIDs.size(); i++){
+                    System.out.println(i+1 + db.getPartnerByID(partnerIDs.get(i)).getName());
+                }
+                System.out.println("Select 0 to add  a partner or a number in front of the partner you want to delete");
+                System.out.println("0 - add a partner");
+                for(int i = 0; i< partnerIDs.size(); i++){
+                    System.out.println(i+1 + db.getPartnerByID(partnerIDs.get(i)).getName());
+                }
+                int partnerSelected = Helper.selectOption(partnerIDs.size()+1);
+
+                if(partnerSelected == 0){
+                    
+                }
+            }
+        }
+
+
 
 
 

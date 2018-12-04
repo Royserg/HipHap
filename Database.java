@@ -62,6 +62,23 @@ public class Database {
         return null;
     }
 
+    public Event getEventByID(int ID){
+        for(Event event: events){
+            if(event.getID() == ID){
+                return event;
+            }
+        }
+        return null;
+    }
+
+    public Partner getPartnerByID(int ID){
+        for(Partner partner: partners){
+            if(partner.getID() == ID)
+                return partner;
+        }
+        return null;
+    }
+
     public ArrayList<Integer> getEmployeeEvents(ArrayList<Integer> eventIDs) {
         ArrayList<Integer> createdArray = new ArrayList<>();
         for (int i = 0; i < eventIDs.size(); i++) {
@@ -183,8 +200,8 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-                // Partner(name,occupation)
-                partners.add(new Partner(row[0], row[1]));
+                //  public Partner(int ID, String name, String occupation, String address, String bookedDates)
+                partners.add(new Partner( Integer.parseInt(row[0]), row[1], row[2], row[3], row[4]));
 
 
                 //Checking if the read is correct -- the variables were public at checking for speed
@@ -244,12 +261,12 @@ public class Database {
                 }
 
                 if (Integer.parseInt(row[0]) == 1111) {
-                    employees.add(new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
+                    employees.add(new Manager(Integer.parseInt(row[0]), castedIDs, row[2], row[3], row[4], row[5]));
                 }
 
                 else {
                     // public Employee(ArrayList<Integer> ids, String name, String pass, String email, String avDate)
-                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
+                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2], row[3], row[4], row[5]));
                 }
 
             }
@@ -374,10 +391,15 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
+        pw.write("id,name,service type, address, booked dates\n");
+
         for (int i = 0; i < partners.size(); i++) {
             Partner current = partners.get(i);
+            builder.append(current.getID() + ",");
             builder.append(current.getName()+",");
-            builder.append(current.getOccupation());
+            builder.append(current.getOccupation()+",");
+            builder.append(current.getAddress()+",");
+            builder.append(current.getBookedDates()+",");
             builder.append('\n');
         }
 
@@ -416,6 +438,7 @@ public class Database {
             builder.append(current.getName()+",");
             builder.append(current.getPassword()+",");
             builder.append(current.getEmail()+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getLastEventInfo())+",");
             builder.append('\n');
         }
 

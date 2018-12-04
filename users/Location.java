@@ -12,11 +12,11 @@ public class Location {
     public Location(String address, String bookedDays) {
         this.address = address;
 
-        String[] dateStrings = bookedDays.split(", ");
+        String[] dateStrings = bookedDays.split(";");
         for ( int i= 0; i < dateStrings.length; i++){
             Date date = null;
             try {
-                date = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(dateStrings[i]);
+                date = new SimpleDateFormat("dd.MM.yyyy").parse(dateStrings[i]);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
