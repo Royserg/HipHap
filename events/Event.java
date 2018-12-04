@@ -19,6 +19,7 @@ public class Event {
     Employee employeeResponsible;
     private Date orgStartDate ;
     private Date orgEndDate ;
+    private Date startOfEvent;
 
     ArrayList<Integer> partnersIDs = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
@@ -28,7 +29,7 @@ public class Event {
     /**
      * Constructor for creating a whole new event by employee
     * */
-    public Event(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
+    public Event(int ID,  String eventType, String name, String serviceType, String startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
@@ -43,12 +44,17 @@ public class Event {
             specs.add(specsHelper[i]);
         }
 
+        try {
+            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specsString, String partnerIDs){
+    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs){
         this.ID = ID;
         this.eventType = eventType;
         this.name = name;
@@ -57,6 +63,7 @@ public class Event {
         try {
             this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(startDate);
             this.orgEndDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(endDate);
+            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
         } catch (ParseException e) {
             System.out.print("Parse exception: " + e.getMessage());
         }
@@ -221,6 +228,8 @@ public class Event {
         }
         return helper;
     }
+
+    public Date getStartOfEvent(){return startOfEvent;}
 
     public ArrayList<Integer> getPartnersIDs() {
         return partnersIDs;
