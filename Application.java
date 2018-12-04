@@ -17,7 +17,7 @@ public class Application {
     // keep track of currently logged in Employee
     private static Employee currentUser;
 
-//    private Scanner scn = new Scanner(System.in);
+    //    private Scanner scn = new Scanner(System.in);
     private Database db = new Database();
 
 
