@@ -14,7 +14,6 @@ public class Event {
     private int ID;
     private String serviceType;
     private String eventType;
-    private String location;
     private int nbOfHoursNeeded;
     Employee employeeResponsible;
     private Date orgStartDate ;
@@ -22,7 +21,7 @@ public class Event {
 
     ArrayList<Partner> partners = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
-    //eg: food, dj, photographer, limousine, cocaine, balloons
+    //eg: food, dj, photographer, limousine, balloons
     // also maybe this should be just one string
 
     /**
@@ -98,12 +97,6 @@ public class Event {
      * @param type (String) - type of event: Trip, Business party, Conference*/
     public void setEventType (String type) {this.eventType = type; }
 
-    /**
-     * Setting location for the event
-     * @param location (String) - location for the event*/
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     /**
      * sets specification for the event, items needed like office supplies
@@ -180,12 +173,6 @@ public class Event {
      * @return eventType (String) - type of event: Trip, Business party, Conference*/
     public String getEventType(){ return this.eventType; }
 
-    /**
-     * Returns location of the event
-     * @return location(String) - location of the event*/
-    public String getLocation() {
-        return this.location;
-    }
 
     /**
      * Returns the the organizing start date, the date when the employee responsible for the event will start working on it.
