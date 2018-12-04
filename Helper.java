@@ -79,6 +79,24 @@ public class Helper {
     }
 
     /**
+     * ask for providing day, month and year
+     * @return formatted date string
+     */
+    public static String getDate() {
+        String day = "0" + Helper.getString("Day: ");
+        // get last 2 characters
+        day = day.substring(day.length() - 2);
+
+        String month = "0" + Helper.getString("Month: ");
+        // get last 2 characters
+        month = month.substring(month.length() - 2);
+
+        String year = Helper.getString("Year: ");
+
+        return "date: " + day + "/" + month + "/" + year;
+    }
+
+    /**
      * Prints provided message and waits for integer from user
      * @param msg (String) - message to be displayed
      * @return user input (int)
