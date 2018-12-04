@@ -91,14 +91,37 @@ public class Application {
         handleSelectedOption(options[selection]);
     }
 
-    private void showDateMenu() {
-        String[] options = Screen.getOptions("date options");
-        // print options
-        Screen.listOptions(options);
-        // user inputs option number
-        int selection = Helper.selectOption(options.length);
+    private void handleDateMenu(String action) {
+        Screen.clearScreen();
+        Screen.showLogo();
+        if (action.equals("show options")) {
+            // todo: those 4 calls are repeating - for making a method
+            String[] options = Screen.getOptions("date options");
+            // print options
+            Screen.listOptions(options);
+            // user inputs option number
+            int selection = Helper.selectOption(options.length);
 
-        handleSelectedOption(options[selection]);
+            handleSelectedOption(options[selection]);
+        } else if (action.equals("date")) {
+            // todo: Get it from Helper + convert and return properly converted string
+
+            String date = Helper.getDate();
+            System.out.println(date);
+
+            // todo: show events for that date
+        } else if (action.equals("period")) {
+            System.out.println("=== Start Date ===");
+            String startDate = Helper.getDate();
+
+            System.out.println("=== End Date ===");
+            String endDate = Helper.getDate();
+
+            System.out.println("start date: " + startDate);
+            System.out.println("end date: " + endDate);
+            // todo: display events between those periods
+        }
+
     }
 
     private void showSelectEventMenu(){
@@ -122,10 +145,10 @@ public class Application {
                 showDashboard();
                 break;
             case Helper.SELECT_DATE:
-                System.out.println("===Select Date===");
+                handleDateMenu("date");
                 break;
             case Helper.SELECT_PERIOD:
-                System.out.println("===SELECT Period===");
+                handleDateMenu("period");
                 break;
             case Helper.ADD_EVENT:
                 System.out.println("Showing New Event Form");
@@ -134,7 +157,7 @@ public class Application {
                 showDashboard();
                 break;
             case Helper.CHANGE_DATE:
-                showDateMenu();
+                handleDateMenu("show options");
                 break;
             case Helper.SHOW_CUSTOMERS:
                 System.out.println("Showing Customers");
