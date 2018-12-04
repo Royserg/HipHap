@@ -227,4 +227,8 @@ public class Event {
         specs.add(spec);
     }
 
+    @Override
+    public String toString() {
+        return this.getName() + " - " + this.getEventType() + " - " + this.getServiceType();
+    }
 }
