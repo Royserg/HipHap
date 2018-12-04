@@ -6,10 +6,10 @@ import java.util.Date;
 import java.util.ArrayList;
 
 public class Location {
-    String address;
-    ArrayList<Date> bookedDays = new ArrayList<>();
+    private String address;
+    private ArrayList<Date> bookedDays = new ArrayList<>();
 
-    Location(String address, String bookedDays) {
+    public Location(String address, String bookedDays) {
         this.address = address;
 
         String[] dateStrings = bookedDays.split(", ");
@@ -20,7 +20,7 @@ public class Location {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            bookedDays.add(date);
+            this.bookedDays.add(date);
         }
     }
 
