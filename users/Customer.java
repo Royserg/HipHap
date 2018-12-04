@@ -14,6 +14,11 @@ public class Customer {
         this.name = name;
     }
 
+    public Customer(int eventID, String name){
+        this.ownEvents.add(eventID);
+        this.name = name;
+    }
+
     // Set-ers
     public void setName(String name) {
         this.name = name;

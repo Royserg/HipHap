@@ -20,7 +20,7 @@ public class Event {
     private Date orgStartDate ;
     private Date orgEndDate ;
 
-    ArrayList<Partner> partners = new ArrayList<>(); // partners for this particular event
+    ArrayList<Integer> partnersIDs = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
     //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
@@ -206,25 +206,27 @@ public class Event {
 
     /**
      * returns specifications of needed items like decorations, office supplies
-     * @return specs (arrayList <String>) - items needed for the event*/
-    public ArrayList<String> getSpecs() {
-        return specs;
+     * @return helper(String) - items needed for the event*/
+    public String getSpecs() {
+        String helper = "";
+        for(int i = 0; i < specs.size(); i++){
+            helper += specs.get(i) + ", ";
+        }
+        return helper;
+    }
+
+    public ArrayList<Integer> getPartnersIDs() {
+        return partnersIDs;
     }
 
     //Modifiers
 
     /**
      * Adds a partener to the partner arrayList
-     * @param partner (Partner) - partner for the event*/
-    public void addPartner(Partner partner){
-        partners.add(partner);
+     * @param ID (int) - partner ID for the event*/
+    public void addPartner(int ID){
+        partnersIDs.add(ID);
     }
 
-    /**
-     * Adds a specification of the event to the specification arrayList
-     * @param spec (String) - specification for the event*/
-    public void addSpecification(String spec){
-        specs.add(spec);
-    }
 
 }

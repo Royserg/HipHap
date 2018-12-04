@@ -62,6 +62,23 @@ public class Database {
         return null;
     }
 
+    public Event getEventByID(int ID){
+        for(Event event: events){
+            if(event.getID() == ID){
+                return event;
+            }
+        }
+        return null;
+    }
+
+    public Partner getPartnerByID(int ID){
+        for(Partner partner: partners){
+            if(partner.getID() == ID)
+                return partner;
+        }
+        return null;
+    }
+
     public ArrayList<Integer> getEmployeeEvents(ArrayList<Integer> eventIDs) {
         ArrayList<Integer> createdArray = new ArrayList<>();
         for (int i = 0; i < eventIDs.size(); i++) {
@@ -182,7 +199,7 @@ public class Database {
                 String[] row = line.split(cvsSplitBy);
 
                 // Partner(name,occupation)
-                partners.add(new Partner(row[0], row[1]));
+                partners.add(new Partner(row[1], row[2], Integer.parseInt(row[0])));
 
 
                 //Checking if the read is correct -- the variables were public at checking for speed
@@ -370,6 +387,7 @@ public class Database {
 
         for (int i = 0; i < partners.size(); i++) {
             Partner current = partners.get(i);
+            builder.append(current.getID() + ",");
             builder.append(current.getName()+",");
             builder.append(current.getOccupation());
             builder.append('\n');
