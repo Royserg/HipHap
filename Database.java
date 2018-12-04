@@ -176,6 +176,8 @@ public class Database {
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
+            // skip first tile line
+            br.readLine();
             while ((line = br.readLine()) != null) {
 
                 // use comma as separator

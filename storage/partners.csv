@@ -1,11 +1,12 @@
-RizRaz,Catering
-We got Spirit,Catering
-The Old Irish Pub,Bar/Club
-Culture Box,Bar/Club
-Mirage,Bar/Club
-Basalt,Restaurant
-Kadeau Kobenhavn,Restaurant
-Gorilla,Restaurant
-Coast Hotels,Hotel
-Hilton Worldwide,Hotel
-Rosewood Hotel Group,Hotel
+id,name,service_type,address,booked_dates
+1,RizRaz,Catering,,
+2,We got Spirit,Catering,,
+3,The Old Irish Pub,Bar/Club,,
+4,Culture Box,Bar/Club,,
+5,Mirage,Bar/Club,,
+6,Basalt,Restaurant,Struenseegade 7,
+7,Kadeau Kobenhavn,Restaurant,Vendersgade 23,
+8,Gorilla,Restaurant,Radhuspladsen 57,
+9,Coast Hotels,Hotel,Kongens Nytorv 34,
+10,Hilton Worldwide,Hotel,Egilsgade 33,
+11,Rosewood Hotel Group,Hotel,Vester Sogade 6,
