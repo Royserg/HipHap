@@ -17,8 +17,8 @@ public class Event {
     private String location;
     private int nbOfHoursNeeded;
     Employee employeeResponsible;
-    private Date orgStartDate ;
-    private Date orgEndDate ;
+    private Date orgStartDate;
+    private Date orgEndDate;
 
     ArrayList<Partner> partners = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();

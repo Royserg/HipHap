@@ -1,6 +1,6 @@
 id,event_IDs,name,password,email,last_event_date
-1111,,mg,mg,manageremail,20.11.2018 at 12
-4023,1;2;3,John,pass,johnemail,24.11.2018 at 12
-1293,4;5,Hannah,pass,hannahmail,23.11.2018 at 12
-3984,4245;7898,Mike,pass,mikemail,22.11.2018 at 12
-2348,11;18;19;14,Charlie,pass,charliemail,21.11.2018 at 12
+1111,99,mg,mg,manageremail,
+4023,1;2;3,John,pass,johnemail,
+1293,4;5,Hannah,pass,hannahmail,
+3984,4245;7898,Mike,pass,mikemail,
+2348,11;18;19;14,Charlie,pass,charliemail,

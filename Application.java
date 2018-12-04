@@ -72,12 +72,18 @@ public class Application {
         }
         else {
             System.out.println("Today's events:");
-            for (int i = 0; i < eventIDsForToday.size(); i++) {
-                System.out.print("Event ID: " + db.events.get(i).getID() + "| ");
-                System.out.print("Name: " + db.events.get(i).getName() + "| ");
-                System.out.print("Event Type: " + db.events.get(i).getEventType() + "| ");
-                System.out.println("Service Type: " + db.events.get(i).getServiceType() + "| ");
-            }
+            // going through the selected events ids and comparing them to the events array
+            for (int i = 0; i < eventIDsForToday.size(); i++)
+                for (int k = 0; k < db.events.size(); k++)
+                    if (eventIDsForToday.get(i) == db.events.get(k).getID()) {
+                        System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                        System.out.print("Name: " + db.events.get(k).getName() + "| ");
+                        System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
+                        System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                        System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
+                        System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
+                        System.out.println();
+                    }
         }
         System.out.println();
         System.out.println();
@@ -124,13 +130,18 @@ public class Application {
 
     }
 
-    private void showSelectEventMenu(){
+    // this returns the option that you selected back to the selectEvent method and it handles it there
+    private int showSelectEventMenu(){
         String[] options = Screen.getOptions("select event options");
         // print options
         Screen.listOptions(options);
         // user inputs option number
         int selection = Helper.selectOption(options.length);
         System.out.println("selected: " + options[selection]);
+        return selection;
+        // 0 - main menu
+        // 1 - edit
+        // 2 - delete
     }
 
     // ==================================
@@ -191,33 +202,132 @@ public class Application {
     public void selectEvent() {
         System.out.println();
 
+        // for manager
         if (currentUser.getID() == 1111) {
             for (int j = 0; j < db.employees.size(); j++) {
+                // getting the events for this employee for today
                 ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(db.employees.get(j).getEventIDs());
-                System.out.println("Employee: " + db.employees.get(j).getName());
-                for (int i = 0; i < eventIDs.size(); i++) {
-                    System.out.print("Event ID: " + db.events.get(i).getID() + "| ");
-                    System.out.print("Name: " + db.events.get(i).getName() + "| ");
-                    System.out.print("Event Type: " + db.events.get(i).getEventType() + "| ");
-                    System.out.println("Service Type: " + db.events.get(i).getServiceType() + "| ");
-                    System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgStartDate()) + "| ");
-                    System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgEndDate()) + "| ");
-                    System.out.println();
+                System.out.println(eventIDs);
+                System.out.println((j +1) + ". Employee: " + db.employees.get(j).getName());
+
+                // going through the selected events ids and comparing them to the events array
+                for (int i = 0; i < eventIDs.size(); i++)
+                    for (int k = 0; k < db.events.size(); k++)
+                        if (eventIDs.get(i) == db.events.get(k).getID()) {
+                            System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                            System.out.print("Name: " + db.events.get(k).getName() + "| ");
+                            System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
+                            System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                            System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
+                            System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
+                            System.out.println();
+                        }
+            }
+            System.out.println("Select an employee whose events you want to modify");
+            int selectedEmployee = Helper.selectOption(1, db.employees.size());
+
+            Screen.clearScreen();
+            ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(db.employees.get(selectedEmployee-1).getEventIDs());
+            // checks whether there are events or not for today
+            if (eventIDs.isEmpty() == true) {
+                System.out.println(db.employees.get(selectedEmployee-1).getName() + " has no events for today");
+                Helper.getString("Press any key to go back to main menu");
+                showDashboard();
+            }
+
+            // if there are events, proceed
+            else {
+                System.out.println("Select one of " + db.employees.get(selectedEmployee-1).getName() + "'s events");
+                // going through the selected events ids and comparing them to the events array
+                for (int i = 0; i < eventIDs.size(); i++)
+                    for (int k = 0; k < db.events.size(); k++)
+                        if (eventIDs.get(i) == db.events.get(k).getID()) {
+                            System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                            System.out.print("Name: " + db.events.get(k).getName() + "| ");
+                            System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
+                            System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                            System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
+                            System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
+                            System.out.println();
+                        }
+
+                int selectedEventNumber = Helper.selectOption(1, eventIDs.size());
+                int selectedEventID = eventIDs.get(selectedEventNumber-1);
+
+                int selectedOption = showSelectEventMenu();
+                System.out.println(selectedOption);
+                switch (selectedOption) {
+                    case 0:
+                        showDashboard();
+                        break;
+                    case 1:
+                        System.out.println("Editing event");
+                        System.out.println(selectedEventID);
+                        //editEvent(selectedEventID);
+                        Helper.getString("Press enter to go back to main menu");
+                        showDashboard();
+                        break;
+                    case 2:
+                        System.out.println("Deleting event");
+                        System.out.println(selectedEventID);
+                        //deleteEvent(selectedEventID);
+                        Helper.getString("Press enter to go back to main menu");
+                        showDashboard();
+                        break;
                 }
             }
         }
 
+        // for employee
         else {
             ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(currentUser.getEventIDs());
-            for (int i = 0; i < eventIDs.size(); i++) {
-                System.out.print("Event ID: " + db.events.get(i).getID() + "| ");
-                System.out.print("Name: " + db.events.get(i).getName() + "| ");
-                System.out.print("Event Type: " + db.events.get(i).getEventType() + "| ");
-                System.out.println("Service Type: " + db.events.get(i).getServiceType() + "| ");
-                System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgStartDate()) + "| ");
-                System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(i).getOrgEndDate()) + "| ");
-                System.out.println();
+            // if there are no events for today, you cannot choose anything
+            if (eventIDs.isEmpty() == true) {
+                System.out.println("No events for today");
+                Helper.getString("Press enter to return to main menu");
+                showDashboard();
             }
+
+            // if there are events for today, proceed
+            else {
+                // going through the selected events ids and comparing them to the events array
+                for (int i = 0; i < eventIDs.size(); i++)
+                    for (int k = 0; k < db.events.size(); k++)
+                        if (eventIDs.get(i) == db.events.get(k).getID()) {
+                            System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                            System.out.print("Name: " + db.events.get(k).getName() + "| ");
+                            System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
+                            System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                            System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
+                            System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
+                            System.out.println();
+                        }
+                System.out.println("Select one of your events");
+                int selectedEventNumber = Helper.selectOption(1, eventIDs.size());
+                int selectedEventID = eventIDs.get(selectedEventNumber-1);
+                System.out.println(selectedEventID);
+
+                int selectedOption = showSelectEventMenu();
+                System.out.println(selectedOption);
+                switch (selectedOption) {
+                    case 0:
+                        showDashboard();
+                        break;
+                    case 1:
+                        System.out.println("Editing event");
+                        //editEvent(selectedEventID);
+                        Helper.getString("Press enter to go back to main menu");
+                        showDashboard();
+                        break;
+                    case 2:
+                        System.out.println("Deleting event");
+                        deleteEvent(selectedEventID);
+                        Helper.getString("Press enter to go back to main menu");
+                        showDashboard();
+                        break;
+                }
+            }
+
         }
 
     }
@@ -278,7 +388,11 @@ public class Application {
      * removes logged in user reference from currentUser attribute
      */
     private void logout() {
-        // TODO: save information into files
+        // saves changes into the files
+        db.writeCustomersFile();
+        db.writeEmployeesFile();
+        db.writeEventsFile();
+        db.writePartnersFile();
         // remove user
         currentUser = null;
         // show login screen
@@ -371,6 +485,17 @@ public class Application {
     public void editEvent(){
 
 
+
+    }
+
+    public void deleteEvent(int ID) {
+        for (int i = 0; i < db.events.size(); i++) {
+            if (ID == db.events.get(i).getID()) {
+                db.events.remove(i);
+                System.out.println("Event deleted");
+                break;
+            }
+        }
 
     }
 }

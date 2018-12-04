@@ -342,14 +342,18 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
+        pw.write("event_Id,event_type,name,service_type,org_start_date,org_end_date, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party\n");
+
         for (int i = 0; i < events.size(); i++) {
             Event current = events.get(i);
             builder.append(current.getID()+",");
             builder.append(current.getEventType()+",");
             builder.append(current.getName()+",");
             builder.append(current.getServiceType()+",");
-            builder.append(current.getOrgStartDate()+",");
-            builder.append(current.getOrgEndDate()+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgStartDate())+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgEndDate())+",");
+            builder.append(current.getNbOfHoursNeeded()+",");
+            builder.append(current.getSpecs());
             builder.append('\n');
         }
 
@@ -390,7 +394,7 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
-
+        pw.write("id,event_IDs,name,password,email,last_event_date\n");
 
 
         for (int i = 0; i < employees.size(); i++) {
@@ -398,9 +402,12 @@ public class Database {
             // Creating a string from the array of events, with ";" between them
             ArrayList<Integer> eventIDs = current.getEventIDs();
             String stringOfEventIDs = "";
-            for (int j = 0; j < eventIDs.size(); j++) {
-                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString();
+            // this builds the string of events with ; between them except for the last one
+            for (int j = 0; j < eventIDs.size()-1; j++) {
+                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString() + ";";
             }
+            // adding the last event in the string without the ;
+            stringOfEventIDs = stringOfEventIDs + eventIDs.get(eventIDs.size()-1).toString();
 
             builder.append(current.getID()+",");
             builder.append(stringOfEventIDs+",");
@@ -430,9 +437,12 @@ public class Database {
             // Creating a string from the array of events, with ";" between them
             ArrayList<Integer> eventIDs = current.getOwnEvents();
             String stringOfEventIDs = "";
-            for (int j = 0; j < eventIDs.size(); j++) {
-                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString();
+            // this builds the string of events with ; between them except for the last one
+            for (int j = 0; j < eventIDs.size()-1; j++) {
+                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString() + ";";
             }
+            // adding the last event in the string without the ;
+            stringOfEventIDs = stringOfEventIDs + eventIDs.get(eventIDs.size()-1).toString();
             builder.append(stringOfEventIDs + ",");
             builder.append(current.getName());
             builder.append('\n');
