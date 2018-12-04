@@ -85,7 +85,7 @@ public class Helper {
 
     /**
      * ask for providing day, month and year
-     * @return formatted date string
+     * @return formatted date object from provided info
      */
     public static Date getDate() {
         Date date = new Date();
