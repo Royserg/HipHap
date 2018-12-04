@@ -88,9 +88,13 @@ public class Screen {
     }
 
     public static void listOptions(String[] options) {
+        System.out.println("____________________");
         for (int i = 0; i < options.length; i++) {
             System.out.println(i + ". " + options[i]);
         }
+        // add extra spacing after options
+        System.out.println();
+        System.out.println();
     }
 
 
