@@ -25,12 +25,17 @@ public class Partner {
         this.occupation = occupation;
     }
 
-    public void setLocation (String location) { this.location = location;}
 
     // Get-ers
-    public String getName(){ return this.name;}
+    public String getName() {
+        return this.name;
+    }
 
-    public String getOccupation(){return this.occupation;}
+    public String getOccupation() {
+        return this.occupation;
+    }
 
-    public String getLocation() {return this.location}
+    public String getAddress() {
+        return this.location.getAddress(); // accesses address attributes from Location class
+    }
 }
