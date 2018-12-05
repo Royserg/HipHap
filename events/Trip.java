@@ -4,6 +4,8 @@ import src.users.Employee;
 
 public class Trip extends Event implements EventPricing{
     private double baseTripPrice = 50000;
+    private double totalTripPrice;
+
 
     /**
      * Constructor for creating a whole new event by employee
@@ -39,12 +41,13 @@ public class Trip extends Event implements EventPricing{
      */
     public double getBaseTripPrice() { return this.baseTripPrice; }
 
+    public double getTotalTripPrice() {return this.totalTripPrice; }
+
     /**
-     * calculates price of the event that clients need to pay
-     * @return finalPrice (double) - price that clients need to pay for organization*/
+     * calculates price of the event that clients need to pay*/
     @Override
-    public double calculateEventPrices() {
+    public void calculateEventPrices() {
         int nbOfSpecs = super.specs.size();
-        return (baseTripPrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
+        totalTripPrice = (baseTripPrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
     }
 }

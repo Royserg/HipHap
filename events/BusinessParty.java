@@ -4,6 +4,7 @@ import src.users.Employee;
 
 public class BusinessParty extends Event implements EventPricing {
     private double basePartyPrice = 30000;
+    private double totalPartyPrice;
 
     /**
      * Constructor for creating a whole new event by employee
@@ -40,13 +41,13 @@ public class BusinessParty extends Event implements EventPricing {
      */
     public double getBaseTripPrice() { return this.basePartyPrice; }
 
+    public double getTotalPartyPrice(){ return this.totalPartyPrice; }
 
     /**
-     * Calculates the event price that the customer needs to pay in order for the event to be organized
-     * @return price (double) - price of the whole event*/
+     * Calculates the event price that the customer needs to pay in order for the event to be organized*/
     @Override
-    public double calculateEventPrices() {
+    public void calculateEventPrices() {
         int nbOfSpecs = super.specs.size();
-        return (basePartyPrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
+        totalPartyPrice =  (basePartyPrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
     }
 }

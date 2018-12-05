@@ -71,27 +71,38 @@ public class Application {
         Screen.showLogo();
         // showing header with default date
         Screen.showHeader();
-        ArrayList<Integer> eventIDsForToday = db.getEmployeeEventsForToday(currentUser.getEventIDs());
-        if (eventIDsForToday.isEmpty()) {
-            System.out.println("No events for today");
+        if (currentUser.getID() == 1111) {
+            System.out.println("Logged in as the manager");
+            System.out.println();
         }
         else {
-            System.out.println("Today's events:");
+            System.out.println("Logged in as " + currentUser.getName());
+            System.out.println();
+        }
+
+        ArrayList<Integer> eventIDsForToday = db.getEmployeeEventsForToday(currentUser.getEventIDs());
+        if (eventIDsForToday.isEmpty()) {
+            System.out.println("No events to organize for today");
+        }
+        else {
+            System.out.println("Events to organize for today:");
             // going through the selected events ids and comparing them to the events array
             for (int i = 0; i < eventIDsForToday.size(); i++)
                 for (int k = 0; k < db.events.size(); k++)
                     if (eventIDsForToday.get(i) == db.events.get(k).getID()) {
-                        System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                        System.out.print((i+1) + ". ");
+                        //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
                         System.out.print("Name: " + db.events.get(k).getName() + "| ");
                         System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
                         System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                        System.out.println("Event Date: " + new SimpleDateFormat("dd.MM.yyyy").format(db.events.get(k).getStartOfEvent()));
                         System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
                         System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
                         System.out.println();
                     }
         }
-        System.out.println();
-        System.out.println();
+        //System.out.println();
+        //System.out.println();
 
         String[] options = Screen.getOptions(currentUser.getID());
         // show menu options
@@ -148,7 +159,7 @@ public class Application {
                 if (selectedEvent == 0) {
                     showDashboard();
                 } else {
-                    handleSelectedEvent(events.get(selectedEvent));
+                    handleSelectedEvent(events.get(selectedEvent - 1));
                 }
 
                 // todo: get to that particular event menu
@@ -264,17 +275,19 @@ public class Application {
             for (int j = 0; j < db.employees.size(); j++) {
                 // getting the events for this employee for today
                 ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(db.employees.get(j).getEventIDs());
-                System.out.println(eventIDs);
+                //System.out.println(eventIDs);
                 System.out.println((j +1) + ". Employee: " + db.employees.get(j).getName());
 
                 // going through the selected events ids and comparing them to the events array
                 for (int i = 0; i < eventIDs.size(); i++)
                     for (int k = 0; k < db.events.size(); k++)
                         if (eventIDs.get(i) == db.events.get(k).getID()) {
-                            System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                            System.out.print((i+1) + ". ");
+                            //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
                             System.out.print("Name: " + db.events.get(k).getName() + "| ");
                             System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
                             System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                            System.out.println("Event Date: " + new SimpleDateFormat("dd.MM.yyyy").format(db.events.get(k).getStartOfEvent()));
                             System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
                             System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
                             System.out.println();
@@ -299,10 +312,12 @@ public class Application {
                 for (int i = 0; i < eventIDs.size(); i++)
                     for (int k = 0; k < db.events.size(); k++)
                         if (eventIDs.get(i) == db.events.get(k).getID()) {
-                            System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                            System.out.print((i+1) + ". ");
+                            //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
                             System.out.print("Name: " + db.events.get(k).getName() + "| ");
                             System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
                             System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                            System.out.println("Event Date: " + new SimpleDateFormat("dd.MM.yyyy").format(db.events.get(k).getStartOfEvent()));
                             System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
                             System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
                             System.out.println();
@@ -351,10 +366,12 @@ public class Application {
                 for (int i = 0; i < eventIDs.size(); i++)
                     for (int k = 0; k < db.events.size(); k++)
                         if (eventIDs.get(i) == db.events.get(k).getID()) {
-                            System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
+                            System.out.print((i+1) + ". ");
+                            //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
                             System.out.print("Name: " + db.events.get(k).getName() + "| ");
                             System.out.print("Event Type: " + db.events.get(k).getEventType() + "| ");
                             System.out.println("Service Type: " + db.events.get(k).getServiceType() + "| ");
+                            System.out.println("Event Date: " + new SimpleDateFormat("dd.MM.yyyy").format(db.events.get(k).getStartOfEvent()));
                             System.out.print("Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgStartDate()) + "| ");
                             System.out.println("Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(db.events.get(k).getOrgEndDate()) + "| ");
                             System.out.println();
@@ -526,6 +543,7 @@ public class Application {
                     uniqueID = true;
                 else if (i == (db.events.size() - 1))
                     break;
+                i++;
             }
         }
 
@@ -611,6 +629,8 @@ public class Application {
             Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
+            newEvent.calculateEventPrices();
+            System.out.println("Total event price is: " + newEvent.getTotalConferencePrice() + "kr");
             db.events.add(newEvent);
         }else if (eventType == 2){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
@@ -618,6 +638,8 @@ public class Application {
             Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, transport);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
+            newEvent.calculateEventPrices();
+            System.out.println("Total event price is: " + newEvent.getTotalTripPrice() + "kr");
             db.events.add(newEvent);
         }else if (eventType == 3){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
@@ -625,6 +647,8 @@ public class Application {
             BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, decoration);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
+            newEvent.calculateEventPrices();
+            System.out.println("Total event price is: " + newEvent.getTotalPartyPrice()  + "kr");
             db.events.add(newEvent);
         }
     }

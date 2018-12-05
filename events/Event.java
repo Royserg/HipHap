@@ -228,13 +228,14 @@ public class Event {
      * @return helper(String) - items needed for the event*/
     public String getSpecs() {
         String helper = "";
-        for(int i = 0; i < specs.size(); i++){
-            helper += specs.get(i) + ", ";
+        for(int i = 0; i < specs.size()-1; i++){
+            helper += specs.get(i) + ",";
         }
+        helper += specs.get(specs.size()-1);
         return helper;
     }
 
-    public Date getStartOfEvent(){return startOfEvent;}
+    public Date getStartOfEvent(){return this.startOfEvent;}
 
     public ArrayList<Integer> getPartnersIDs() {
         return partnersIDs;
@@ -256,10 +257,11 @@ public class Event {
 
 
     public String savePartnerIDs (){
-        String helper = "";
-        for (int i = 0; i < partnersIDs.size(); i++){
-            helper += partnersIDs.get(i);
+        String helper = new String();
+        for (int i = 0; i < partnersIDs.size()-1; i++){
+            helper += partnersIDs.get(i) + ";";
         }
+        helper += partnersIDs.get(partnersIDs.size()-1);
         return helper;
     }
 
