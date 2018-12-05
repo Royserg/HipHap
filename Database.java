@@ -90,6 +90,45 @@ public class Database {
         return createdArray;
     }
 
+    /**
+     * get list (ArrayList) of events for the provided date
+     * @param date (Date)
+     * @return (ArrayList) of events
+     */
+    public ArrayList<Event> getEvents(Date date, int id) {
+        // set endDate to 23:59:59 same day
+        Date endDate = new Date(date.getTime());
+
+        return getEvents(date, endDate, id);
+    }
+
+    public ArrayList<Event> getEvents(Date startDate, Date endDate, int id) {
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        endDate.setSeconds(59);
+
+        // arrayList for gathered events
+        ArrayList<Event> foundEvents = new ArrayList<>();
+
+        // manager fetches everyone's events
+        if (id == 1111) {
+            for (Event event : events) {
+                if (event.getOrgStartDate().before(endDate) && event.getOrgEndDate().after(startDate) ) {
+                    foundEvents.add(event);
+                }
+            }
+        } else {
+            // fetch events for particular user
+            for (Event event : events) {
+                if (id == event.employeeResponsible.getID() && event.getOrgStartDate().before(endDate) && event.getOrgEndDate().after(startDate) ) {
+                    foundEvents.add(event);
+                }
+            }
+        }
+
+        return foundEvents;
+    }
+
 
 
     /**
