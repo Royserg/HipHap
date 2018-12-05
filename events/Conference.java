@@ -3,7 +3,8 @@ package src.events;
 import src.users.Employee;
 
 public class Conference extends Event implements EventPricing{
-    private static double baseConferencePrice = 10000 ;
+    private  double baseConferencePrice = 10000 ;
+    private double totalConferencePrice;
 
     /**
      * Constructor for creating a whole new event by employee
@@ -40,11 +41,11 @@ public class Conference extends Event implements EventPricing{
      */
     public double getBaseConferencePrice() { return this.baseConferencePrice; }
 
-
+    public double getTotalConferencePrice() { return this.totalConferencePrice; }
 
     @Override
-    public double calculateEventPrices() {
+    public void calculateEventPrices() {
         int nbOfSpecs = super.specs.size();
-        return (baseConferencePrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
+        totalConferencePrice = (baseConferencePrice + getNbOfHoursNeeded() * Employee.getHourlyWage() + nbOfSpecs * 400);
     }
 }
