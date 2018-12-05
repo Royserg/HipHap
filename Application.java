@@ -155,8 +155,12 @@ public class Application {
             Screen.clearScreen();
             Screen.showLogo();
 
-            // todo: show header with date periods
-            // todo: 0. Main menu
+            // display header with selected date period
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            Screen.showHeader(dateFormat.format(startDate) + "-" + dateFormat.format(endDate));
+
+            // show main menu option
+            System.out.println("0. Main menu");
 
             if (events.isEmpty()) {
                 System.out.println("==== No Events ====");
@@ -379,18 +383,9 @@ public class Application {
      * @param date
      */
     private void selectEvent(String date) {
-
+        // todo: improve it for printing events and choosing one of them
     }
 
-    /**
-     * Shows events for specified period, prints them as ordered list,
-     * and provides possiblity to select one of them
-     * @param startDate
-     * @param endDate
-     */
-    private void selectEvent(String startDate, String endDate) {
-
-    }
 
     private void showPartners() {
         System.out.println();
