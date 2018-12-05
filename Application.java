@@ -5,6 +5,9 @@ import src.events.Conference;
 import src.events.Event;
 import src.events.Trip;
 import src.users.Employee;
+
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import java.text.SimpleDateFormat;
@@ -103,23 +106,60 @@ public class Application {
             int selection = Helper.selectOption(options.length);
 
             handleSelectedOption(options[selection]);
-        } else if (action.equals("date")) {
-            // todo: Get it from Helper + convert and return properly converted string
+            return;
+        }
 
-            String date = Helper.getDate();
-            System.out.println(date);
+        // sub-screens of Date options
+        if (action.equals("date")) {
+            // user provides date to check
+            Date date = Helper.getDate();
 
-            // todo: show events for that date
+            ArrayList<Event> events = db.getEvents(date, currentUser.getID());
+
+            Screen.clearScreen();
+            Screen.showLogo();
+
+            // display header with selected date
+            DateFormat dateFormat = new SimpleDateFormat("    dd.MM.yyyy    ");
+            Screen.showHeader(dateFormat.format(date));
+
+            System.out.println("0. Main Menu");
+
+            if (events.isEmpty()) {
+                System.out.println("==== No Events ====");
+            } else {
+                for (int i = 0; i < events.size(); i++) {
+                    System.out.println((i + 1) + ". " + events.get(i));
+                }
+            }
+
+            Helper.selectOption(events.size());
+            // todo: get to that particular event menu
         } else if (action.equals("period")) {
             System.out.println("=== Start Date ===");
-            String startDate = Helper.getDate();
+            Date startDate = Helper.getDate();
 
             System.out.println("=== End Date ===");
-            String endDate = Helper.getDate();
+            Date endDate = Helper.getDate();
 
-            System.out.println("start date: " + startDate);
-            System.out.println("end date: " + endDate);
-            // todo: display events between those periods
+            // fetch events between specified dates
+            ArrayList<Event> events = db.getEvents(startDate, endDate, currentUser.getID());
+
+            Screen.clearScreen();
+            Screen.showLogo();
+
+            // todo: show header with date periods
+            // todo: 0. Main menu
+
+            if (events.isEmpty()) {
+                System.out.println("==== No Events ====");
+            } else {
+                for (int i = 0; i < events.size(); i++) {
+                    System.out.println((i + 1) + ". " + events.get(i));
+                }
+            }
+
+            // todo: option selection
         }
 
     }
@@ -219,6 +259,25 @@ public class Application {
                 System.out.println();
             }
         }
+
+    }
+
+    /**
+     * Shows events for a specified date, prints them as ordered list,
+     * and provides possibility to select one of them
+     * @param date
+     */
+    private void selectEvent(String date) {
+
+    }
+
+    /**
+     * Shows events for specified period, prints them as ordered list,
+     * and provides possiblity to select one of them
+     * @param startDate
+     * @param endDate
+     */
+    private void selectEvent(String startDate, String endDate) {
 
     }
 
