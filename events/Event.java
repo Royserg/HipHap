@@ -14,20 +14,22 @@ public class Event {
     private int ID;
     private String serviceType;
     private String eventType;
+    private String location;
     private int nbOfHoursNeeded;
     Employee employeeResponsible;
-    private Date orgStartDate;
-    private Date orgEndDate;
+    private Date orgStartDate ;
+    private Date orgEndDate ;
+    private Date startOfEvent;
 
     ArrayList<Integer> partnersIDs = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
-    //eg: food, dj, photographer, limousine, balloons
+    //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
 
     /**
      * Constructor for creating a whole new event by employee
     * */
-    public Event(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
+    public Event(int ID,  String eventType, String name, String serviceType, String startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
@@ -42,12 +44,21 @@ public class Event {
             specs.add(specsHelper[i]);
         }
 
+        try {
+            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
+
+    //public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
+
+    public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs){
+
         this.ID = ID;
         this.eventType = eventType;
         this.name = name;
@@ -57,15 +68,23 @@ public class Event {
         try {
             this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(startDate);
             this.orgEndDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(endDate);
+            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
         } catch (ParseException e) {
             System.out.print("Parse exception: " + e.getMessage());
         }
 
         this.nbOfHoursNeeded = nbOfHoursNeeded;
 
-        String[]specsHelper = specsString.split(", ");
+
+        //TODO: make sure that separation by ; works
+        String[] specsHelper = specsString.split(";");
         for(int i = 0; i < specsHelper.length; i++){
             specs.add(specsHelper[i]);
+        }
+
+        String[] partnerHelper = partnerIDs.split(";");
+        for(int i = 0; i< partnerHelper.length; i++){
+            partnersIDs.add(Integer.parseInt(partnerHelper[i]));
         }
 
     }
@@ -98,6 +117,12 @@ public class Event {
      * @param type (String) - type of event: Trip, Business party, Conference*/
     public void setEventType (String type) {this.eventType = type; }
 
+    /**
+     * Setting location for the event
+     * @param location (String) - location for the event*/
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     /**
      * sets specification for the event, items needed like office supplies
@@ -174,6 +199,12 @@ public class Event {
      * @return eventType (String) - type of event: Trip, Business party, Conference*/
     public String getEventType(){ return this.eventType; }
 
+    /**
+     * Returns location of the event
+     * @return location(String) - location of the event*/
+    public String getLocation() {
+        return this.location;
+    }
 
     /**
      * Returns the the organizing start date, the date when the employee responsible for the event will start working on it.
@@ -203,6 +234,8 @@ public class Event {
         return helper;
     }
 
+    public Date getStartOfEvent(){return startOfEvent;}
+
     public ArrayList<Integer> getPartnersIDs() {
         return partnersIDs;
     }
@@ -216,9 +249,18 @@ public class Event {
         partnersIDs.add(ID);
     }
 
+
     public Employee getEmployee(){
         return this.employeeResponsible;
     }
 
+
+    public String savePartnerIDs (){
+        String helper = "";
+        for (int i = 0; i < partnersIDs.size(); i++){
+            helper += partnersIDs.get(i);
+        }
+        return helper;
+    }
 
 }

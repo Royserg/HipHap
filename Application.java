@@ -17,7 +17,7 @@ public class Application {
     // keep track of currently logged in Employee
     private static Employee currentUser;
 
-//    private Scanner scn = new Scanner(System.in);
+    //    private Scanner scn = new Scanner(System.in);
     private Database db = new Database();
 
 
@@ -341,7 +341,7 @@ public class Application {
     private void showPartners() {
         System.out.println();
         for (int i = 0; i < db.partners.size(); i++) {
-            System.out.print("Name: " + db.partners.get(i).getName() + "| ");
+            System.out.print(i+1 + "Name: " + db.partners.get(i).getName() + "| ");
             System.out.println("Service: " + db.partners.get(i).getOccupation());
         }
     }
@@ -483,6 +483,7 @@ public class Application {
         }
 
         //adding partners
+        //TODO: make sure this part adds a correct ID
         System.out.println("If the partners are needed for the event select the partners. If they are not needed, select 0");
         int currentPartner = 1;
         ArrayList<Integer> allPartners = new ArrayList<>();
@@ -491,7 +492,8 @@ public class Application {
             for(int i = 0; i < db.partners.size(); i++)
                 System.out.println(i+1 + " - " + db.partners.get(i).getName());
             currentPartner = Helper.selectOption(db.partners.size() + 1);
-            allPartners.add(currentPartner);
+            if(currentPartner != 0)
+                allPartners.add(db.partners.get(currentPartner-1).getID());
         }
 
         //assigning employee
@@ -580,16 +582,20 @@ public class Application {
                 }
                 int partnerSelected = Helper.selectOption(partnerIDs.size()+1);
 
+                //adding a partner
                 if(partnerSelected == 0){
-                    
+                    for(int i = 0; i < db.partners.size(); i++)
+                        System.out.println(i+1 + " - " + db.partners.get(i).getName());
+                    int newPartner = Helper.selectOption(db.partners.size() + 1);
+                    partnerIDs.add(db.partners.get(newPartner-1).getID());
+                }else{ //deleting a partner
+                    for(int i = 0; i < db.partners.size(); i++)
+                        System.out.println(i+1 + " - " + db.partners.get(i).getName());
+                    int delPartner = Helper.selectOption(1, db.partners.size());
+                    partnerIDs.remove(delPartner-1);
                 }
             }
         }
-
-
-
-
-
     }
 
     public void deleteEvent(int eventID) {
