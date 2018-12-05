@@ -16,7 +16,7 @@ public class Event {
     private String eventType;
     private String location;
     private int nbOfHoursNeeded;
-    Employee employeeResponsible;
+    public Employee employeeResponsible;
     private Date orgStartDate ;
     private Date orgEndDate ;
 
