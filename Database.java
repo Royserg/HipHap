@@ -119,7 +119,7 @@ public class Database {
         return getEvents(date, endDate, id);
     }
 
-    public ArrayList<Event> getEvents(Date startDate, Date endDate, int id) {
+    public ArrayList<Event> getEvents(Date startDate, Date endDate, int id) throws ClassCastException{
         endDate.setHours(23);
         endDate.setMinutes(59);
         endDate.setSeconds(59);

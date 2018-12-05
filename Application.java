@@ -105,75 +105,78 @@ public class Application {
     private void handleDateMenu(String action) {
         Screen.clearScreen();
         Screen.showLogo();
-        if (action.equals("show options")) {
-            // todo: those 4 calls are repeating - for making a method
-            String[] options = Screen.getOptions("date options");
-            // print options
-            Screen.listOptions(options);
-            // user inputs option number
-            int selection = Helper.selectOption(options.length);
+        try {
 
-            handleSelectedOption(options[selection]);
-            return;
-        }
+            if (action.equals("show options")) {
+                // todo: those 4 calls are repeating - for making a method
+                String[] options = Screen.getOptions("date options");
+                // print options
+                Screen.listOptions(options);
+                // user inputs option number
+                int selection = Helper.selectOption(options.length);
 
-        // sub-screens of Date options
-        if (action.equals("date")) {
-            // user provides date to check
-            Date date = Helper.getDate();
-
-            ArrayList<Event> events = db.getEvents(date, currentUser.getID());
-
-            Screen.clearScreen();
-            Screen.showLogo();
-
-            // display header with selected date
-            DateFormat dateFormat = new SimpleDateFormat("    dd.MM.yyyy    ");
-            Screen.showHeader(dateFormat.format(date));
-
-            System.out.println("0. Main Menu");
-
-            if (events.isEmpty()) {
-                System.out.println("==== No Events ====");
-            } else {
-                for (int i = 0; i < events.size(); i++) {
-                    System.out.println((i + 1) + ". " + events.get(i));
-                }
+                handleSelectedOption(options[selection]);
+                return;
             }
 
-            Helper.selectOption(events.size());
-            // todo: get to that particular event menu
-        } else if (action.equals("period")) {
-            System.out.println("=== Start Date ===");
-            Date startDate = Helper.getDate();
+            // sub-screens of Date options
+            if (action.equals("date")) {
+                // user provides date to check
+                Date date = Helper.getDate();
 
-            System.out.println("=== End Date ===");
-            Date endDate = Helper.getDate();
+                ArrayList<Event> events = db.getEvents(date, currentUser.getID());
 
-            // fetch events between specified dates
-            ArrayList<Event> events = db.getEvents(startDate, endDate, currentUser.getID());
+                Screen.clearScreen();
+                Screen.showLogo();
 
-            Screen.clearScreen();
-            Screen.showLogo();
+                // display header with selected date
+                DateFormat dateFormat = new SimpleDateFormat("    dd.MM.yyyy    ");
+                Screen.showHeader(dateFormat.format(date));
 
-            // display header with selected date period
-            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            Screen.showHeader(dateFormat.format(startDate) + "-" + dateFormat.format(endDate));
+                System.out.println("0. Main Menu");
 
-            // show main menu option
-            System.out.println("0. Main menu");
-
-            if (events.isEmpty()) {
-                System.out.println("==== No Events ====");
-            } else {
-                for (int i = 0; i < events.size(); i++) {
-                    System.out.println((i + 1) + ". " + events.get(i));
+                if (events.isEmpty()) {
+                    System.out.println("==== No Events ====");
+                } else {
+                    for (int i = 0; i < events.size(); i++) {
+                        System.out.println((i + 1) + ". " + events.get(i));
+                    }
                 }
+
+                Helper.selectOption(events.size());
+                // todo: get to that particular event menu
+            } else if (action.equals("period")) {
+                System.out.println("=== Start Date ===");
+                Date startDate = Helper.getDate();
+
+                System.out.println("=== End Date ===");
+                Date endDate = Helper.getDate();
+
+                // fetch events between specified dates
+                ArrayList<Event> events = db.getEvents(startDate, endDate, currentUser.getID());
+
+                Screen.clearScreen();
+                Screen.showLogo();
+
+                // display header with selected date period
+                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                Screen.showHeader(dateFormat.format(startDate) + "-" + dateFormat.format(endDate));
+
+                // show main menu option
+                System.out.println("0. Main menu");
+
+                if (events.isEmpty()) {
+                    System.out.println("==== No Events ====");
+                } else {
+                    for (int i = 0; i < events.size(); i++) {
+                        System.out.println((i + 1) + ". " + events.get(i));
+                    }
+                }
+                // todo: option selection
             }
-
-            // todo: option selection
+        } catch (ClassCastException e) {
+            handleDateMenu(action);
         }
-
     }
 
     // this returns the option that you selected back to the selectEvent method and it handles it there
