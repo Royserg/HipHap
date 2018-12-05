@@ -490,6 +490,7 @@ public class Application {
                     uniqueID = true;
                 else if (i == (db.events.size() - 1))
                     break;
+                i++;
             }
         }
 
@@ -575,6 +576,8 @@ public class Application {
             Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
+            newEvent.calculateEventPrices();
+            System.out.println("Total event price is: " + newEvent.getTotalConferencePrice() + "kr");
             db.events.add(newEvent);
         }else if (eventType == 2){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
@@ -582,6 +585,8 @@ public class Application {
             Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, transport);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
+            newEvent.calculateEventPrices();
+            System.out.println("Total event price is: " + newEvent.getTotalTripPrice() + "kr");
             db.events.add(newEvent);
         }else if (eventType == 3){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
@@ -589,6 +594,8 @@ public class Application {
             BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, decoration);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
+            newEvent.calculateEventPrices();
+            System.out.println("Total event price is: " + newEvent.getTotalPartyPrice()  + "kr");
             db.events.add(newEvent);
         }
     }
