@@ -2,6 +2,8 @@ package src;
 
 
 
+import src.events.Event;
+
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.*;
@@ -45,7 +47,7 @@ public class Screen {
 
 
     public static void clearScreen() {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 20; i++)
             System.out.println();
     }
 
@@ -97,6 +99,9 @@ public class Screen {
         System.out.println();
     }
 
+    public static void listOptions(ArrayList<Event> options) {
+        System.out.println("____________________");
 
+    }
 }
 
