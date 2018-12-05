@@ -22,6 +22,8 @@ public class Helper {
     static final String SHOW_DASHBOARD = "Main menu";
     static final String SELECT_DATE = "Select date";
     static final String SELECT_PERIOD = "Select period";
+    static final String EDIT_EVENT = "Edit event";
+    static final String DELETE_EVENT = "Delete event";
 
     static Scanner scn = new Scanner(System.in);
 
@@ -39,7 +41,7 @@ public class Helper {
             System.out.print("Input error occurred: " + e.getMessage());
         }
 
-        if ((selectedOption >= 0) && (selectedOption < limit))
+        if ((selectedOption >= 0) && (selectedOption <= limit))
             return selectedOption;
 
         else {

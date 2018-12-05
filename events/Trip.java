@@ -8,15 +8,15 @@ public class Trip extends Event implements EventPricing{
     /**
      * Constructor for creating a whole new event by employee
      * */
-    public Trip(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String specs) {
-        super(ID, eventType, name, serviceType, employeeResponsible, nbOfHoursNeeded, specs);
+    public Trip(int ID,  String eventType, String name, String serviceType, String startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specs) {
+        super(ID, eventType, name, serviceType, startOfEvent, employeeResponsible, nbOfHoursNeeded, specs);
     }
 
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Trip(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specs){
-        super(ID, eventType, name, serviceType, startDate, endDate, nbOfHoursNeeded, specs);
+    public Trip(int ID, String eventType, String name, String serviceType, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specs, String partnerIDs){
+        super(ID, eventType, name, serviceType, startDate, endDate, startOfEvent, nbOfHoursNeeded, specs, partnerIDs);
     }
 
     //Setters

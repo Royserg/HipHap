@@ -83,7 +83,7 @@ public class Screen {
         }
 
         if (screen.equals("select event options")) {
-            return Helper.arrayJoinString(defaultOptions, "");
+            return Helper.arrayJoinString(defaultOptions, "Edit event, Delete event");
         }
 
         return defaultOptions;

@@ -62,6 +62,23 @@ public class Database {
         return null;
     }
 
+    public Event getEventByID(int ID){
+        for(Event event: events){
+            if(event.getID() == ID){
+                return event;
+            }
+        }
+        return null;
+    }
+
+    public Partner getPartnerByID(int ID){
+        for(Partner partner: partners){
+            if(partner.getID() == ID)
+                return partner;
+        }
+        return null;
+    }
+
     public ArrayList<Integer> getEmployeeEvents(ArrayList<Integer> eventIDs) {
         ArrayList<Integer> createdArray = new ArrayList<>();
         for (int i = 0; i < eventIDs.size(); i++) {
@@ -155,18 +172,18 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-                //  public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded
+                //  public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs)
                 switch (row[1]) {
                     case "Conference":
-                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
+                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], row[6], Integer.parseInt(row[7]), row[8], row[9]));
                         break;
 
                     case "Trip":
-                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
+                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], row[6], Integer.parseInt(row[7]), row[8], row[9]));
                         break;
 
                     case "Business Party":
-                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], Integer.parseInt(row[6]), row[7]));
+                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], row[6], Integer.parseInt(row[7]), row[8], row[9]));
                         break;
                 }
 
@@ -222,8 +239,8 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-                // Partner(name,occupation)
-                partners.add(new Partner(row[0], row[1]));
+                //  public Partner(int ID, String name, String occupation, String address, String bookedDates)
+                partners.add(new Partner( Integer.parseInt(row[0]), row[1], row[2], row[3], row[4]));
 
 
                 //Checking if the read is correct -- the variables were public at checking for speed
@@ -283,12 +300,12 @@ public class Database {
                 }
 
                 if (Integer.parseInt(row[0]) == 1111) {
-                    employees.add(new Manager(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
+                    employees.add(new Manager(Integer.parseInt(row[0]), castedIDs, row[2], row[3], row[4], row[5]));
                 }
 
                 else {
                     // public Employee(ArrayList<Integer> ids, String name, String pass, String email, String avDate)
-                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2],row[3],row[4], row[5]));
+                    employees.add(new Employee(Integer.parseInt(row[0]), castedIDs, row[2], row[3], row[4], row[5]));
                 }
 
             }
@@ -383,14 +400,20 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
+        pw.write("event_Id,event_type,name,service_type,org_start_date,org_end_date, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party\n");
+
         for (int i = 0; i < events.size(); i++) {
             Event current = events.get(i);
             builder.append(current.getID()+",");
             builder.append(current.getEventType()+",");
             builder.append(current.getName()+",");
             builder.append(current.getServiceType()+",");
-            builder.append(current.getOrgStartDate()+",");
-            builder.append(current.getOrgEndDate()+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgStartDate())+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgEndDate())+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy").format(current.getStartOfEvent() + ","));
+            builder.append(current.getNbOfHoursNeeded()+",");
+            builder.append(current.getSpecs());
+            builder.append(current.savePartnerIDs());
             builder.append('\n');
         }
 
@@ -409,10 +432,15 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
+        pw.write("id,name,service type, address, booked dates\n");
+
         for (int i = 0; i < partners.size(); i++) {
             Partner current = partners.get(i);
+            builder.append(current.getID() + ",");
             builder.append(current.getName()+",");
-            builder.append(current.getOccupation());
+            builder.append(current.getOccupation()+",");
+            builder.append(current.getAddress()+",");
+            builder.append(current.getBookedDates()+",");
             builder.append('\n');
         }
 
@@ -431,7 +459,7 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
-
+        pw.write("id,event_IDs,name,password,email,last_event_date\n");
 
 
         for (int i = 0; i < employees.size(); i++) {
@@ -439,15 +467,19 @@ public class Database {
             // Creating a string from the array of events, with ";" between them
             ArrayList<Integer> eventIDs = current.getEventIDs();
             String stringOfEventIDs = "";
-            for (int j = 0; j < eventIDs.size(); j++) {
-                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString();
+            // this builds the string of events with ; between them except for the last one
+            for (int j = 0; j < eventIDs.size()-1; j++) {
+                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString() + ";";
             }
+            // adding the last event in the string without the ;
+            stringOfEventIDs = stringOfEventIDs + eventIDs.get(eventIDs.size()-1).toString();
 
             builder.append(current.getID()+",");
             builder.append(stringOfEventIDs+",");
             builder.append(current.getName()+",");
             builder.append(current.getPassword()+",");
             builder.append(current.getEmail()+",");
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getLastEventInfo())+",");
             builder.append('\n');
         }
 
@@ -471,9 +503,12 @@ public class Database {
             // Creating a string from the array of events, with ";" between them
             ArrayList<Integer> eventIDs = current.getOwnEvents();
             String stringOfEventIDs = "";
-            for (int j = 0; j < eventIDs.size(); j++) {
-                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString();
+            // this builds the string of events with ; between them except for the last one
+            for (int j = 0; j < eventIDs.size()-1; j++) {
+                stringOfEventIDs = stringOfEventIDs + eventIDs.get(j).toString() + ";";
             }
+            // adding the last event in the string without the ;
+            stringOfEventIDs = stringOfEventIDs + eventIDs.get(eventIDs.size()-1).toString();
             builder.append(stringOfEventIDs + ",");
             builder.append(current.getName());
             builder.append('\n');

@@ -95,5 +95,11 @@ public class Employee {
     public Date getLastEventInfo(){
         return availabilityDate;
     }
+
+    //modifiers
+
+    public void addEvent(int ID){
+        eventIDs.add(ID);
+    }
 }
 

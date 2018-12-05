@@ -19,8 +19,9 @@ public class Event {
     public Employee employeeResponsible;
     private Date orgStartDate ;
     private Date orgEndDate ;
+    private Date startOfEvent;
 
-    ArrayList<Partner> partners = new ArrayList<>(); // partners for this particular event
+    ArrayList<Integer> partnersIDs = new ArrayList<>(); // partners for this particular event
     ArrayList<String> specs = new ArrayList<>();
     //eg: food, dj, photographer, limousine, cocaine, balloons
     // also maybe this should be just one string
@@ -28,7 +29,7 @@ public class Event {
     /**
      * Constructor for creating a whole new event by employee
     * */
-    public Event(int ID,  String eventType, String name, String serviceType, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
+    public Event(int ID,  String eventType, String name, String serviceType, String startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
@@ -43,12 +44,17 @@ public class Event {
             specs.add(specsHelper[i]);
         }
 
+        try {
+            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
+    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs){
         this.ID = ID;
         this.eventType = eventType;
         this.name = name;
@@ -57,15 +63,23 @@ public class Event {
         try {
             this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(startDate);
             this.orgEndDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(endDate);
+            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
         } catch (ParseException e) {
             System.out.print("Parse exception: " + e.getMessage());
         }
 
         this.nbOfHoursNeeded = nbOfHoursNeeded;
 
-        String[]specsHelper = specsString.split(", ");
+
+        //TODO: make sure that separation by ; works
+        String[] specsHelper = specsString.split(";");
         for(int i = 0; i < specsHelper.length; i++){
             specs.add(specsHelper[i]);
+        }
+
+        String[] partnerHelper = partnerIDs.split(";");
+        for(int i = 0; i< partnerHelper.length; i++){
+            partnersIDs.add(Integer.parseInt(partnerHelper[i]));
         }
 
     }
@@ -206,25 +220,36 @@ public class Event {
 
     /**
      * returns specifications of needed items like decorations, office supplies
-     * @return specs (arrayList <String>) - items needed for the event*/
-    public ArrayList<String> getSpecs() {
-        return specs;
+     * @return helper(String) - items needed for the event*/
+    public String getSpecs() {
+        String helper = "";
+        for(int i = 0; i < specs.size(); i++){
+            helper += specs.get(i) + ", ";
+        }
+        return helper;
+    }
+
+    public Date getStartOfEvent(){return startOfEvent;}
+
+    public ArrayList<Integer> getPartnersIDs() {
+        return partnersIDs;
     }
 
     //Modifiers
 
     /**
      * Adds a partener to the partner arrayList
-     * @param partner (Partner) - partner for the event*/
-    public void addPartner(Partner partner){
-        partners.add(partner);
+     * @param ID (int) - partner ID for the event*/
+    public void addPartner(int ID){
+        partnersIDs.add(ID);
     }
 
-    /**
-     * Adds a specification of the event to the specification arrayList
-     * @param spec (String) - specification for the event*/
-    public void addSpecification(String spec){
-        specs.add(spec);
+    public String savePartnerIDs (){
+        String helper = "";
+        for (int i = 0; i < partnersIDs.size(); i++){
+            helper += partnersIDs.get(i);
+        }
+        return helper;
     }
 
     @Override

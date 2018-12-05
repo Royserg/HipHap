@@ -1,14 +1,27 @@
 package src.users;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 
 public class Location {
-    String name;
-    ArrayList<Date> bookedDays = new ArrayList<>();
+    private String address;
+    private ArrayList<Date> bookedDays = new ArrayList<>();
 
-    Location(String name) {
+    public Location(String address, String bookedDays) {
+        this.address = address;
 
+        String[] dateStrings = bookedDays.split(";");
+        for ( int i= 0; i < dateStrings.length; i++){
+            Date date = null;
+            try {
+                date = new SimpleDateFormat("dd.MM.yyyy").parse(dateStrings[i]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            this.bookedDays.add(date);
+        }
     }
 
     public void addDate(Date booking) {
@@ -25,25 +38,13 @@ public class Location {
         return isAvailable;
     }
 
-
-    // Set-ers
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBookedDays(Date booking) {
-        bookedDays.add(booking);
-    }
-
     // Get-ers
 
-    public String getName() {
-        return name;
+    public String getAddress() {
+        return address;
     }
 
     public ArrayList<Date> getBookedDays() {
         return bookedDays;
     }
 }
-
