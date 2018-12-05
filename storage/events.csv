@@ -3,3 +3,5 @@ event_Id,event_type,name,service_type,employee_id,org_start_date,org_end_date, a
 7898,Trip,Thailand Trip,Planning,1293,24.06.2018 at 14,25.06.2018 at 16,01.07.2018 at 00,10,random,0
 4521,Trip,Mexico Trip,Planning,4023,05.12.2018 at 10,05.12.2018 at 16,27.12.2018 at 00,5,random,0
 9854,Conference,Microsoft conference,Full-Organization,1111,05.12.2018 at 08,05.12.2018 at 16,22.12.2018 at 00,8,random,1;10
+4956,Trip,Jakub_Trip,Planning,2348,14.04.2018 at 12,17.04.2018 at 02,06.12.2018 at 00,14,bus,4;11
+9419,Business Party,party,Full Organization,3984,17.04.2018 at 02,18.04.2018 at 00,07.12.2018 at 00,14,cocaine,2;4

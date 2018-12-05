@@ -158,9 +158,11 @@ public class Event {
      * Date is in the format "dd.MM.yyyy 'at' HH"
      * @return endDate (Date) - the date when the responsible employee will finish the organizing*/
     public Date setOrgEndDate(){
-        Date endDate = getOrgStartDate();
-        int daysToMove = ( endDate.getHours() + nbOfHoursNeeded ) / 8; //8 working hours a day
-        int hoursLeft = ( endDate.getHours() + nbOfHoursNeeded ) % 8;
+        // copy of start date
+        Date endDate = new Date(getOrgStartDate().getTime());
+
+        int daysToMove = ( endDate.getHours() - 8 + nbOfHoursNeeded ) / 8; //8 working hours a day
+        int hoursLeft = ( endDate.getHours() - 8 + nbOfHoursNeeded ) % 8;
         if (endDate.getDate() + daysToMove < 31 ) { //because in documentation its explained like :  If the date was April 30, for example, and the date is set to 31, then it will be treated as if it were on May 1, because April has only 30 days.
             endDate.setDate(endDate.getDate() + daysToMove);
         }else{
