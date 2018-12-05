@@ -143,7 +143,14 @@ public class Application {
                     }
                 }
 
-                Helper.selectOption(events.size());
+                int selectedEvent = Helper.selectOption(events.size());
+
+                if (selectedEvent == 0) {
+                    showDashboard();
+                } else {
+                    handleSelectedEvent(events.get(selectedEvent));
+                }
+
                 // todo: get to that particular event menu
             } else if (action.equals("period")) {
                 System.out.println("=== Start Date ===");
@@ -172,6 +179,7 @@ public class Application {
                         System.out.println((i + 1) + ". " + events.get(i));
                     }
                 }
+
                 // todo: option selection
             }
         } catch (ClassCastException e) {
@@ -387,12 +395,37 @@ public class Application {
     }
 
     /**
-     * Shows events for a specified date, prints them as ordered list,
-     * and provides possibility to select one of them
-     * @param date
+     * Shows options for chosen event and manages selected operation on it
+     * @param event (Event)
      */
-    private void selectEvent(String date) {
+    private void handleSelectedEvent(Event event) {
         // todo: improve it for printing events and choosing one of them
+
+        int selectedOption = showSelectEventMenu();
+        System.out.println(selectedOption);
+        switch (selectedOption) {
+            case 0:
+                showDashboard();
+                break;
+            case 1:
+                System.out.println("Editing event");
+                editEvent(event.getID());
+                Helper.getString("Press enter to go back to main menu");
+                showDashboard();
+                break;
+            case 2:
+                System.out.println("Deleting event");
+                deleteEvent(event.getID());
+                Helper.getString("Press enter to go back to main menu");
+                showDashboard();
+                break;
+            default:
+                System.out.println("Wrong option");
+                Helper.getString("Press enter to go back to main menu");
+                showDashboard();
+                break;
+        }
+
     }
 
 
