@@ -15,8 +15,13 @@ public class BusinessParty extends Event implements EventPricing {
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public BusinessParty(int ID, String eventType, String name, String serviceType, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specs, String partnerIDs){
-        super(ID, eventType, name, serviceType, startDate, endDate, startOfEvent, nbOfHoursNeeded, specs, partnerIDs);
+/*
+    public BusinessParty(int ID, String eventType, String name, String serviceType, Employee employee, String startDate, String endDate, int nbOfHoursNeeded, String specs){
+        super(ID, eventType, name, serviceType, employee, startDate, endDate, nbOfHoursNeeded, specs);
+*/
+    public BusinessParty(int ID, String eventType, String name, String serviceType, Employee employee, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specs, String partnerIDs){
+        super(ID, eventType, name, serviceType, employee, startDate, endDate, startOfEvent, nbOfHoursNeeded, specs, partnerIDs);
+
     }
 
     //Setters

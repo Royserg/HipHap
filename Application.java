@@ -8,6 +8,7 @@ import src.users.Customer;
 import src.users.Employee;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Random;
 
@@ -181,7 +182,7 @@ public class Application {
         // print options
         Screen.listOptions(options);
         // user inputs option number
-        int selection = Helper.selectOption(options.length);
+        int selection = Helper.selectOption(options.length-1);
         System.out.println("selected: " + options[selection]);
         return selection;
         // 0 - main menu
@@ -370,6 +371,11 @@ public class Application {
                         Helper.getString("Press enter to go back to main menu");
                         showDashboard();
                         break;
+                    default:
+                        System.out.println("Wrong option");
+                        Helper.getString("Press enter to go back to main menu");
+                        showDashboard();
+                        break;
                 }
             }
 
@@ -531,6 +537,8 @@ public class Application {
             db.customers.get(customerSelect - 1).addEvent(newID);
         }
 
+        String startOfEventString = Helper.getString("Enter start date of the event: ");
+
         //adding partners
         //TODO: make sure this part adds a correct ID
         System.out.println("If the partners are needed for the event select the partners. If they are not needed, select 0");
@@ -564,21 +572,21 @@ public class Application {
         if(eventType == 1){
             String officeSupplies = Helper.getString("Enter needed office supplies: ");
             eventTypeString = "Conference";
-            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
+            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }else if (eventType == 2){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
             eventTypeString = "Trip";
-            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, transport);
+            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, transport);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }else if (eventType == 3){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
             eventTypeString = "Business Party";
-            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, decoration);
+            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, decoration);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
@@ -647,11 +655,42 @@ public class Application {
         }
     }
 
-    public void deleteEvent(int ID) {
+    public void deleteEvent(int eventID) {
+        System.out.println(eventID);
+        int employeeID = 0;
+
         for (int i = 0; i < db.events.size(); i++) {
-            if (ID == db.events.get(i).getID()) {
+            if (eventID == db.events.get(i).getID()) {
+                // getting this employee's ID
+                try {
+                    /*
+                    Event test = db.getEventByID(eventID);
+                    System.out.println(test.getName());
+                    Employee test2 = test.getEmployee();
+                    System.out.println(test2.getName());
+                    int test3 = test2.getID();
+                    System.out.println(test3);
+                    */
+                    employeeID = db.getEventByID(eventID).getEmployee().getID();
+                    System.out.println(employeeID);
+                }
+                catch(Exception e) {
+                    System.out.println("Exception");
+                }//todo:FIX THIS
+
+
+                // searching his ID in the employees ArrayList
+                for (int j = 0; j < db.employees.size(); j++) {
+                    if (db.employees.get(j).getID() == employeeID) {
+                        db.employees.get(j).removeEventID(eventID);
+                    }
+                    System.out.println(j + " try");
+                }
+
                 db.events.remove(i);
                 System.out.println("Event deleted");
+
+
                 break;
             }
         }

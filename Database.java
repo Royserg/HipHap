@@ -20,8 +20,8 @@ import java.util.Date;
 
 public class Database {
 
-    public ArrayList<Event> events = readEventsFile();
     public ArrayList<Employee> employees = readEmployeesFile();
+    public ArrayList<Event> events = readEventsFile();
     public ArrayList<Partner> partners = readPartnersFile();
     public ArrayList<Customer> customers = readCustomersFile();
     public Manager manager;
@@ -172,18 +172,35 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-                //  public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs)
-                switch (row[1]) {
+
+                //  public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, int nbOfHoursNeeded, String specsString)
+                // reading the ID of the employee and then searching it and returning the object, passing it to the constructor (row[5])
+                /*switch (row[1]) {
                     case "Conference":
-                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], row[4], row[5], row[6], Integer.parseInt(row[7]), row[8], row[9]));
+                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], Integer.parseInt(row[7]), row[8]));
                         break;
 
                     case "Trip":
-                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], row[4], row[5], row[6], Integer.parseInt(row[7]), row[8], row[9]));
+                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], Integer.parseInt(row[7]), row[8]));
                         break;
 
                     case "Business Party":
-                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], row[4], row[5], row[6], Integer.parseInt(row[7]), row[8], row[9]));
+                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], Integer.parseInt(row[7]), row[8]));
+                */
+                //  public Event(int ID, String eventType, String name, String serviceType, Employee responsible, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs)
+                // reading the ID of the employee and then searching it and returning the object, passing it to the constructor (row[5])
+                switch (row[1]) {
+                    case "Conference":
+                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], row[7], Integer.parseInt(row[8]), row[9], row[10]));
+                        break;
+
+                    case "Trip":
+                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], row[7], Integer.parseInt(row[8]), row[9], row[10]));
+                        break;
+
+                    case "Business Party":
+                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], row[7], Integer.parseInt(row[8]), row[9], row[10]));
+
                         break;
                 }
 
@@ -400,7 +417,7 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
-        pw.write("event_Id,event_type,name,service_type,org_start_date,org_end_date, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party\n");
+        pw.write("event_Id,event_type,name,service_type,employee_id,org_start_date,org_end_date, actualstartdate, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party, partner IDs\n");
 
         for (int i = 0; i < events.size(); i++) {
             Event current = events.get(i);
@@ -408,6 +425,7 @@ public class Database {
             builder.append(current.getEventType()+",");
             builder.append(current.getName()+",");
             builder.append(current.getServiceType()+",");
+            builder.append(current.getEmployee().getID()+",");
             builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgStartDate())+",");
             builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgEndDate())+",");
             builder.append(new SimpleDateFormat("dd.MM.yyyy").format(current.getStartOfEvent() + ","));
