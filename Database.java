@@ -417,7 +417,7 @@ public class Database {
 
         StringBuilder builder = new StringBuilder();
 
-        pw.write("event_Id,event_type,name,service_type,employee_id,org_start_date,org_end_date, actualstartdate, hours needed -- also officeSupplies for Conference, transport for trip, decoration for business party, partner IDs\n");
+        pw.write("event_Id,event_type,name,service_type,employee_id,org_start_date,org_end_date, actualstartdate, hours needed, specs, partner IDs\n");
 
         for (int i = 0; i < events.size(); i++) {
             Event current = events.get(i);
@@ -428,9 +428,9 @@ public class Database {
             builder.append(current.getEmployee().getID()+",");
             builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgStartDate())+",");
             builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getOrgEndDate())+",");
-            builder.append(new SimpleDateFormat("dd.MM.yyyy").format(current.getStartOfEvent() + ","));
+            builder.append(new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(current.getStartOfEvent()) + ",");
             builder.append(current.getNbOfHoursNeeded()+",");
-            builder.append(current.getSpecs());
+            builder.append(current.getSpecs()+",");
             builder.append(current.savePartnerIDs());
             builder.append('\n');
         }
