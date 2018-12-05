@@ -6,6 +6,9 @@ import src.events.Event;
 import src.events.Trip;
 import src.users.Customer;
 import src.users.Employee;
+
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Random;
 
 import java.text.SimpleDateFormat;
@@ -482,6 +485,8 @@ public class Application {
             db.customers.get(customerSelect - 1).addEvent(newID);
         }
 
+        String startOfEventString = Helper.getString("Enter start date of the event: ");
+
         //adding partners
         //TODO: make sure this part adds a correct ID
         System.out.println("If the partners are needed for the event select the partners. If they are not needed, select 0");
@@ -515,21 +520,21 @@ public class Application {
         if(eventType == 1){
             String officeSupplies = Helper.getString("Enter needed office supplies: ");
             eventTypeString = "Conference";
-            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
+            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }else if (eventType == 2){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
             eventTypeString = "Trip";
-            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, transport);
+            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, transport);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
         }else if (eventType == 3){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
             eventTypeString = "Business Party";
-            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, responsibleEmployee, nbOfHoursNeeded, decoration);
+            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, decoration);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             db.events.add(newEvent);
