@@ -101,5 +101,14 @@ public class Employee {
     public void addEvent(int ID){
         eventIDs.add(ID);
     }
+
+    public void removeEventID(int eventID) {
+        for (int i = 0; i < eventIDs.size(); i++)
+            if (eventIDs.get(i) == eventID) {
+                eventIDs.remove(i);
+                break;
+            }
+    }
+
 }
 

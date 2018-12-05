@@ -47,11 +47,12 @@ public class Event {
     /**
      * Constructor for creating a new event with reading from our database
      * */
-    public Event(int ID, String eventType, String name, String serviceType, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
+    public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.eventType = eventType;
         this.name = name;
         this.serviceType = serviceType;
+        this.employeeResponsible = employeeResponsible;
 
         try {
             this.orgStartDate = new SimpleDateFormat("dd.MM.yyyy 'at' HH").parse(startDate);
@@ -213,6 +214,10 @@ public class Event {
      * @param ID (int) - partner ID for the event*/
     public void addPartner(int ID){
         partnersIDs.add(ID);
+    }
+
+    public Employee getEmployee(){
+        return this.employeeResponsible;
     }
 
 

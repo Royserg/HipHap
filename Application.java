@@ -137,7 +137,7 @@ public class Application {
         // print options
         Screen.listOptions(options);
         // user inputs option number
-        int selection = Helper.selectOption(options.length);
+        int selection = Helper.selectOption(options.length-1);
         System.out.println("selected: " + options[selection]);
         return selection;
         // 0 - main menu
@@ -323,6 +323,11 @@ public class Application {
                     case 2:
                         System.out.println("Deleting event");
                         deleteEvent(selectedEventID);
+                        Helper.getString("Press enter to go back to main menu");
+                        showDashboard();
+                        break;
+                    default:
+                        System.out.println("Wrong option");
                         Helper.getString("Press enter to go back to main menu");
                         showDashboard();
                         break;
@@ -587,11 +592,42 @@ public class Application {
 
     }
 
-    public void deleteEvent(int ID) {
+    public void deleteEvent(int eventID) {
+        System.out.println(eventID);
+        int employeeID = 0;
+
         for (int i = 0; i < db.events.size(); i++) {
-            if (ID == db.events.get(i).getID()) {
+            if (eventID == db.events.get(i).getID()) {
+                // getting this employee's ID
+                try {
+                    /*
+                    Event test = db.getEventByID(eventID);
+                    System.out.println(test.getName());
+                    Employee test2 = test.getEmployee();
+                    System.out.println(test2.getName());
+                    int test3 = test2.getID();
+                    System.out.println(test3);
+                    */
+                    employeeID = db.getEventByID(eventID).getEmployee().getID();
+                    System.out.println(employeeID);
+                }
+                catch(Exception e) {
+                    System.out.println("Exception");
+                }//todo:FIX THIS
+
+
+                // searching his ID in the employees ArrayList
+                for (int j = 0; j < db.employees.size(); j++) {
+                    if (db.employees.get(j).getID() == employeeID) {
+                        db.employees.get(j).removeEventID(eventID);
+                    }
+                    System.out.println(j + " try");
+                }
+
                 db.events.remove(i);
                 System.out.println("Event deleted");
+
+
                 break;
             }
         }
