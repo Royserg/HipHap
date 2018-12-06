@@ -109,6 +109,7 @@ public class Helper {
         try {
             date = DATE_FORMAT.parse(dateString);
         } catch (Exception e) {
+            System.out.println("== Try again ==");
             date = getDate();
         }
         return date;
