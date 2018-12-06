@@ -33,10 +33,6 @@ public class Application {
      * starts application
      */
     public void run() {
-
-        // TODO: think about that while loop
-        // while (true) {
-
         // show starting login page
         showLogin("");
 
@@ -595,7 +591,6 @@ public class Application {
         System.out.println();
 
         //adding partners
-        //TODO: make sure this part adds a correct ID
         System.out.println("If the partners are needed for the event select the partners. If they are not needed, select 0");
         int currentPartner = 1;
         ArrayList<Integer> allPartners = new ArrayList<>();

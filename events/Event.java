@@ -75,8 +75,6 @@ public class Event {
 
         this.nbOfHoursNeeded = nbOfHoursNeeded;
 
-
-        //TODO: make sure that separation by ; works
         String[] specsHelper = specsString.split(";");
         for(int i = 0; i < specsHelper.length; i++){
             specs.add(specsHelper[i]);

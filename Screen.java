@@ -17,8 +17,6 @@ public class Screen {
 
     public void Screen(){ }
 
-    // TODO: fix methods below
-
     /**
      * prints nicely formatted header of the screen
      * @param heading (String) - message to be nicely formatted as a header
