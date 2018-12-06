@@ -45,12 +45,6 @@ public class Event {
         for(int i = 0; i < specsHelper.length; i++){
             specs.add(specsHelper[i]);
         }
-
-//        try {
-//            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
