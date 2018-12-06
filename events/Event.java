@@ -29,13 +29,14 @@ public class Event {
     /**
      * Constructor for creating a whole new event by employee
     * */
-    public Event(int ID,  String eventType, String name, String serviceType, String startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
+    public Event(int ID,  String eventType, String name, String serviceType, Date startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
         this.serviceType = serviceType;
         this.eventType = eventType;
         this.employeeResponsible = employeeResponsible;
         this.nbOfHoursNeeded = nbOfHoursNeeded;
+        this.startOfEvent = startOfEvent;
 
         setOrgStartDate(employeeResponsible);
         setOrgEndDate();
@@ -45,11 +46,11 @@ public class Event {
             specs.add(specsHelper[i]);
         }
 
-        try {
-            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            this.startOfEvent = new SimpleDateFormat("dd.MM.yyyy").parse(startOfEvent);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

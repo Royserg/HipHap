@@ -119,85 +119,85 @@ public class Application {
     private void handleDateMenu(String action) {
         Screen.clearScreen();
         Screen.showLogo();
-        try {
+        if (action.equals("show options")) {
+            // todo: those 4 calls are repeating - for making a method
+            String[] options = Screen.getOptions("date options");
+            // print options
+            Screen.listOptions(options);
+            // user inputs option number
+            int selection = Helper.selectOption(options.length);
 
-            if (action.equals("show options")) {
-                // todo: those 4 calls are repeating - for making a method
-                String[] options = Screen.getOptions("date options");
-                // print options
-                Screen.listOptions(options);
-                // user inputs option number
-                int selection = Helper.selectOption(options.length);
+            handleSelectedOption(options[selection]);
+            return;
+        }
 
-                handleSelectedOption(options[selection]);
-                return;
+        // sub-screens of Date options
+        if (action.equals("date")) {
+            // user provides date to check
+            Date date = Helper.getDate();
+
+            ArrayList<Event> events = db.getEvents(date, currentUser.getID());
+
+            Screen.clearScreen();
+            Screen.showLogo();
+
+            // display header with selected date
+            DateFormat dateFormat = new SimpleDateFormat("    dd.MM.yyyy    ");
+            Screen.showHeader(dateFormat.format(date));
+
+            System.out.println("0. Main Menu");
+
+            if (events.isEmpty()) {
+                System.out.println("==== No Events ====");
+            } else {
+                for (int i = 0; i < events.size(); i++) {
+                    System.out.println((i + 1) + ". " + events.get(i));
+                }
             }
 
-            // sub-screens of Date options
-            if (action.equals("date")) {
-                // user provides date to check
-                Date date = Helper.getDate();
+            int selectedEvent = Helper.selectOption(events.size());
 
-                ArrayList<Event> events = db.getEvents(date, currentUser.getID());
-
-                Screen.clearScreen();
-                Screen.showLogo();
-
-                // display header with selected date
-                DateFormat dateFormat = new SimpleDateFormat("    dd.MM.yyyy    ");
-                Screen.showHeader(dateFormat.format(date));
-
-                System.out.println("0. Main Menu");
-
-                if (events.isEmpty()) {
-                    System.out.println("==== No Events ====");
-                } else {
-                    for (int i = 0; i < events.size(); i++) {
-                        System.out.println((i + 1) + ". " + events.get(i));
-                    }
-                }
-
-                int selectedEvent = Helper.selectOption(events.size());
-
-                if (selectedEvent == 0) {
-                    showDashboard();
-                } else {
-                    handleSelectedEvent(events.get(selectedEvent - 1));
-                }
-
-                // todo: get to that particular event menu
-            } else if (action.equals("period")) {
-                System.out.println("=== Start Date ===");
-                Date startDate = Helper.getDate();
-
-                System.out.println("=== End Date ===");
-                Date endDate = Helper.getDate();
-
-                // fetch events between specified dates
-                ArrayList<Event> events = db.getEvents(startDate, endDate, currentUser.getID());
-
-                Screen.clearScreen();
-                Screen.showLogo();
-
-                // display header with selected date period
-                DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                Screen.showHeader(dateFormat.format(startDate) + "-" + dateFormat.format(endDate));
-
-                // show main menu option
-                System.out.println("0. Main menu");
-
-                if (events.isEmpty()) {
-                    System.out.println("==== No Events ====");
-                } else {
-                    for (int i = 0; i < events.size(); i++) {
-                        System.out.println((i + 1) + ". " + events.get(i));
-                    }
-                }
-
-                // todo: option selection
+            if (selectedEvent == 0) {
+                showDashboard();
+            } else {
+                handleSelectedEvent(events.get(selectedEvent - 1));
             }
-        } catch (ClassCastException e) {
-            handleDateMenu(action);
+
+        } else if (action.equals("period")) {
+            System.out.println("=== Start Date ===");
+            Date startDate = Helper.getDate();
+
+            System.out.println("=== End Date ===");
+            Date endDate = Helper.getDate();
+
+            // fetch events between specified dates
+            ArrayList<Event> events = db.getEvents(startDate, endDate, currentUser.getID());
+
+            Screen.clearScreen();
+            Screen.showLogo();
+
+            // display header with selected date period
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            Screen.showHeader(dateFormat.format(startDate) + "-" + dateFormat.format(endDate));
+
+            // show main menu option
+            System.out.println("0. Main menu");
+
+            if (events.isEmpty()) {
+                System.out.println("==== No Events ====");
+            } else {
+                for (int i = 0; i < events.size(); i++) {
+                    System.out.println((i + 1) + ". " + events.get(i));
+                }
+            }
+
+            int selectedEvent = Helper.selectOption(events.size());
+
+            if (selectedEvent == 0) {
+                showDashboard();
+            } else {
+                handleSelectedEvent(events.get(selectedEvent - 1));
+            }
         }
     }
 
@@ -598,7 +598,9 @@ public class Application {
         System.out.println();
         System.out.println();
 
-        String startOfEventString = Helper.getString("Enter start date of the event: ");
+        System.out.println("== Enter start date of the event ==");
+        Date startOFEvent = Helper.getDate();
+
         System.out.println();
         System.out.println();
 
@@ -638,7 +640,7 @@ public class Application {
         if(eventType == 1){
             String officeSupplies = Helper.getString("Enter needed office supplies: ");
             eventTypeString = "Conference";
-            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
+            Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOFEvent, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             newEvent.calculateEventPrices();
@@ -649,7 +651,7 @@ public class Application {
         }else if (eventType == 2){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
             eventTypeString = "Trip";
-            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, transport);
+            Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOFEvent, responsibleEmployee, nbOfHoursNeeded, transport);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             newEvent.calculateEventPrices();
@@ -660,7 +662,7 @@ public class Application {
         }else if (eventType == 3){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
             eventTypeString = "Business Party";
-            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOfEventString, responsibleEmployee, nbOfHoursNeeded, decoration);
+            BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOFEvent, responsibleEmployee, nbOfHoursNeeded, decoration);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             newEvent.calculateEventPrices();

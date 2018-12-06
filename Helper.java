@@ -108,10 +108,9 @@ public class Helper {
         // convert String to Date
         try {
             date = DATE_FORMAT.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            date = getDate();
         }
-
         return date;
     }
 

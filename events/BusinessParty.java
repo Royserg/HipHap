@@ -2,6 +2,8 @@ package src.events;
 
 import src.users.Employee;
 
+import java.util.Date;
+
 public class BusinessParty extends Event implements EventPricing {
     private double basePartyPrice = 10000;
     private double totalPartyPrice;
@@ -9,7 +11,7 @@ public class BusinessParty extends Event implements EventPricing {
     /**
      * Constructor for creating a whole new event by employee
      * */
-    public BusinessParty(int ID,  String eventType, String name, String serviceType, String startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specs) {
+    public BusinessParty(int ID, String eventType, String name, String serviceType, Date startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specs) {
         super(ID, eventType, name, serviceType, startOfEvent, employeeResponsible, nbOfHoursNeeded, specs);
     }
 
