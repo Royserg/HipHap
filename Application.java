@@ -8,7 +8,6 @@ import src.users.Customer;
 import src.users.Employee;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Random;
 
@@ -26,28 +25,15 @@ public class Application {
 
 
     // constructor
-    public Application() { }
+    Application() { }
 
 
     /**
      * starts application
      */
-    public void run() {
+    void run() {
         // show starting login page
         showLogin("");
-
-//        Date today = new Date();
-//        System.out.println("today: " + today);
-//
-//        today.setMinutes(0);
-//        today.setSeconds(0);
-//
-//        System.out.println("Today improved: " + today);
-//
-//        today.setDate(today.getDate() + 1);
-//
-//        System.out.println("Next day: " + today);
-
     }
 
     // ==========================
@@ -273,7 +259,7 @@ public class Application {
         }
     }
 
-    public void selectEvent() {
+    private void selectEvent() {
         System.out.println();
 
         // for manager
@@ -300,7 +286,7 @@ public class Application {
             Screen.clearScreen();
             ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(db.employees.get(selectedEmployee-1).getEventIDs());
             // checks whether there are events or not for today
-            if (eventIDs.isEmpty() == true) {
+            if (eventIDs.isEmpty()) {
                 System.out.println(db.employees.get(selectedEmployee-1).getName() + " has no events for today");
                 Helper.getString("Press any key to go back to main menu");
                 showDashboard();
@@ -350,7 +336,7 @@ public class Application {
         else {
             ArrayList<Integer> eventIDs = db.getEmployeeEventsForToday(currentUser.getEventIDs());
             // if there are no events for today, you cannot choose anything
-            if (eventIDs.isEmpty() == true) {
+            if (eventIDs.isEmpty()) {
                 System.out.println("No events for today");
                 Helper.getString("Press enter to return to main menu");
                 showDashboard();
@@ -516,14 +502,14 @@ public class Application {
     public static Employee getCurrentUser(){ return currentUser; }
 
 
-    public static int generateRandomID(int min, int max) {
+    private static int generateRandomID(int min, int max) {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
 
     /**
      * Creates new event based on user inputed information*/
-    public void addEvent(){
+    private void addEvent(){
         Employee responsibleEmployee;
         int newID = 0;
         String eventTypeString = "";
@@ -673,7 +659,7 @@ public class Application {
         }
     }
 
-    public void editEvent(int eventID){
+    private void editEvent(int eventID){
         Event event = db.getEventByID(eventID);
         int optionSelected = 1;
         while (optionSelected != 0) {
