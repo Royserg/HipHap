@@ -747,7 +747,7 @@ public class Application {
                 }
                 catch(Exception e) {
                     System.out.println("Exception");
-                }//todo:FIX THIS
+                }
 
 
                 // searching his ID in the employees ArrayList
