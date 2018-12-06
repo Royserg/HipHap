@@ -96,6 +96,10 @@ public class Employee {
         return availabilityDate;
     }
 
+    public void setAvailabilityDate(Date date) {
+        this.availabilityDate = date;
+    }
+
     //modifiers
 
     public void addEvent(int ID){
