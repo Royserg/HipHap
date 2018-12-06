@@ -36,8 +36,9 @@ public class Event {
         this.eventType = eventType;
         this.employeeResponsible = employeeResponsible;
         this.nbOfHoursNeeded = nbOfHoursNeeded;
-        this.orgStartDate = setOrgStartDate(employeeResponsible);
-        this.orgEndDate = setOrgEndDate();
+
+        setOrgStartDate(employeeResponsible);
+        setOrgEndDate();
 
         String[]specsHelper = specsString.split(", ");
         for(int i = 0; i < specsHelper.length; i++){
@@ -136,57 +137,62 @@ public class Event {
      * Setting the organizing start date, the date when the employee responsible for the event will start working on it.
      * Date is in format "dd.MM.yyyy 'at' HH"
      * @param employeeResponsible (Employee) - employee responsible for organizing this event
-     * @return startDate (Date) - the date when the responsible employee will start organizing the event*/
+     * */
+    public void setOrgStartDate(Employee employeeResponsible){
 
-    public Date setOrgStartDate( Employee employeeResponsible){
-        Employee currentUser = Application.getCurrentUser();
-        Date startDate;
+        Date lastEmployeeEvent = employeeResponsible.getLastEventInfo();
 
-        // check if availabilty date
+        // keep track of today's date, keep only hours
+        Date today = new Date();
+        today.setMinutes(0); today.setSeconds(0);
 
-        if( currentUser.getID() == 1111 ) {//manager
-            int employeeID = Helper.getInt("Enter ID of the employee that will be asigned this event: ");
-            startDate = employeeResponsible.getLastEventInfo();
-        } else{
-            startDate = employeeResponsible.getLastEventInfo();
+        // set availability date for today if employee's last event is in the past
+        if (lastEmployeeEvent.before(today)) {
+            // if availability starts from 16:00 (end of working day), set it to next day from 8:00
+            if (today.getHours() == 16 || today.getHours() > 16) {
+                today.setDate(today.getDate() + 1);
+                today.setHours(8);
+            }
+            this.orgStartDate = today;
+        } else {
+            if(lastEmployeeEvent.getHours() == 16 || lastEmployeeEvent.getHours() > 16) {
+                lastEmployeeEvent.setDate(lastEmployeeEvent.getDate() + 1);
+                lastEmployeeEvent.setHours(8);
+            }
+            this.orgStartDate = lastEmployeeEvent;
         }
-
-        return startDate;
     }
 
     /**
      * Setting the organizing end date, the date when the employee responsible for this event will finish the organizing
      * Date is in the format "dd.MM.yyyy 'at' HH"
-     * @return endDate (Date) - the date when the responsible employee will finish the organizing*/
-    private Date setOrgEndDate(){
+     * */
+    private void setOrgEndDate(){
         // copy the start date
         Date endDate = new Date(getOrgStartDate().getTime());
 
+        // working day is between 8 - 16: 8 hours per day
+        int daysToMove = nbOfHoursNeeded / 8;
+        int hoursLeft = nbOfHoursNeeded % 8;
 
-        // working day should be between 8 - 16
-        int daysToMove = ( endDate.getHours() + nbOfHoursNeeded ) / 8; //8 working hours a day
+        // if endDate is after 16:00 (end of working day), move date to next day
+        if (endDate.getHours() + hoursLeft > 16) {
+            daysToMove++;
+            hoursLeft = (endDate.getHours() + hoursLeft) - 16;
+            endDate.setHours(8);
+        }
 
-        // Jakub - 16:00 06.12.2018
-        // 07.12.2018 starting working 13 hours
-
-        // event = 13 hours = 8 + 5
-        // 13 / 8 = 1 =>  endDate, 12:00 08.12.2018
-
-//        int daysToMove = nbOfHoursNeeded / 8;
-//        int hoursLeft =  nbOfHoursNeeded % 8;
-//        if (getOrgStartDate().getHours() == 16) daysToMove += 1;
-
-
-
-        int hoursLeft = ( endDate.getHours() + nbOfHoursNeeded ) % 8;
         if (endDate.getDate() + daysToMove < 31 ) { //because in documentation its explained like :  If the date was April 30, for example, and the date is set to 31, then it will be treated as if it were on May 1, because April has only 30 days.
             endDate.setDate(endDate.getDate() + daysToMove);
         }else{
             endDate.setMonth(endDate.getMonth() + 1 );
             endDate.setDate(endDate.getDate() + daysToMove  - 31);
         }
-        endDate.setHours(hoursLeft);
-        return endDate;
+
+        endDate.setHours(endDate.getHours() + hoursLeft);
+
+
+        this.orgEndDate = endDate;
     }
 
     // Get-ers

@@ -36,6 +36,18 @@ public class Application {
         // show starting login page
         showLogin("");
 
+//        Date today = new Date();
+//        System.out.println("today: " + today);
+//
+//        today.setMinutes(0);
+//        today.setSeconds(0);
+//
+//        System.out.println("Today improved: " + today);
+//
+//        today.setDate(today.getDate() + 1);
+//
+//        System.out.println("Next day: " + today);
+
     }
 
     // ==========================

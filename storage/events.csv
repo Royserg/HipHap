@@ -4,4 +4,5 @@ event_Id,event_type,name,service_type,employee_id,org_start_date,org_end_date, a
 4521,Trip,Mexico Trip,Planning,4023,05.12.2018 at 10,05.12.2018 at 16,27.12.2018 at 00,5,random,0
 9854,Conference,Microsoft conference,Full-Organization,1111,05.12.2018 at 08,05.12.2018 at 16,22.12.2018 at 00,8,random,1;10
 4956,Trip,Jakub_Trip,Planning,2348,14.04.2018 at 12,17.04.2018 at 02,06.12.2018 at 00,14,bus,4;11
-9419,Business Party,party,Full Organization,3984,17.04.2018 at 02,18.04.2018 at 00,07.12.2018 at 00,14,cocaine,2;4
+3456,Trip,Party,Full Organization,1293,06.12.2018 at 12,07.12.2018 at 18,07.12.2018 at 00,14,bus,10
+6909,Business party,another,Full Organization,3984,06.12.2018 at 12,08.12.2018 at 10,07.12.2018 at 00,14,nothinb,6
