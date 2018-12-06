@@ -75,7 +75,6 @@ public class Event {
 
         this.nbOfHoursNeeded = nbOfHoursNeeded;
 
-
         //TODO: make sure that separation by ; works
         String[] specsHelper = specsString.split(";");
         for(int i = 0; i < specsHelper.length; i++){
@@ -144,12 +143,15 @@ public class Event {
         Employee currentUser = Application.getCurrentUser();
         Date startDate;
 
+        // check if availabilty date
+
         if( currentUser.getID() == 1111 ) {//manager
             int employeeID = Helper.getInt("Enter ID of the employee that will be asigned this event: ");
             startDate = employeeResponsible.getLastEventInfo();
         } else{
             startDate = employeeResponsible.getLastEventInfo();
         }
+
         return startDate;
     }
 
@@ -157,12 +159,27 @@ public class Event {
      * Setting the organizing end date, the date when the employee responsible for this event will finish the organizing
      * Date is in the format "dd.MM.yyyy 'at' HH"
      * @return endDate (Date) - the date when the responsible employee will finish the organizing*/
-    public Date setOrgEndDate(){
-        // copy of start date
+    private Date setOrgEndDate(){
+        // copy the start date
         Date endDate = new Date(getOrgStartDate().getTime());
 
-        int daysToMove = ( endDate.getHours() - 8 + nbOfHoursNeeded ) / 8; //8 working hours a day
-        int hoursLeft = ( endDate.getHours() - 8 + nbOfHoursNeeded ) % 8;
+
+        // working day should be between 8 - 16
+        int daysToMove = ( endDate.getHours() + nbOfHoursNeeded ) / 8; //8 working hours a day
+
+        // Jakub - 16:00 06.12.2018
+        // 07.12.2018 starting working 13 hours
+
+        // event = 13 hours = 8 + 5
+        // 13 / 8 = 1 =>  endDate, 12:00 08.12.2018
+
+//        int daysToMove = nbOfHoursNeeded / 8;
+//        int hoursLeft =  nbOfHoursNeeded % 8;
+//        if (getOrgStartDate().getHours() == 16) daysToMove += 1;
+
+
+
+        int hoursLeft = ( endDate.getHours() + nbOfHoursNeeded ) % 8;
         if (endDate.getDate() + daysToMove < 31 ) { //because in documentation its explained like :  If the date was April 30, for example, and the date is set to 31, then it will be treated as if it were on May 1, because April has only 30 days.
             endDate.setDate(endDate.getDate() + daysToMove);
         }else{
