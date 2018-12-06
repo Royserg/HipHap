@@ -1,13 +1,8 @@
 package src;
 
-
-
-import src.events.Event;
-
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.*;
-
 
 
 public class Screen {
@@ -22,16 +17,16 @@ public class Screen {
      * @param heading (String) - message to be nicely formatted as a header
      */
     public static void showHeader(String heading) {
-        System.out.println("===========================");
-        System.out.println("|    " + heading + "   |");
-        System.out.println("===========================");
+        System.out.println("===============================");
+        System.out.println("|     " + heading + "   |");
+        System.out.println("===============================");
     }
 
     /**
      * prints nicely formatted header with today's date
      */
     public static void showHeader() {
-        showHeader(ft.format(new Date()));
+        showHeader(" " + ft.format(new Date()) + "  ");
     }
 
 
@@ -40,7 +35,7 @@ public class Screen {
      * Logo of HipHapOrg
      */
     public static void showLogo() {
-        showHeader("    HipHapOrg     ");
+        showHeader("     HipHapOrg       ");
     }
 
 
@@ -97,9 +92,5 @@ public class Screen {
         System.out.println();
     }
 
-    public static void listOptions(ArrayList<Event> options) {
-        System.out.println("____________________");
-
-    }
 }
 

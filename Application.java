@@ -19,10 +19,8 @@ public class Application {
 
     // keep track of currently logged in Employee
     private static Employee currentUser;
-
-    //    private Scanner scn = new Scanner(System.in);
+    // create a Database object
     private Database db = new Database();
-
 
     // constructor
     Application() { }
@@ -59,7 +57,6 @@ public class Application {
         validateUser(username, password);
     }
 
-
     private void showDashboard() {
         Screen.clearScreen();
         Screen.showLogo();
@@ -90,8 +87,6 @@ public class Application {
                         System.out.println();
                     }
         }
-        //System.out.println();
-        //System.out.println();
 
         String[] options = Screen.getOptions(currentUser.getID());
         // show menu options
@@ -106,12 +101,11 @@ public class Application {
         Screen.clearScreen();
         Screen.showLogo();
         if (action.equals("show options")) {
-            // todo: those 4 calls are repeating - for making a method
             String[] options = Screen.getOptions("date options");
             // print options
             Screen.listOptions(options);
             // user inputs option number
-            int selection = Helper.selectOption(options.length);
+            int selection = Helper.selectOption(options.length - 1);
 
             handleSelectedOption(options[selection]);
             return;
@@ -485,6 +479,7 @@ public class Application {
     }
 
     /**
+     * saves ArrayLists to particular .csv files
      * removes logged in user reference from currentUser attribute
      */
     private void logout() {
