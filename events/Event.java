@@ -1,9 +1,6 @@
 package src.events;
 
-import src.Application;
-import src.Helper;
 import src.users.Employee;
-import src.users.Partner;
 
 import java.util.ArrayList;
 import java.util.*;
@@ -50,9 +47,6 @@ public class Event {
     /**
      * Constructor for creating a new event with reading from our database
      * */
-
-    //public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, int nbOfHoursNeeded, String specsString){
-
     public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs){
 
         this.ID = ID;
@@ -83,8 +77,7 @@ public class Event {
 
     }
 
-    // Set-ers
-
+    // Setters
     /**
      * Setting event name
      * @param name (String) - event name*/
