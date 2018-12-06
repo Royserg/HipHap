@@ -261,6 +261,9 @@ public class Event {
         for (int i = 0; i < partnersIDs.size()-1; i++){
             helper += partnersIDs.get(i) + ";";
         }
+        if (partnersIDs.isEmpty() == true) {
+            return "0";
+        }
         helper += partnersIDs.get(partnersIDs.size()-1);
         return helper;
     }
@@ -268,5 +271,17 @@ public class Event {
     @Override
     public String toString() {
         return this.getName() + " - " + this.getEventType() + " - " + this.getServiceType();
+    }
+
+    public String printInfo(){
+        String all = "";
+        all += "Name: " + this.name + "| ";
+        all += "Event Type: " + this.eventType + "| ";
+        all += "Service Type: " + this.serviceType + "|\n";
+        all += "Event Date: " + new SimpleDateFormat("dd.MM.yyyy").format(this.startOfEvent) + "|\n";
+        all += "Org Start Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(this.orgStartDate) + "| ";
+        all += "Org End Date: " + new SimpleDateFormat("dd.MM.yyyy 'at' HH").format(this.orgEndDate) + "|\n";
+
+        return all;
     }
 }
