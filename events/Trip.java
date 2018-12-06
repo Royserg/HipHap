@@ -3,7 +3,7 @@ package src.events;
 import src.users.Employee;
 
 public class Trip extends Event implements EventPricing{
-    private double baseTripPrice = 50000;
+    private double baseTripPrice = 20000;
     private double totalTripPrice;
 
 
