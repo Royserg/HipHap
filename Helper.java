@@ -3,6 +3,7 @@ package src;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Helper {
@@ -147,4 +148,15 @@ public class Helper {
 
         return joined;
     }
+
+    /**
+     * Generates random number (int) in the specified boundaries
+     * @param min (int) minimum value inclusive
+     * @param max (max) maximum value inclusive
+     * @return
+     */
+     static int generateRandomID(int min, int max) {
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+     }
 }

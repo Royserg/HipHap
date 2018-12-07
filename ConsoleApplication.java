@@ -32,6 +32,7 @@ public class ConsoleApplication implements Application {
     void run() {
         // show starting login page
         showLogin("");
+
     }
 
     // ==========================
@@ -57,6 +58,10 @@ public class ConsoleApplication implements Application {
         validateUser(username, password);
     }
 
+    /**
+     * Shows dashboard screen. Nicely formatted logo of the company
+     * and today's date with today's events
+     */
     private void showDashboard() {
         Screen.clearScreen();
         Screen.showLogo();
@@ -97,6 +102,11 @@ public class ConsoleApplication implements Application {
         handleSelectedOption(options[selection]);
     }
 
+    /**
+     * Handles displaying proper options for selecting date or period and proceeds accordingly
+     * @param action (String) name of the action that should be executed within
+     *               date Menu options
+     */
     private void handleDateMenu(String action) {
         Screen.clearScreen();
         Screen.showLogo();
@@ -181,7 +191,12 @@ public class ConsoleApplication implements Application {
         }
     }
 
-    // this returns the option that you selected back to the selectEvent method and it handles it there
+    /**
+     * Displays available options for event: '0. main menu', '1. edit', '2. delete'
+     * and collects user option
+     * @return (int) user selection between 1-3
+     */
+    // this returns the option that you selected back to the selectEventselectEvent method and it handles it there
     private int showSelectEventMenu(){
         String[] options = Screen.getOptions("select event options");
         // print options
@@ -190,9 +205,6 @@ public class ConsoleApplication implements Application {
         int selection = Helper.selectOption(options.length-1);
         System.out.println("selected: " + options[selection]);
         return selection;
-        // 0 - main menu
-        // 1 - edit
-        // 2 - delete
     }
 
     // ==================================
@@ -253,6 +265,10 @@ public class ConsoleApplication implements Application {
         }
     }
 
+    /**
+     * Displays first list of the events for today. If currentUser is a manager, it displays events for all employees
+     * otherwise, displays events for a particular Employee logged in.
+     */
     private void selectEvent() {
         System.out.println();
 
@@ -417,7 +433,7 @@ public class ConsoleApplication implements Application {
     }
 
     /**
-     * list all available partners with the service they provide
+     * List all available partners with the service they provide
      */
     public void showPartners() {
         System.out.println();
@@ -428,6 +444,9 @@ public class ConsoleApplication implements Application {
         }
     }
 
+    /**
+     * List all saved customers stored in the system
+     */
     public void showCustomers() {
         System.out.println();
         for (int i = 0; i < db.customers.size(); i++) {
@@ -436,6 +455,9 @@ public class ConsoleApplication implements Application {
         }
     }
 
+    /**
+     * List all employees working for HipHap
+     */
     public void showEmployees() {
         System.out.println();
         for (int i = 0; i < db.employees.size(); i++) {
@@ -496,16 +518,8 @@ public class ConsoleApplication implements Application {
         showLogin(Helper.LOGOUT_SUCCESS);
     }
 
-    public static Employee getCurrentUser(){ return currentUser; }
-
-
-    private static int generateRandomID(int min, int max) {
-        Random r = new Random();
-        return r.nextInt((max - min) + 1) + min;
-    }
-
     /**
-     * Creates new event based on user inputed information*/
+     * Creates new event based on user input information*/
     public void addEvent(){
         Employee responsibleEmployee;
         int newID = 0;
@@ -517,7 +531,7 @@ public class ConsoleApplication implements Application {
         boolean uniqueID = false;
         //check if the ID exists
         while (!uniqueID) {
-            newID = generateRandomID(1000, 9999);
+            newID = Helper.generateRandomID(1000, 9999);
             int i = 0;
 
             while (!uniqueID) {
@@ -655,16 +669,17 @@ public class ConsoleApplication implements Application {
         }
     }
 
+    /**
+     * Displays available options to edit for provided event
+     * @param eventID (int) id of the particular event to edit
+     */
     public void editEvent(int eventID){
         Event event = db.getEventByID(eventID);
         int optionSelected = 1;
         while (optionSelected != 0) {
             System.out.println("Select which attribute you want to modify or press 0 if you don't want to modify anything else");
-            System.out.println("0 - nothing else to modify, go back to main menu");
-            System.out.println("1 - Edit name");
-            System.out.println("2 - Edit service type");
-            System.out.println("3 - Edit specifications, items needed to organize the event");
-            System.out.println("4 - Edit partners");
+            String[] editOptions = Screen.getOptions("edit event");
+            Screen.listOptions(editOptions);
             optionSelected = Helper.selectOption(5);
 
             if (optionSelected == 1){
@@ -717,6 +732,10 @@ public class ConsoleApplication implements Application {
         }
     }
 
+    /**
+     * Removes event and all references to it from the arrayLists
+     * @param eventID (int) if of the particular event to delete
+     */
     public void deleteEvent(int eventID) {
         System.out.println(eventID);
         int employeeID = 0;
@@ -725,14 +744,6 @@ public class ConsoleApplication implements Application {
             if (eventID == db.events.get(i).getID()) {
                 // getting this employee's ID
                 try {
-                    /*
-                    Event test = db.getEventByID(eventID);
-                    System.out.println(test.getName());
-                    Employee test2 = test.getEmployee();
-                    System.out.println(test2.getName());
-                    int test3 = test2.getID();
-                    System.out.println(test3);
-                    */
                     employeeID = db.getEventByID(eventID).getEmployee().getID();
                     System.out.println(employeeID);
                 }
@@ -740,22 +751,18 @@ public class ConsoleApplication implements Application {
                     System.out.println("Exception");
                 }
 
-
                 // searching his ID in the employees ArrayList
                 for (int j = 0; j < db.employees.size(); j++) {
                     if (db.employees.get(j).getID() == employeeID) {
                         db.employees.get(j).removeEventID(eventID);
                     }
-                    System.out.println(j + " try");
                 }
 
                 db.events.remove(i);
                 System.out.println("Event deleted");
 
-
                 break;
             }
         }
-
     }
 }

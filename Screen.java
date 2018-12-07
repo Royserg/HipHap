@@ -73,10 +73,11 @@ public class Screen {
         // options for Date options screen
         if (screen.equals("date options")) {
             return Helper.arrayJoinString(defaultOptions, "Select date, Select period");
-        }
-
-        if (screen.equals("select event options")) {
+        } else if (screen.equals("select event options")) {
             return Helper.arrayJoinString(defaultOptions, "Edit event, Delete event");
+        } else if (screen.equals("edit event")){
+            String[] editEventOptions = { "Nothing else to modify, go back to main menu", "Edit name", "Edit service type", "Edit specifications, items needed to organize the event", "Edit partners" };
+            return editEventOptions;
         }
 
         return defaultOptions;
