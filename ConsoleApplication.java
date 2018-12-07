@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class Application {
+public class ConsoleApplication implements Application {
 
     // keep track of currently logged in Employee
     private static Employee currentUser;
@@ -23,7 +23,7 @@ public class Application {
     private Database db = new Database();
 
     // constructor
-    Application() { }
+    ConsoleApplication() { }
 
 
     /**
@@ -416,8 +416,7 @@ public class Application {
 
     }
 
-
-    private void showPartners() {
+    public void showPartners() {
         System.out.println();
         for (int i = 0; i < db.partners.size(); i++) {
             System.out.print(i+1 + ". Name: " + db.partners.get(i).getName() + "| ");
@@ -426,7 +425,7 @@ public class Application {
         }
     }
 
-    private void showCustomers() {
+    public void showCustomers() {
         System.out.println();
         for (int i = 0; i < db.customers.size(); i++) {
             System.out.print("Name: " + db.customers.get(i).getName() + "| ");
@@ -434,7 +433,7 @@ public class Application {
         }
     }
 
-    private void showEmployees() {
+    public void showEmployees() {
         System.out.println();
         for (int i = 0; i < db.employees.size(); i++) {
             System.out.print("Name: " + db.employees.get(i).getName() + "| ");
@@ -474,7 +473,7 @@ public class Application {
      * Save user into global attirbute currentUser, so it is easily accessed
      * @param user (Employee) - user to be logged in
      */
-    private void login(Employee user) {
+    public void login(Employee user) {
         currentUser = user;
     }
 
@@ -482,7 +481,7 @@ public class Application {
      * saves ArrayLists to particular .csv files
      * removes logged in user reference from currentUser attribute
      */
-    private void logout() {
+    public void logout() {
         // saves changes into the files
         db.writeCustomersFile();
         db.writeEmployeesFile();
@@ -504,7 +503,7 @@ public class Application {
 
     /**
      * Creates new event based on user inputed information*/
-    private void addEvent(){
+    public void addEvent(){
         Employee responsibleEmployee;
         int newID = 0;
         String eventTypeString = "";
@@ -654,7 +653,7 @@ public class Application {
         }
     }
 
-    private void editEvent(int eventID){
+    public void editEvent(int eventID){
         Event event = db.getEventByID(eventID);
         int optionSelected = 1;
         while (optionSelected != 0) {
