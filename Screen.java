@@ -39,6 +39,8 @@ public class Screen {
     }
 
 
+    /**
+     * clears screen*/
     public static void clearScreen() {
         for (int i = 0; i < 20; i++)
             System.out.println();
@@ -83,6 +85,9 @@ public class Screen {
         return defaultOptions;
     }
 
+    /**
+     * lists options from which a user can choose
+     * @param options (String[]) - array of options*/
     public static void listOptions(String[] options) {
         System.out.println("____________________");
         for (int i = 0; i < options.length; i++) {

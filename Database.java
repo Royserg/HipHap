@@ -31,10 +31,9 @@ public class Database {
 
 
     /**
-     * Searches through arrayList of Employees (database) for
-     * a particular employee
+     * Searches through arrayList of Employees (database) for a particular employee based on name
      * @param name (String) - employee username to find
-     * @return employee (Object)
+     * @return employee (Employee)
      */
     public Employee getEmployeeByName(String name) {
 
@@ -49,6 +48,11 @@ public class Database {
         return null;
     }
 
+    /**
+     * Searches through arrayList of Employees (database) for a particular employee based on ID
+     * @param ID (int) - employee ID to find
+     * @return employee (Employee)
+     */
     public Employee getEmployeeByID(int ID) {
 
         // loop over employees
@@ -62,6 +66,11 @@ public class Database {
         return null;
     }
 
+    /**
+     * Searches through arrayList of Events(database) for a particular event based on ID
+     * @param ID (int) - event ID to find
+     * @return event (Event)
+     */
     public Event getEventByID(int ID){
         for(Event event: events){
             if(event.getID() == ID){
@@ -71,6 +80,11 @@ public class Database {
         return null;
     }
 
+    /**
+     * Searches through arrayList of Partners(database) for a particular partner based on ID
+     * @param ID (int) - partner ID to find
+     * @return partner (Partner)
+     */
     public Partner getPartnerByID(int ID){
         for(Partner partner: partners){
             if(partner.getID() == ID)
@@ -79,6 +93,10 @@ public class Database {
         return null;
     }
 
+    /**
+     * Gets employee's events. Events that employee is responsible for.
+     * @param eventIDs (ArrayList<Integer>) - all event's IDs
+     * @return employeesEvents (ArrayList<Integer>) - employee's event's IDs*/
     public ArrayList<Integer> getEmployeeEvents(ArrayList<Integer> eventIDs) {
         ArrayList<Integer> createdArray = new ArrayList<>();
         for (int i = 0; i < eventIDs.size(); i++) {
@@ -92,6 +110,10 @@ public class Database {
         return createdArray;
     }
 
+    /**
+     * Gets Employee's events for today
+     * @param  eventIDs (ArrayList<Integer>) - event IDs
+     * @return todaysEvents (ArrayList<Integer>) - arrayList of today's events*/
     public ArrayList<Integer> getEmployeeEventsForToday(ArrayList<Integer> eventIDs) {
         ArrayList<Integer> createdArray = new ArrayList<>();
         for (int i = 0; i < eventIDs.size(); i++) {
@@ -119,6 +141,12 @@ public class Database {
         return getEvents(date, endDate, id);
     }
 
+    /**
+     * Gets events for a certain period of time
+     * @param startDate (Date) - start date of the period
+     * @param endDate (Date) - end date of the period
+     * @param id (int) - id of employee/manager requesting to get events for a period
+     * @return events (ArrayList<Event>) - ArrayList of events for a certain period of time*/
     public ArrayList<Event> getEvents(Date startDate, Date endDate, int id) throws ClassCastException{
         endDate.setHours(23);
         endDate.setMinutes(59);
@@ -149,9 +177,8 @@ public class Database {
 
 
     /**
-     * Readers
-     * Saves the data of the ArrayLists to the .csv files
-     */
+     * Reads event.csv file and converts it to an arrayList
+     * @return events (ArrayList<Event>) - arrayList of all events*/
     public ArrayList<Event> readEventsFile() {
         ArrayList<Event> events = new ArrayList<>();
 
@@ -172,23 +199,6 @@ public class Database {
                 // use comma as separator
                 String[] row = line.split(cvsSplitBy);
 
-
-                //  public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, int nbOfHoursNeeded, String specsString)
-                // reading the ID of the employee and then searching it and returning the object, passing it to the constructor (row[5])
-                /*switch (row[1]) {
-                    case "Conference":
-                        events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], Integer.parseInt(row[7]), row[8]));
-                        break;
-
-                    case "Trip":
-                        events.add(new Trip(Integer.parseInt(row[0]), "Trip", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], Integer.parseInt(row[7]), row[8]));
-                        break;
-
-                    case "Business Party":
-                        events.add(new BusinessParty(Integer.parseInt(row[0]), "Business party", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], Integer.parseInt(row[7]), row[8]));
-                */
-                //  public Event(int ID, String eventType, String name, String serviceType, Employee responsible, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs)
-                // reading the ID of the employee and then searching it and returning the object, passing it to the constructor (row[5])
                 switch (row[1]) {
                     case "Conference":
                         events.add(new Conference(Integer.parseInt(row[0]), "Conference", row[2], row[3], getEmployeeByID(Integer.parseInt(row[4])), row[5], row[6], row[7], Integer.parseInt(row[8]), row[9], row[10]));
@@ -203,20 +213,6 @@ public class Database {
 
                         break;
                 }
-
-                //System.out.println(ft.format(events.get(events.size()-1).startDate));
-                //System.out.println(ft.format(events.get(events.size()-1).endDate));
-                //System.out.println();
-                // This checks the input, not the objects
-//                System.out.println("Event - code = " + row[0] +
-//                        ", ID = " + row[1] +
-//                        ", name = " + row[2] +
-//                        ", type = " + row[3] +
-//                        ", start date = " + row[4] +
-//                        ", end date = " + row[5]);
-
-
-
             }
 
         } catch (FileNotFoundException e) {
@@ -236,6 +232,9 @@ public class Database {
         return events;
     }
 
+    /**
+     * Reads partner.csv file and converts it into arrayList
+     * @return partners (ArrayList<Partner>) - arrayList of all partners*/
     public ArrayList<Partner> readPartnersFile() {
         ArrayList<Partner> partners = new ArrayList<>();
 
@@ -258,15 +257,6 @@ public class Database {
 
                 //  public Partner(int ID, String name, String occupation, String address, String bookedDates)
                 partners.add(new Partner( Integer.parseInt(row[0]), row[1], row[2], row[3], row[4]));
-
-
-                //Checking if the read is correct -- the variables were public at checking for speed
-
-//                System.out.print(partners.get(partners.size()-1).name);
-//                System.out.print(" - ");
-//                System.out.println(partners.get(partners.size()-1).occupation);
-
-
             }
 
         } catch (FileNotFoundException e) {
@@ -286,6 +276,9 @@ public class Database {
         return partners;
     }
 
+    /**
+     * Reads employees.csv file and converts it into arrayList
+     * @return employees (ArrayList<Employee>) - arrayList of all employees*/
     public ArrayList<Employee> readEmployeesFile() {
         ArrayList<Employee> employees = new ArrayList<>();
 
@@ -344,6 +337,9 @@ public class Database {
         return employees;
     }
 
+    /**
+     * Reads customers files and converts it into arraylist
+     * @return customers (ArrayList<Customer>) - arrayList of all customers*/
     public ArrayList<Customer> readCustomersFile(){
         ArrayList<Customer> customers = new ArrayList<>();
 
@@ -373,16 +369,6 @@ public class Database {
 
                 // public Employee(ArrayList<Integer> ids, String name, String pass, String email)
                 customers.add(new Customer(castedIDs, row[1]));
-
-
-                //Checking if the read is correct -- the variables were public at checking for speed
-
-//                System.out.print(customers.get(customers.size()-1).ownEvents);
-//                System.out.print(" - ");
-//                System.out.println(customers.get(customers.size()-1).name);
-
-
-
             }
 
         } catch (FileNotFoundException e) {
@@ -401,11 +387,9 @@ public class Database {
         return customers;
     }
 
-    /**
-     * Writers
-     * Saves the data of the ArrayLists to the .csv files
-     */
 
+    /**
+     * Writes data to events.csv file from arrayList*/
     public void writeEventsFile(){
         PrintWriter pw = null;
 
@@ -439,6 +423,8 @@ public class Database {
         pw.close();
     }
 
+    /**
+     * Writes data to partners.csv file from partners arrayList*/
     public void writePartnersFile(){
         PrintWriter pw = null;
 
@@ -466,6 +452,8 @@ public class Database {
         pw.close();
     }
 
+    /**
+     * Writes data to employees.csv file from arrayList*/
     public void writeEmployeesFile(){
         PrintWriter pw = null;
 
@@ -510,6 +498,8 @@ public class Database {
         pw.close();
     }
 
+    /**
+     * Writes data to customers.csv from arrayList*/
     public void writeCustomersFile(){
         PrintWriter pw = null;
 
