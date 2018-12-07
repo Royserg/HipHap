@@ -88,24 +88,39 @@ public class Employee {
      */
     public static double getHourlyWage() { return hourlyWage; }
 
+    /**
+     * Gets ID of the last event that employee is working on
+     * @return eventID (int) - last event's ID*/
     public int getLastEventID() {
         return eventIDs.get(eventIDs.size()-1);
     }
 
+    /**
+     * Gets last event's organization end date, date when the employee is finished with organizing aka the date from which the employee is available
+     * @return availabilityDate (Date) - date from which the employee is available for next event*/
     public Date getLastEventInfo(){
         return availabilityDate;
     }
 
+    /**
+     * Sets availability date for the employee
+     * @param date (Date) - date from which is the employee available */
     public void setAvailabilityDate(Date date) {
         this.availabilityDate = date;
     }
 
     //modifiers
 
+    /**
+     * Adds event ID to employees events
+     * @param ID (int) - event ID*/
     public void addEvent(int ID){
         eventIDs.add(ID);
     }
 
+    /**
+     * Removes event's ID from employees events
+     * @param eventID (int) - event's ID*/
     public void removeEventID(int eventID) {
         for (int i = 0; i < eventIDs.size(); i++)
             if (eventIDs.get(i) == eventID) {
@@ -113,6 +128,4 @@ public class Employee {
                 break;
             }
     }
-
 }
-

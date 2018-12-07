@@ -2,6 +2,8 @@ package src.events;
 
 public interface EventPricing {
 
-    public void calculateEventPrices();
+    /**
+     * Method to implement in each event type, should calculate total event price that customer needs to pay.*/
+    void calculateEventPrices();
 
 }

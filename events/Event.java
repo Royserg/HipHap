@@ -19,13 +19,10 @@ public class Event {
     private Date startOfEvent;
 
     ArrayList<Integer> partnersIDs = new ArrayList<>(); // partners for this particular event
-    ArrayList<String> specs = new ArrayList<>();
-    //eg: food, dj, photographer, limousine, cocaine, balloons
-    // also maybe this should be just one string
+    ArrayList<String> specs = new ArrayList<>(); //eg: food, dj, photographer, limousine, balloons
 
     /**
-     * Constructor for creating a whole new event by employee
-    * */
+     * Constructor for creating a whole new event by employee*/
     public Event(int ID,  String eventType, String name, String serviceType, Date startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
@@ -45,8 +42,7 @@ public class Event {
     }
 
     /**
-     * Constructor for creating a new event with reading from our database
-     * */
+     * Constructor for creating a new event with reading from our database*/
     public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs){
 
         this.ID = ID;
@@ -78,6 +74,7 @@ public class Event {
     }
 
     // Setters
+
     /**
      * Setting event name
      * @param name (String) - event name*/
@@ -123,7 +120,6 @@ public class Event {
 
     /**
      * Setting the organizing start date, the date when the employee responsible for the event will start working on it.
-     * Date is in format "dd.MM.yyyy 'at' HH"
      * @param employeeResponsible (Employee) - employee responsible for organizing this event
      * */
     public void setOrgStartDate(Employee employeeResponsible){
@@ -152,9 +148,7 @@ public class Event {
     }
 
     /**
-     * Setting the organizing end date, the date when the employee responsible for this event will finish the organizing
-     * Date is in the format "dd.MM.yyyy 'at' HH"
-     * */
+     * Setting the organizing end date, the date when the employee responsible for this event will finish the organizing*/
     private void setOrgEndDate(){
         // copy the start date
         Date endDate = new Date(getOrgStartDate().getTime());
@@ -220,13 +214,11 @@ public class Event {
 
     /**
      * Returns the the organizing start date, the date when the employee responsible for the event will start working on it.
-     * Date is in format "dd.MM.yyyy 'at' HH"
      * @return startDate (Date) - the date when the responsible employee will start organizing the event*/
     public Date getOrgStartDate() { return this.orgStartDate; }
 
     /**
      * Returns the organizing end date, the date when the employee responsible for this event will finish the organizing
-     * Date is in the format "dd.MM.yyyy 'at' HH"
      * @return endDate (Date) - the date when the responsible employee will finish the organizing*/
     public Date getOrgEndDate() { return this.orgEndDate; }
 
@@ -247,8 +239,14 @@ public class Event {
         return helper;
     }
 
+    /**
+     * Returns actual start date of the event
+     * @return startOfEvent (Date) - date on which the event starts*/
     public Date getStartOfEvent(){return this.startOfEvent;}
 
+    /**
+     * Returns partner IDs for the event
+     * @return partnersIDs (ArrayList<Integer>) - partner IDs for the event*/
     public ArrayList<Integer> getPartnersIDs() {
         return partnersIDs;
     }
@@ -262,12 +260,16 @@ public class Event {
         partnersIDs.add(ID);
     }
 
-
+    /**
+     * Returns employee that is responsible for organizing this event
+     * @return employeeResponsible (Employee) - employee responsible for organizing*/
     public Employee getEmployee(){
         return this.employeeResponsible;
     }
 
-
+    /**
+     * Saves partner IDs into a string
+     * @return partnerIDs (String) - partner IDs for this event*/
     public String savePartnerIDs (){
         String helper = new String();
         for (int i = 0; i < partnersIDs.size()-1; i++){
@@ -280,11 +282,17 @@ public class Event {
         return helper;
     }
 
+    /**
+     * Formatting string for the event printing
+     * @return formattedString (String) - formatted String*/
     @Override
     public String toString() {
         return this.getName() + " - " + this.getEventType() + " - " + this.getServiceType();
     }
 
+    /**
+     * Formatting string for printing event info
+     * @return formattedString (String) - formatted string*/
     public String printInfo(){
         String all = "";
         all += "Name: " + this.name + "| ";
