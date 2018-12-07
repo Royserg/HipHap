@@ -416,6 +416,9 @@ public class ConsoleApplication implements Application {
 
     }
 
+    /**
+     * list all available partners with the service they provide
+     */
     public void showPartners() {
         System.out.println();
         for (int i = 0; i < db.partners.size(); i++) {
@@ -525,7 +528,6 @@ public class ConsoleApplication implements Application {
                 i++;
             }
         }
-
         //Event name
         String name = Helper.getString("Event name: ");
         while (name.equals("")) {
