@@ -9,7 +9,6 @@ import src.users.Employee;
 import src.users.Manager;
 import src.users.Partner;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.io.*;
@@ -24,11 +23,9 @@ public class Database {
     public ArrayList<Event> events = readEventsFile();
     public ArrayList<Partner> partners = readPartnersFile();
     public ArrayList<Customer> customers = readCustomersFile();
-    public Manager manager;
 
     // constructor
     public Database() {}
-
 
     /**
      * Searches through arrayList of Employees (database) for a particular employee based on name
