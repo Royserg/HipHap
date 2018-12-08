@@ -159,4 +159,15 @@ public class Helper {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
      }
+
+    /**
+     * Adds specified number of blank lines, used for spacing between screens
+     * and messages displayed on the screen
+     * @param emptyLinesNum (int) number blank lines to create
+     */
+     static void addLineSpacing(int emptyLinesNum) {
+        for (int i = 0; i < emptyLinesNum; i++) {
+            System.out.println();
+        }
+     }
 }

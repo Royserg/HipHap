@@ -78,8 +78,11 @@ public class Screen {
         } else if (screen.equals("select event options")) {
             return Helper.arrayJoinString(defaultOptions, "Edit event, Delete event");
         } else if (screen.equals("edit event")){
-            String[] editEventOptions = { "Nothing else to modify, go back to main menu", "Edit name", "Edit service type", "Edit specifications, items needed to organize the event", "Edit partners" };
-            return editEventOptions;
+            return new String[]{ "Nothing else to modify, go back to main menu", "Edit name", "Edit service type", "Edit specifications, items needed to organize the event", "Edit partners" };
+        } else if (screen.equals("service type")) {
+            return new String[] { "Consultancy", "Planning", "Full Organization"};
+        } else if (screen.equals("event type")) {
+            return new String[] { "Conference", "Trip", "Business Party"};
         }
 
         return defaultOptions;

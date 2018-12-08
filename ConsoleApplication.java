@@ -323,6 +323,7 @@ public class ConsoleApplication implements Application {
                 switch (selectedOption) {
                     case 0:
                         showDashboard();
+
                         break;
                     case 1:
                         System.out.println("Editing event");
@@ -403,7 +404,6 @@ public class ConsoleApplication implements Application {
      * @param event (Event)
      */
     private void handleSelectedEvent(Event event) {
-        // todo: improve it for printing events and choosing one of them
 
         int selectedOption = showSelectEventMenu();
         System.out.println(selectedOption);
@@ -547,40 +547,32 @@ public class ConsoleApplication implements Application {
         while (name.equals("")) {
             name = Helper.getString("Event name cannot be empty. Please try again.");
         }
-        System.out.println();
-        System.out.println();
+        Helper.addLineSpacing(2);
 
         //Selecting event type
         System.out.println("Event type: ");
-        System.out.println("1 - Conference");
-        System.out.println("2 - Trip");
-        System.out.println("3 - Business Party");
-        int eventType = Helper.selectOption(1, 3);
-        System.out.println();
-        System.out.println();
+        String[] eventTypeOptions = Screen.getOptions("event type");
+        Screen.listOptions(eventTypeOptions);
+        int eventType = Helper.selectOption(2);
+        // ====================
+//        System.out.println("1 - Conference");
+//        System.out.println("2 - Trip");
+//        System.out.println("3 - Business Party");
+//        int eventType = Helper.selectOption(1, 3);
+        Helper.addLineSpacing(2);
 
         //Select event service type
+        String[] serviceTypeOptions = Screen.getOptions("service type");
         System.out.println("Event service: ");
-        System.out.println("1 - Consultancy");
-        System.out.println("2 - Planning");
-        System.out.println("3 - Full Organization");
-        int serviceType = Helper.selectOption(1, 3);
-        System.out.println();
-        System.out.println();
-
-        if (serviceType == 1){
-            serviceTypeString = "Consultancy";
-        }else if (serviceType == 2){
-            serviceTypeString = "Planning";
-        }else if(serviceType == 3){
-            serviceTypeString = "Full Organization";
-        }
+        Screen.listOptions(serviceTypeOptions);
+        serviceTypeString = serviceTypeOptions[Helper.selectOption(2)];
+        Helper.addLineSpacing(2);
 
         //Selecting a customer
         System.out.println("Select customer that is ordering this event, if it's not on the list, select 0 to create a new customer.");
-        System.out.println("0 - Add new customer");
+        System.out.println("0. Add new customer");
         for (int i = 0; i < db.customers.size(); i++){
-            System.out.println( i+1 + " - " + db.customers.get(i).getName());
+            System.out.println( i+1 + ". " + db.customers.get(i).getName());
         }
         int customerSelect = Helper.selectOption(db.customers.size() + 1);
 
@@ -591,14 +583,12 @@ public class ConsoleApplication implements Application {
         } else {
             db.customers.get(customerSelect - 1).addEvent(newID);
         }
-        System.out.println();
-        System.out.println();
+        Helper.addLineSpacing(2);
 
         System.out.println("== Enter start date of the event ==");
         Date startOFEvent = Helper.getDate();
 
-        System.out.println();
-        System.out.println();
+        Helper.addLineSpacing(2);
 
         //adding partners
         System.out.println("If the partners are needed for the event select the partners. If they are not needed, select 0");
@@ -612,8 +602,7 @@ public class ConsoleApplication implements Application {
             if(currentPartner != 0)
                 allPartners.add(db.partners.get(currentPartner-1).getID());
         }
-        System.out.println();
-        System.out.println();
+        Helper.addLineSpacing(2);
 
         //assigning employee
         if (currentUser.getID() == 1111){
@@ -628,42 +617,37 @@ public class ConsoleApplication implements Application {
                 db.employees.get(i).addEvent(newID);
         }
 
-
         nbOfHoursNeeded = Helper.getInt("Enter the number of hours needed to organize this event: ");
-        System.out.println();
-        System.out.println();
+        Helper.addLineSpacing(2);
 
-        if(eventType == 1){
+        if(eventType == 0){
             String officeSupplies = Helper.getString("Enter needed office supplies: ");
             eventTypeString = "Conference";
             Conference newEvent = new Conference(newID, eventTypeString, name, serviceTypeString, startOFEvent, responsibleEmployee, nbOfHoursNeeded, officeSupplies);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             newEvent.calculateEventPrices();
-            System.out.println();
-            System.out.println();
+            Helper.addLineSpacing(2);
             System.out.println("Total event price is: " + newEvent.getTotalConferencePrice() + "kr");
             db.events.add(newEvent);
-        }else if (eventType == 2){
+        }else if (eventType == 1){
             String transport = Helper.getString("Enter type of transportation needed for the trip: ");
             eventTypeString = "Trip";
             Trip newEvent = new Trip(newID, eventTypeString, name, serviceTypeString, startOFEvent, responsibleEmployee, nbOfHoursNeeded, transport);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             newEvent.calculateEventPrices();
-            System.out.println();
-            System.out.println();
+            Helper.addLineSpacing(2);
             System.out.println("Total event price is: " + newEvent.getTotalTripPrice() + "kr");
             db.events.add(newEvent);
-        }else if (eventType == 3){
+        }else if (eventType == 2){
             String decoration = Helper.getString("Enter decoration needed for the party: ");
             eventTypeString = "Business Party";
             BusinessParty newEvent = new BusinessParty(newID, eventTypeString, name, serviceTypeString, startOFEvent, responsibleEmployee, nbOfHoursNeeded, decoration);
             for(int i = 0; i < allPartners.size(); i++ )
                 newEvent.addPartner(allPartners.get(i));
             newEvent.calculateEventPrices();
-            System.out.println();
-            System.out.println();
+            Helper.addLineSpacing(2);
             System.out.println("Total event price is: " + newEvent.getTotalPartyPrice()  + "kr");
             db.events.add(newEvent);
         }
@@ -757,10 +741,8 @@ public class ConsoleApplication implements Application {
                         db.employees.get(j).removeEventID(eventID);
                     }
                 }
-
                 db.events.remove(i);
                 System.out.println("Event deleted");
-
                 break;
             }
         }
