@@ -53,9 +53,9 @@ public class Helper {
 
     /**
      * Choosing specified option between min and max, both provided as parameters, both are included
-     * @param min (int) - minimal value that will be excepted
-     * @param max (int) - maximal value that will be execepted
-     * @return
+     * @param min (int) - minimal value that will be expected
+     * @param max (int) - maximal value that will be expected
+     * @return chosen integer between min and max
      */
     public static int selectOption (int min, int max){
         int selectedOption = 0;

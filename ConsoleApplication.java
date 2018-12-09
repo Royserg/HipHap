@@ -13,7 +13,6 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-
 public class ConsoleApplication implements Application {
 
     // keep track of currently logged in Employee

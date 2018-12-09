@@ -57,7 +57,7 @@ public class Location {
 
     /**
      * Returns booked days for the location
-     * @return bookedDays(ArrayList<Date>) - List of booked dates*/
+     * @return bookedDays(ArrayList[Date]) - List of booked dates*/
     public ArrayList<Date> getBookedDays() {
         return bookedDays;
     }

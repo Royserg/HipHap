@@ -1,5 +1,13 @@
 package src;
 
+/**
+ * HipHapOrg Event Organizer application.
+ * @author Aneja
+ * @author Cosmin
+ * @author Shehab
+ * @author Jakub
+ */
+
 public class Main {
 
     public static void main(String[] args) {

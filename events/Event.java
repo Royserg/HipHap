@@ -22,7 +22,16 @@ public class Event {
     ArrayList<String> specs = new ArrayList<>(); //eg: food, dj, photographer, limousine, balloons
 
     /**
-     * Constructor for creating a whole new event by employee*/
+     * Constructor for creating a whole new event by employee
+     * @param ID (int) id of the object
+     * @param eventType (String) type of the event represented by String
+     * @param name (String) name of the event
+     * @param serviceType (String) type of the provided service for this event (consultancy, full-organisation, planning)
+     * @param startOfEvent (Date) start date of the event
+     * @param employeeResponsible (Employee) assigned employee who is working on that event
+     * @param nbOfHoursNeeded (int) number of hours needed in order to complete the preparation for event
+     * @param specsString (String) extra specification for the event
+     */
     public Event(int ID,  String eventType, String name, String serviceType, Date startOfEvent, Employee employeeResponsible, int nbOfHoursNeeded, String specsString){
         this.ID = ID;
         this.name = name;
@@ -42,7 +51,19 @@ public class Event {
     }
 
     /**
-     * Constructor for creating a new event with reading from our database*/
+     * Constructor for creating a new event with reading from our database
+     * @param ID (int) id of the object
+     * @param eventType (String) type of the event represented by String
+     * @param name (String) name of the event
+     * @param serviceType (String) type of the provided service for this event (consultancy, full-organisation, planning)     * @param employeeResponsible
+     * @param startDate (Date) start date working on the event
+     * @param endDate (Date) last date of working on the event
+     * @param startOfEvent (Date) start date of the event
+     * @param nbOfHoursNeeded (int) number of hours needed in order to complete the preparation for event
+     * @param specsString (String) extra specification for the event
+     * @param partnerIDs (String) line of semicolon separated ids of Partners required for the event
+     * @param employeeResponsible (Employee) assigned employee who is working on that event
+     */
     public Event(int ID, String eventType, String name, String serviceType, Employee employeeResponsible, String startDate, String endDate, String startOfEvent, int nbOfHoursNeeded, String specsString, String partnerIDs){
 
         this.ID = ID;
@@ -246,7 +267,7 @@ public class Event {
 
     /**
      * Returns partner IDs for the event
-     * @return partnersIDs (ArrayList<Integer>) - partner IDs for the event*/
+     * @return partnersIDs (ArrayList(Integer)) - partner IDs for the event*/
     public ArrayList<Integer> getPartnersIDs() {
         return partnersIDs;
     }

@@ -51,7 +51,7 @@ public class Employee {
 
     /**
      * get Employee Event IDs
-     * @return eventIDs (ArrayList<Integer>) of Employee
+     * @return eventIDs (ArrayList[Integer]) of Employee
      */
     public ArrayList<Integer> getEventIDs() {
         return eventIDs;

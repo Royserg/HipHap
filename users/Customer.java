@@ -46,7 +46,7 @@ public class Customer {
 
     /**
      * Gets event IDs that the customer organized with HipHap
-     * @return eventIDs (ArrayList<Integer>) - event IDs*/
+     * @return eventIDs (ArrayList[Integer]) - event IDs*/
     public ArrayList<Integer> getOwnEvents() {
         return ownEvents;
     }

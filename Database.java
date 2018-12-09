@@ -91,23 +91,6 @@ public class Database {
     }
 
     /**
-     * Gets employee's events. Events that employee is responsible for.
-     * @param eventIDs (ArrayList<Integer>) - all event's IDs
-     * @return employeesEvents (ArrayList<Integer>) - employee's event's IDs*/
-    public ArrayList<Integer> getEmployeeEvents(ArrayList<Integer> eventIDs) {
-        ArrayList<Integer> createdArray = new ArrayList<>();
-        for (int i = 0; i < eventIDs.size(); i++) {
-            // searching for matches of those IDs in the event array
-            for (int j = 0; j < events.size(); j++) {
-                if (eventIDs.get(i) == events.get(j).getID()) {
-                    createdArray.add(events.get(j).getID());
-                }
-            }
-        }
-        return createdArray;
-    }
-
-    /**
      * Gets Employee's events for today
      * @param  eventIDs (ArrayList<Integer>) - event IDs
      * @return todaysEvents (ArrayList<Integer>) - arrayList of today's events*/
@@ -176,7 +159,6 @@ public class Database {
 
         return foundEvents;
     }
-
 
 
     /**
