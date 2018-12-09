@@ -283,17 +283,10 @@ public class Event {
     }
 
     /**
-     * Formatting string for the event printing
-     * @return formattedString (String) - formatted String*/
-    @Override
-    public String toString() {
-        return this.getName() + " - " + this.getEventType() + " - " + this.getServiceType();
-    }
-
-    /**
      * Formatting string for printing event info
      * @return formattedString (String) - formatted string*/
-    public String printInfo(){
+    @Override
+    public String toString(){
         String all = "";
         all += "Name: " + this.name + "| ";
         all += "Event Type: " + this.eventType + "| ";

@@ -9,7 +9,6 @@ import src.users.Employee;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Random;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class ConsoleApplication implements Application {
 
     // constructor
     ConsoleApplication() { }
-
 
     /**
      * starts application
@@ -76,21 +74,18 @@ public class ConsoleApplication implements Application {
             System.out.println();
         }
 
-        ArrayList<Integer> eventIDsForToday = db.getEmployeeEventsForToday(currentUser.getEventIDs());
-        if (eventIDsForToday.isEmpty()) {
+        ArrayList<Event> todayEvents = db.getEvents(new Date(), currentUser.getID());
+        if (todayEvents.isEmpty()) {
             System.out.println("No events to organize for today");
         }
         else {
             System.out.println("Events to organize for today:");
-            // going through the selected events ids and comparing them to the events array
-            for (int i = 0; i < eventIDsForToday.size(); i++)
-                for (int k = 0; k < db.events.size(); k++)
-                    if (eventIDsForToday.get(i) == db.events.get(k).getID()) {
-                        System.out.print((i+1) + ". ");
-                        //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
-                        System.out.println(db.events.get(k).printInfo());
-                        System.out.println();
-                    }
+            for (int i = 0; i < todayEvents.size(); i++) {
+                System.out.print((i+1) + ". ");
+                System.out.print("Event ID: " + todayEvents.get(i).getID() + "| ");
+                System.out.println(todayEvents.get(i));
+                System.out.println();
+            }
         }
 
         String[] options = Screen.getOptions(currentUser.getID());
@@ -132,7 +127,7 @@ public class ConsoleApplication implements Application {
             Screen.showLogo();
 
             // display header with selected date
-            DateFormat dateFormat = new SimpleDateFormat("    dd.MM.yyyy    ");
+            DateFormat dateFormat = new SimpleDateFormat("      dd.MM.yyyy     ");
             Screen.showHeader(dateFormat.format(date));
 
             System.out.println("0. Main Menu");
@@ -225,7 +220,6 @@ public class ConsoleApplication implements Application {
                 handleDateMenu("period");
                 break;
             case Helper.ADD_EVENT:
-                System.out.println("Showing New Event Form");
                 addEvent();
                 Helper.getString("Press enter to go back to main menu");
                 showDashboard();
@@ -286,7 +280,7 @@ public class ConsoleApplication implements Application {
                         if (eventIDs.get(i) == db.events.get(k).getID()) {
                             System.out.print((i+1) + ". ");
                             //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
-                            System.out.println(db.events.get(k).printInfo());
+                            System.out.println(db.events.get(k));
                             System.out.println();
                         }
             }
@@ -311,7 +305,7 @@ public class ConsoleApplication implements Application {
                         if (eventIDs.get(i) == db.events.get(k).getID()) {
                             System.out.print((i+1) + ". ");
                             //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
-                            System.out.println(db.events.get(k).printInfo());
+                            System.out.println(db.events.get(k));
                             System.out.println();
                         }
 
@@ -361,7 +355,7 @@ public class ConsoleApplication implements Application {
                         if (eventIDs.get(i) == db.events.get(k).getID()) {
                             System.out.print((i+1) + ". ");
                             //System.out.print("Event ID: " + db.events.get(k).getID() + "| ");
-                            System.out.println(db.events.get(k).printInfo());
+                            System.out.println(db.events.get(k));
                             System.out.println();
                         }
                 System.out.println("Select one of your events");
@@ -394,9 +388,7 @@ public class ConsoleApplication implements Application {
                         break;
                 }
             }
-
         }
-
     }
 
     /**
@@ -429,7 +421,6 @@ public class ConsoleApplication implements Application {
                 showDashboard();
                 break;
         }
-
     }
 
     /**
@@ -523,8 +514,8 @@ public class ConsoleApplication implements Application {
     public void addEvent(){
         Employee responsibleEmployee;
         int newID = 0;
-        String eventTypeString = "";
-        String serviceTypeString = "";
+        String eventTypeString;
+        String serviceTypeString;
         int nbOfHoursNeeded;
 
         //generating new ID
@@ -542,6 +533,7 @@ public class ConsoleApplication implements Application {
                 i++;
             }
         }
+        System.out.println("=== New Event Form ===");
         //Event name
         String name = Helper.getString("Event name: ");
         while (name.equals("")) {
@@ -554,14 +546,9 @@ public class ConsoleApplication implements Application {
         String[] eventTypeOptions = Screen.getOptions("event type");
         Screen.listOptions(eventTypeOptions);
         int eventType = Helper.selectOption(2);
-        // ====================
-//        System.out.println("1 - Conference");
-//        System.out.println("2 - Trip");
-//        System.out.println("3 - Business Party");
-//        int eventType = Helper.selectOption(1, 3);
         Helper.addLineSpacing(2);
 
-        //Select event service type
+        //Selecting event service type
         String[] serviceTypeOptions = Screen.getOptions("service type");
         System.out.println("Event service: ");
         Screen.listOptions(serviceTypeOptions);

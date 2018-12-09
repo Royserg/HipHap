@@ -19,20 +19,20 @@ import java.util.Date;
 
 public class Database {
 
-    public ArrayList<Employee> employees = readEmployeesFile();
-    public ArrayList<Event> events = readEventsFile();
-    public ArrayList<Partner> partners = readPartnersFile();
-    public ArrayList<Customer> customers = readCustomersFile();
+    ArrayList<Employee> employees = readEmployeesFile();
+    ArrayList<Event> events = readEventsFile();
+    ArrayList<Partner> partners = readPartnersFile();
+    ArrayList<Customer> customers = readCustomersFile();
 
     // constructor
-    public Database() {}
+    Database() {}
 
     /**
      * Searches through arrayList of Employees (database) for a particular employee based on name
      * @param name (String) - employee username to find
      * @return employee (Employee)
      */
-    public Employee getEmployeeByName(String name) {
+    Employee getEmployeeByName(String name) {
 
         // loop over employees
         for (Employee employee: employees) {
@@ -50,7 +50,7 @@ public class Database {
      * @param ID (int) - employee ID to find
      * @return employee (Employee)
      */
-    public Employee getEmployeeByID(int ID) {
+    Employee getEmployeeByID(int ID) {
 
         // loop over employees
         for (Employee employee: employees) {
@@ -68,7 +68,7 @@ public class Database {
      * @param ID (int) - event ID to find
      * @return event (Event)
      */
-    public Event getEventByID(int ID){
+    Event getEventByID(int ID){
         for(Event event: events){
             if(event.getID() == ID){
                 return event;
@@ -82,7 +82,7 @@ public class Database {
      * @param ID (int) - partner ID to find
      * @return partner (Partner)
      */
-    public Partner getPartnerByID(int ID){
+    Partner getPartnerByID(int ID){
         for(Partner partner: partners){
             if(partner.getID() == ID)
                 return partner;
@@ -111,16 +111,22 @@ public class Database {
      * Gets Employee's events for today
      * @param  eventIDs (ArrayList<Integer>) - event IDs
      * @return todaysEvents (ArrayList<Integer>) - arrayList of today's events*/
-    public ArrayList<Integer> getEmployeeEventsForToday(ArrayList<Integer> eventIDs) {
+    ArrayList<Integer> getEmployeeEventsForToday(ArrayList<Integer> eventIDs) {
+        // day start => Today 00:00:00
+        Date dayStart = new Date();
+        dayStart.setHours(0); dayStart.setMinutes(0); dayStart.setSeconds(0);
+        // day End => Today 23:59:59
+        Date dayEnd = new Date();
+        dayEnd.setHours(23); dayEnd.setMinutes(59); dayEnd.setSeconds(59);
+
         ArrayList<Integer> createdArray = new ArrayList<>();
         for (int i = 0; i < eventIDs.size(); i++) {
             // searching for matches of those IDs in the event array
             for (int j = 0; j < events.size(); j++) {
                 if (eventIDs.get(i) == events.get(j).getID())
-                    if ((events.get(j).getOrgStartDate().before(new Date())) && (events.get(j).getOrgEndDate().after(new Date()))) {
+                    if ((events.get(j).getOrgStartDate().before(dayEnd)) && (events.get(j).getOrgEndDate().after(dayStart))) {
                         createdArray.add(events.get(j).getID());
                     }
-
             }
         }
         return createdArray;
@@ -131,7 +137,7 @@ public class Database {
      * @param date (Date)
      * @return (ArrayList) of events
      */
-    public ArrayList<Event> getEvents(Date date, int id) {
+    ArrayList<Event> getEvents(Date date, int id) {
         // set endDate to 23:59:59 same day
         Date endDate = new Date(date.getTime());
 
@@ -144,7 +150,7 @@ public class Database {
      * @param endDate (Date) - end date of the period
      * @param id (int) - id of employee/manager requesting to get events for a period
      * @return events (ArrayList<Event>) - ArrayList of events for a certain period of time*/
-    public ArrayList<Event> getEvents(Date startDate, Date endDate, int id) throws ClassCastException{
+    ArrayList<Event> getEvents(Date startDate, Date endDate, int id) throws ClassCastException{
         endDate.setHours(23);
         endDate.setMinutes(59);
         endDate.setSeconds(59);
@@ -176,7 +182,7 @@ public class Database {
     /**
      * Reads event.csv file and converts it to an arrayList
      * @return events (ArrayList<Event>) - arrayList of all events*/
-    public ArrayList<Event> readEventsFile() {
+    ArrayList<Event> readEventsFile() {
         ArrayList<Event> events = new ArrayList<>();
 
         BufferedReader br = null;
@@ -212,8 +218,6 @@ public class Database {
                 }
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -232,7 +236,7 @@ public class Database {
     /**
      * Reads partner.csv file and converts it into arrayList
      * @return partners (ArrayList<Partner>) - arrayList of all partners*/
-    public ArrayList<Partner> readPartnersFile() {
+    private ArrayList<Partner> readPartnersFile() {
         ArrayList<Partner> partners = new ArrayList<>();
 
         BufferedReader br = null;
@@ -256,8 +260,6 @@ public class Database {
                 partners.add(new Partner( Integer.parseInt(row[0]), row[1], row[2], row[3], row[4]));
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -276,7 +278,7 @@ public class Database {
     /**
      * Reads employees.csv file and converts it into arrayList
      * @return employees (ArrayList<Employee>) - arrayList of all employees*/
-    public ArrayList<Employee> readEmployeesFile() {
+    private ArrayList<Employee> readEmployeesFile() {
         ArrayList<Employee> employees = new ArrayList<>();
 
         BufferedReader br = null;
@@ -317,8 +319,6 @@ public class Database {
 
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -337,7 +337,7 @@ public class Database {
     /**
      * Reads customers files and converts it into arraylist
      * @return customers (ArrayList<Customer>) - arrayList of all customers*/
-    public ArrayList<Customer> readCustomersFile(){
+    private ArrayList<Customer> readCustomersFile(){
         ArrayList<Customer> customers = new ArrayList<>();
 
         BufferedReader br = null;
@@ -368,8 +368,6 @@ public class Database {
                 customers.add(new Customer(castedIDs, row[1]));
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -387,7 +385,7 @@ public class Database {
 
     /**
      * Writes data to events.csv file from arrayList*/
-    public void writeEventsFile(){
+    void writeEventsFile(){
         PrintWriter pw = null;
 
         try {
@@ -422,7 +420,7 @@ public class Database {
 
     /**
      * Writes data to partners.csv file from partners arrayList*/
-    public void writePartnersFile(){
+    void writePartnersFile(){
         PrintWriter pw = null;
 
         try {
@@ -451,7 +449,7 @@ public class Database {
 
     /**
      * Writes data to employees.csv file from arrayList*/
-    public void writeEmployeesFile(){
+    void writeEmployeesFile(){
         PrintWriter pw = null;
 
         try {
@@ -497,7 +495,7 @@ public class Database {
 
     /**
      * Writes data to customers.csv from arrayList*/
-    public void writeCustomersFile(){
+    void writeCustomersFile(){
         PrintWriter pw = null;
 
         try {

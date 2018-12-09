@@ -6,3 +6,4 @@ event_Id,event_type,name,service_type,employee_id,org_start_date,org_end_date, a
 4956,Trip,Jakub_Trip,Planning,2348,14.04.2018 at 12,17.04.2018 at 02,06.12.2018 at 00,14,bus,4;11
 3456,Trip,New Party,Full Organization,1293,06.12.2018 at 12,07.12.2018 at 18,07.12.2018 at 00,14,bus,10
 3889,Conference,New Date gather,Planning,1111,06.12.2018 at 14,07.12.2018 at 15,07.12.2018 at 00,9,nic,8
+1358,Conference,Today Meeting,Full Organization,4023,09.12.2018 at 14,10.12.2018 at 13,09.12.2018 at 00,7,tables,1
