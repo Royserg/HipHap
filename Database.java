@@ -389,7 +389,7 @@ public class Database {
         PrintWriter pw = null;
 
         try {
-            pw = new PrintWriter(new File("src/storage/events.csv"));
+            pw = new PrintWriter(new File("./storage/events.csv"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -424,7 +424,7 @@ public class Database {
         PrintWriter pw = null;
 
         try {
-            pw = new PrintWriter(new File("src/storage/partners.csv"));
+            pw = new PrintWriter(new File("./storage/partners.csv"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -453,7 +453,7 @@ public class Database {
         PrintWriter pw = null;
 
         try {
-            pw = new PrintWriter(new File("src/storage/employees.csv"));
+            pw = new PrintWriter(new File("./storage/employees.csv"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -499,7 +499,7 @@ public class Database {
         PrintWriter pw = null;
 
         try {
-            pw = new PrintWriter(new File("src/storage/customers.csv"));
+            pw = new PrintWriter(new File("./storage/customers.csv"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
