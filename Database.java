@@ -191,7 +191,7 @@ public class Database {
         String IDsSplit = ";";
 
         // Event Read from .csv
-        File csvFile = new File("src/storage/events.csv");
+        File csvFile = new File("./storage/events.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -245,7 +245,7 @@ public class Database {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("src/storage/partners.csv");
+        File csvFile = new File("./storage/partners.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -287,7 +287,7 @@ public class Database {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("src/storage/employees.csv");
+        File csvFile = new File("./storage/employees.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -346,7 +346,7 @@ public class Database {
         String IDsSplit = ";";
 
         // Partners read from .csv
-        File csvFile = new File("src/storage/customers.csv");
+        File csvFile = new File("./storage/customers.csv");
 
         try {
             br = new BufferedReader(new FileReader(csvFile));
